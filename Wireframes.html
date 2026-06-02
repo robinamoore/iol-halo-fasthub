@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1440, initial-scale=1" />
+<title>HALO FastHub — wireframes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #F0F0F0; }
+  body { font-family: "Montserrat", system-ui, -apple-system, sans-serif; color: #1A1A1A; min-width: 1440px; }
+  * { box-sizing: border-box; }
+  #tabs { position: sticky; top: 0; z-index: 200; background: #1A1A1A; color: #fff; display: flex; align-items: center; gap: 4px; padding: 10px 20px; flex-wrap: wrap; }
+  #tabs .lab { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-right: 12px; }
+  #tabs button { font-family: "Montserrat"; font-size: 12px; padding: 7px 13px; background: transparent; color: rgba(255,255,255,0.7); border: none; border-radius: 999px; cursor: pointer; }
+  #tabs button.on { background: #fff; color: #1A1A1A; font-weight: 600; }
+  .sheet { max-width: 1180px; margin: 0 auto; padding: 40px 32px 80px; }
+  .sheet h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.018em; margin: 8px 0 6px; }
+  .sheet .sub { font-size: 14px; color: #777; line-height: 1.55; margin: 0 0 28px; max-width: 70ch; }
+  .pagehd { display: flex; align-items: baseline; gap: 14px; margin: 0 0 18px; padding-bottom: 12px; border-bottom: 1px solid #D0D0D0; }
+  .pagehd .n { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #999; }
+  .pagehd .t { font-size: 20px; font-weight: 600; }
+  .pagehd .c { margin-left: auto; font-size: 12px; color: #999; }
+  .browser { background: #fff; border: 1px solid #CFCFCF; }
+  .browser .bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid #E2E2E2; background: #F7F7F7; }
+  .browser .bar i { width: 10px; height: 10px; border-radius: 50%; background: #D6D6D6; display: inline-block; }
+  .browser .bar .url { margin-left: 12px; font-size: 11px; color: #AAA; font-family: "Montserrat"; }
+  .browser .body { padding: 16px; }
+</style>
+</head>
+<body>
+<div id="tabs"></div>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- We only need the registry (names) + sitemap (layouts) + wire renderer.
+     Load brand-assets for tokens, library/page/new/home/landing for component refs the
+     registry points at, then blocks + site-pages + wire. -->
+<script src="image-slot.js"></script>
+<script type="text/babel" src="components/logo.jsx"></script>
+<script type="text/babel" src="components/pattern.jsx"></script>
+<script type="text/babel" src="components/brand-assets.jsx"></script>
+<script type="text/babel" src="components/component-system.jsx"></script>
+<script type="text/babel" src="components/component-system-extra.jsx"></script>
+<script type="text/babel" src="components/component-system-polestar.jsx"></script>
+<script type="text/babel" src="components/landing-page-base.jsx"></script>
+<script type="text/babel" src="components/landing-page-1.jsx"></script>
+<script type="text/babel" src="components/landing-page-2.jsx"></script>
+<script type="text/babel" src="components/landing-page-3.jsx"></script>
+<script type="text/babel" src="components/new-blocks.jsx"></script>
+<script type="text/babel" src="components/page-blocks.jsx"></script>
+<script type="text/babel" src="components/home-blocks.jsx"></script>
+<script type="text/babel" src="components/library-blocks.jsx"></script>
+<script type="text/babel" src="components/blocks.jsx"></script>
+<script type="text/babel" src="components/site-pages.jsx"></script>
+<script type="text/babel" src="components/wire.jsx"></script>
+
+<script type="text/babel">
+const root = ReactDOM.createRoot(document.getElementById("root"));
+const tabsRoot = ReactDOM.createRoot(document.getElementById("tabs"));
+const VIEWS = [["stack", "All blocks"], ...SITE_ORDER.map((s) => [s, SITEMAP[s].title])];
+
+function current() { return new URLSearchParams(location.search).get("view") || "stack"; }
+function go(v) { const u = new URL(location.href); u.searchParams.set("view", v); history.replaceState({}, "", u); render(); }
+
+// Notes shown beside each block on the stack view.
+const STACK_NOTES = {
+  "01": "Utility · overline + title + intro", "02": "Utility · 1–5 cols via repeater (shown: 4)",
+  "03": "Utility · 2–5 stats via repeater", "04": "Dark hero · optional image + headline stat",
+  "05": "Dark band · primary + optional secondary", "06": "Alternating image / text rows",
+  "07": "Pull-quote · orange rule (reserved)", "08": "3 grouped spec columns",
+  "09": "FAQ / hurdles · expand-collapse", "10": "Sequential steps · last marker orange",
+  "11": "Logo strip + headline", "12": "Oversized statement + inline links",
+  "13": "Cert cards + numbered notes", "14": "Filter pills + card grid + pagination",
+  "15": "Category filter + post grid + pagination", "16": "Dark related / showcase grid",
+  "17": "Reading-width WYSIWYG body (~680px)", "18": "Validated fields + submit",
+  "19": "Address / lines / hours + map", "20": "Sliders + result · Phase 2",
+};
+
+function Tabs() {
+  const cur = current();
+  return (<React.Fragment>
+    <span className="lab">Wireframes · 20 blocks</span>
+    {VIEWS.map(([v, t]) => <button key={v} className={cur === v ? "on" : ""} onClick={() => go(v)}>{t}</button>)}
+  </React.Fragment>);
+}
+
+function StackView() {
+  const ids = Object.keys(window.BLOCKS);
+  // representative props so multi-col/stat blocks show structure
+  const sample = {
+    "02": { intro: true, cols: 4 }, "03": { intro: true, stats: [0,0,0,0] }, "04": { image: true, stat: true },
+    "06": { rows: [0,1] }, "09": { intro: true, items: [0,1,2] }, "10": { intro: true, steps: [0,0,0,0] },
+    "16": { intro: true },
+  };
+  return (
+    <div className="sheet">
+      <h1>All blocks</h1>
+      <p className="sub">The complete kit — every one of the 20 canonical blocks as a greyscale skeleton, labelled with its number and name. This is the stack an editor builds pages from. Orange appears only where the brand reserves it (the pull-quote rule, the final timeline marker, primary CTAs, the calculator slider).</p>
+      {ids.map((id) => <WireBlock key={id} id={id} props={sample[id] || {}} note={STACK_NOTES[id]} />)}
+    </div>
+  );
+}
+
+function PageView({ slug }) {
+  const page = SITEMAP[slug];
+  return (
+    <div className="sheet">
+      <div className="pagehd"><span className="n">PAGE</span><span className="t">{page.title}</span><span className="c">{page.blocks.length} blocks</span></div>
+      <p className="sub">The {page.title} page, laid out as its block stack. Each box is labelled with the block number it maps to in the library — the same blocks, just designed-out in Site v2.</p>
+      <div className="browser">
+        <div className="bar"><i></i><i></i><i></i><span className="url">halofasthub.co.uk/{slug === "home" ? "" : slug}</span></div>
+        <div className="body">
+          {/* nav placeholder */}
+          <div style={{ border: "1px solid #E0E0E0", background: "#fff", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <div style={{ width: 120, height: 16, background: "#D6D6D6" }} />
+            <div style={{ display: "flex", gap: 14 }}>{[0,1,2,3,4].map(i => <div key={i} style={{ width: 48, height: 8, background: "#E2E2E2" }} />)}<div style={{ width: 110, height: 30, borderRadius: 999, background: "#F7A803" }} /></div>
+          </div>
+          {page.blocks.map((b, i) => <WireBlock key={i} id={b.id} props={b.props || {}} note={`block ${b.id}`} />)}
+          {/* footer placeholder */}
+          <div style={{ border: "1px solid #E0E0E0", background: "#3A3A3A", padding: 24, display: "flex", justifyContent: "space-between" }}>
+            <div style={{ width: 120, height: 16, background: "#6A6A6A" }} /><div style={{ display: "flex", gap: 16 }}>{[0,1,2].map(i => <div key={i} style={{ width: 60, height: 8, background: "#6A6A6A" }} />)}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function render() {
+  tabsRoot.render(<Tabs />);
+  const v = current();
+  root.render(v === "stack" ? <StackView /> : <PageView slug={v} />);
+  window.scrollTo(0, 0);
+}
+render();
+</script>
+</body>
+</html>
