@@ -1,0 +1,11 @@
+.DS_Store
+*.log
+node_modules/
+vendor/
+.env
+*.zip
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+wp-content/uploads-webpc/
