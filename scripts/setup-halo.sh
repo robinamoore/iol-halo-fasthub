@@ -146,21 +146,40 @@ done
 
 [[ -n "$SOCKET" ]] || fail "No active MySQL socket found — make sure the halo site is running in Local."
 
-# ── 6. Patch wp-config, activate everything, restore ─────────────────────────
+# ── 6. WP-CLI wrapper (handles spaces in path, passes socket directly) ────────
 
-WP_CONFIG="$WP_ROOT/wp-config.php"
-cp "$WP_CONFIG" "$WP_CONFIG.setup-bak"
-cleanup() { [[ -f "$WP_CONFIG.setup-bak" ]] && mv "$WP_CONFIG.setup-bak" "$WP_CONFIG"; }
-trap cleanup EXIT
+# Use a function — avoids word-splitting on spaces in $WP_ROOT
+wpcli() {
+    "$PHP_BIN" "$WPCLI_BIN" \
+        "--path=$WP_ROOT" \
+        "--dbhost=localhost:$SOCKET" \
+        "--dbuser=root" \
+        "--dbpass=root" \
+        "$@"
+}
 
-sed -i '' "s|define( 'DB_HOST'.*|define( 'DB_HOST', 'localhost:$SOCKET' );|" "$WP_CONFIG"
+# ── 7. Install GeneratePress parent theme if missing ──────────────────────────
 
-WP="$PHP_BIN $WPCLI_BIN --path=$WP_ROOT"
+echo ""
+info "Checking GeneratePress parent theme…"
+if [[ -d "$THEMES_DIR/generatepress" ]]; then
+    warn "generatepress already installed — skipping."
+else
+    info "Downloading GeneratePress from WordPress.org…"
+    wpcli theme install generatepress 2>/dev/null && ok "generatepress installed." \
+        || warn "Could not download generatepress — install manually in WP Admin."
+fi
+
+# ── 8. Activate themes ────────────────────────────────────────────────────────
 
 echo ""
 info "Activating themes…"
-$WP theme activate generatepress       2>/dev/null && ok "generatepress" || warn "generatepress — check it's installed."
-$WP theme activate generatepress-child 2>/dev/null && ok "generatepress-child" || warn "generatepress-child — check symlink."
+wpcli theme activate generatepress       2>/dev/null && ok "generatepress" \
+    || warn "generatepress — activation failed, check it's installed."
+wpcli theme activate generatepress-child 2>/dev/null && ok "generatepress-child" \
+    || warn "generatepress-child — activation failed, check symlink."
+
+# ── 9. Activate plugins ───────────────────────────────────────────────────────
 
 echo ""
 info "Activating plugins…"
@@ -178,22 +197,23 @@ PLUGINS_TO_ACTIVATE=(
     iol-drawer
     iol-forms
     iol-hookmount
-    iol-duplicate-page
-    iol-page-order
     iol-tags
 )
 
 for plugin in "${PLUGINS_TO_ACTIVATE[@]}"; do
-    $WP plugin activate "$plugin" 2>/dev/null && ok "  $plugin" || warn "  $plugin — not found or already active."
+    wpcli plugin activate "$plugin" 2>/dev/null && ok "  $plugin" \
+        || warn "  $plugin — not found or already active."
 done
+
+# ── 10. Seed pages and flush ───────────────────────────────────────────────────
 
 echo ""
 info "Seeding pages and taxonomy terms…"
-$WP eval 'if(function_exists("halo_populate_all")) halo_populate_all(); else echo "halo_populate_all not found";' \
+wpcli eval 'if(function_exists("halo_populate_all")) halo_populate_all(); else echo "halo_populate_all not found";' \
     && ok "Data seeded."
 
 info "Flushing rewrites…"
-$WP rewrite flush --hard 2>/dev/null && ok "Permalinks flushed."
+wpcli rewrite flush --hard 2>/dev/null && ok "Permalinks flushed."
 
 # cleanup() restores wp-config via trap
 
