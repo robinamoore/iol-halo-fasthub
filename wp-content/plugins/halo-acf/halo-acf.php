@@ -14,6 +14,17 @@ require_once HALO_ACF_DIR . 'render.php';
 /* Render footer before the GP footer element */
 add_action( 'generate_before_footer', 'halo_render_footer' );
 
+/* Filter-pill JS for cs_grid / news_archive sections */
+add_action( 'wp_enqueue_scripts', function () {
+    wp_enqueue_script(
+        'halo-filter-pills',
+        plugin_dir_url( __FILE__ ) . 'filter-pills.js',
+        [],
+        '1.0.0',
+        true
+    );
+} );
+
 /* Activate via /wp-admin/?halo_populate=1 */
 add_action( 'admin_init', function () {
     if ( isset( $_GET['halo_populate'] ) && current_user_can( 'manage_options' ) ) {
