@@ -93,6 +93,7 @@ IOL_LIST=(
     iol-duplicate-page
     iol-page-order
     iol-tags
+    iol-duplicate-page
     iol-css-editor
 )
 
@@ -146,19 +147,25 @@ done
 
 [[ -n "$SOCKET" ]] || fail "No active MySQL socket found — make sure the halo site is running in Local."
 
-# ── 6. WP-CLI wrapper (handles spaces in path, passes socket directly) ────────
+# ── 6. Patch wp-config.php to use socket, restore on exit ────────────────────
 
-# Use a function — avoids word-splitting on spaces in $WP_ROOT
+WP_CONFIG="$WP_ROOT/wp-config.php"
+cp "$WP_CONFIG" "$WP_CONFIG.setup-bak"
+cleanup() { [[ -f "$WP_CONFIG.setup-bak" ]] && mv "$WP_CONFIG.setup-bak" "$WP_CONFIG"; }
+trap cleanup EXIT
+
+# Normalise double slashes and patch DB_HOST
+SOCKET_CLEAN="${SOCKET//\/\//\/}"
+sed -i '' "s|define.*'DB_HOST'.*|define( 'DB_HOST', 'localhost:${SOCKET_CLEAN}' );|" "$WP_CONFIG"
+ok "wp-config patched with socket."
+
+# ── 7. WP-CLI wrapper — function keeps spaces in path intact ──────────────────
+
 wpcli() {
-    "$PHP_BIN" "$WPCLI_BIN" \
-        "--path=$WP_ROOT" \
-        "--dbhost=localhost:$SOCKET" \
-        "--dbuser=root" \
-        "--dbpass=root" \
-        "$@"
+    "$PHP_BIN" "$WPCLI_BIN" "--path=$WP_ROOT" "$@"
 }
 
-# ── 7. Install GeneratePress parent theme if missing ──────────────────────────
+# ── 8. Install GeneratePress parent theme if missing ──────────────────────────
 
 echo ""
 info "Checking GeneratePress parent theme…"
@@ -174,10 +181,10 @@ fi
 
 echo ""
 info "Activating themes…"
-wpcli theme activate generatepress       2>/dev/null && ok "generatepress" \
-    || warn "generatepress — activation failed, check it's installed."
-wpcli theme activate generatepress-child 2>/dev/null && ok "generatepress-child" \
-    || warn "generatepress-child — activation failed, check symlink."
+wpcli theme activate generatepress       && ok "generatepress" \
+    || warn "generatepress — activation failed (see error above)."
+wpcli theme activate generatepress-child && ok "generatepress-child" \
+    || warn "generatepress-child — activation failed (see error above)."
 
 # ── 9. Activate plugins ───────────────────────────────────────────────────────
 
@@ -198,11 +205,12 @@ PLUGINS_TO_ACTIVATE=(
     iol-forms
     iol-hookmount
     iol-tags
+    iol-duplicate-page
 )
 
 for plugin in "${PLUGINS_TO_ACTIVATE[@]}"; do
-    wpcli plugin activate "$plugin" 2>/dev/null && ok "  $plugin" \
-        || warn "  $plugin — not found or already active."
+    wpcli plugin activate "$plugin" && ok "  $plugin" \
+        || warn "  $plugin — skipped (see error above)."
 done
 
 # ── 10. Seed pages and flush ───────────────────────────────────────────────────
