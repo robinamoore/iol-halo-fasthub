@@ -55,6 +55,12 @@
   text-decoration: none;
 }
 .site-header .site-description { display: none; }
+.site-header .halo-logo,
+.site-header .custom-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+}
 
 .main-navigation a {
   font-family: 'Montserrat', sans-serif;
@@ -67,15 +73,31 @@
 }
 .main-navigation a:hover { color: var(--orange); }
 
-/* Enquiry CTA in nav — orange pill */
+/* Enquiry CTA in nav — orange pill, sized to match .halo-btn--primary */
+.main-navigation .menu-item-cta {
+  display: flex;
+  align-items: center;
+}
 .main-navigation .menu-item-cta > a {
-  background: var(--orange);
+  display: inline-flex !important;
+  align-items: center;
+  align-self: center;
+  background: var(--orange) !important;
   color: var(--black) !important;
-  padding: 10px 22px;
-  border-radius: 999px;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  border: 1px solid var(--orange);
+  padding: 10px 22px !important;
+  border-radius: 999px !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  line-height: 1 !important;
+  border: 1px solid var(--orange) !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: box-shadow 0.15s ease;
+}
+.main-navigation .menu-item-cta > a:hover {
+  color: var(--black) !important;
+  box-shadow: inset 0 0 0 1px var(--black);
 }
 
 /* ── Hide GP native footer ────────────────────────────────────── */
