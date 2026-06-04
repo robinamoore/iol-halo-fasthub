@@ -8,13 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function halo_populate_all(): void {
     halo_seed_taxonomy_terms();
     $pages = halo_create_pages();
-    halo_seed_home(       $pages['home'] );
-    halo_seed_product(    $pages['product'] );
-    halo_seed_technical(  $pages['technical-deep-dive'] );
-    halo_seed_case_studies( $pages['case-studies'] );
-    halo_seed_about(      $pages['about'] );
-    halo_seed_news(       $pages['news'] );
-    halo_seed_contact(    $pages['contact'] );
+    halo_seed_home(           $pages['home'] );
+    halo_seed_product(        $pages['product'] );
+    halo_seed_technical(      $pages['technical-deep-dive'] );
+    halo_seed_case_studies(   $pages['case-studies'] );
+    halo_seed_about(          $pages['about'] );
+    halo_seed_news(           $pages['news'] );
+    halo_seed_contact(        $pages['contact'] );
     flush_rewrite_rules();
 }
 
@@ -68,24 +68,25 @@ function halo_create_pages(): array {
 function halo_seed_home( int $id ): void {
     update_field( 'page_sections', [
         [
-            'acf_fc_layout'     => 'page_hero',
-            'eyebrow'           => '3ti Energy Hubs',
-            'heading'           => 'Smart energy. Fully managed.',
-            'sub'               => 'Solar canopy, battery storage, mains integration and twelve charge points — one leased unit, installed in a day.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'cta_secondary_text'=> 'Explore the product',
-            'cta_secondary_url' => '/product',
-            'stats'             => [
-                [ 'stat_value' => '12',  'stat_label' => 'charge points per hub' ],
-                [ 'stat_value' => '1',   'stat_label' => 'day on site' ],
-                [ 'stat_value' => '0',   'stat_label' => 'grid upgrade required' ],
-            ],
-            'tone' => 'dark',
+            'acf_fc_layout' => 'page_hero',
+            'eyebrow'       => '3ti Energy Hubs',
+            'title'         => 'Smart energy. Fully managed.',
+            'sub'           => 'Solar canopy, battery storage, mains integration and twelve charge points — one leased unit, installed in a day.',
+            'cta1_label'    => 'Make an enquiry',
+            'cta1_url'      => '/contact',
+            'cta2_label'    => 'Explore the product',
+            'cta2_url'      => '/product',
+            'stat1_value'   => '12',
+            'stat1_label'   => 'charge points per hub',
+            'stat2_value'   => '1 day',
+            'stat2_label'   => 'on site',
+            'stat3_value'   => 'No',
+            'stat3_label'   => 'grid upgrade required',
+            'tone'          => 'dark',
         ],
         [
             'acf_fc_layout' => 'logo_strip',
-            'label'         => 'Trusted across fleets · workplaces · destinations',
+            'headline'      => 'Trusted across fleets · workplaces · destinations',
             'logos'         => [],
             'tone'          => 'offwhite',
         ],
@@ -100,10 +101,10 @@ function halo_seed_home( int $id ): void {
         [
             'acf_fc_layout' => 'stat_grid',
             'stats'         => [
-                [ 'value' => '12',      'label' => 'Type 2 charge points' ],
-                [ 'value' => '1 day',   'label' => 'from delivery to live charging' ],
+                [ 'value' => '12',        'label' => 'Type 2 charge points' ],
+                [ 'value' => '1 day',     'label' => 'from delivery to live charging' ],
                 [ 'value' => '19.32 kWp', 'label' => 'solar generation' ],
-                [ 'value' => '65%',     'label' => 'solar + battery share of demand' ],
+                [ 'value' => '65%',       'label' => 'solar + battery share of demand' ],
             ],
             'tone' => 'offwhite',
         ],
@@ -111,18 +112,19 @@ function halo_seed_home( int $id ): void {
             'acf_fc_layout' => 'case_study_grid',
             'eyebrow'       => 'Case studies',
             'heading'       => 'Real hubs, really deployed.',
-            'sub'           => 'From a 24/7 police fleet to a destination forecourt — see how the same hub adapts to each job.',
+            'show_filters'  => 0,
+            'limit'         => 6,
             'tone'          => 'warm',
         ],
         [
-            'acf_fc_layout'     => 'cta_band',
-            'heading'           => 'Ready to power your fleet?',
-            'sub'               => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'cta_secondary_text'=> 'Explore the product',
-            'cta_secondary_url' => '/product',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'cta_band',
+            'title'         => 'Ready to power your fleet?',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '/contact',
+            'btn2_label'    => 'Explore the product',
+            'btn2_url'      => '/product',
+            'tone'          => 'dark',
         ],
     ], $id );
 }
@@ -132,26 +134,27 @@ function halo_seed_home( int $id ): void {
 function halo_seed_product( int $id ): void {
     update_field( 'page_sections', [
         [
-            'acf_fc_layout'     => 'page_hero',
-            'eyebrow'           => 'Product · HALO FastHub',
-            'heading'           => 'The hub that lands in a day.',
-            'sub'               => 'Solar canopy, battery storage, mains integration and twelve charge points — one leased unit, deployed in twenty-four hours.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'cta_secondary_text'=> 'Technical deep dive',
-            'cta_secondary_url' => '/technical-deep-dive',
-            'stats'             => [
-                [ 'stat_value' => '12',   'stat_label' => 'charge points' ],
-                [ 'stat_value' => '1 day','stat_label' => 'on site' ],
-                [ 'stat_value' => '65%',  'stat_label' => 'solar + battery share' ],
-            ],
-            'tone' => 'dark',
+            'acf_fc_layout' => 'page_hero',
+            'eyebrow'       => 'Product · HALO FastHub',
+            'title'         => 'The hub that lands in a day.',
+            'sub'           => 'Solar canopy, battery storage, mains integration and twelve charge points — one leased unit, deployed in twenty-four hours.',
+            'cta1_label'    => 'Make an enquiry',
+            'cta1_url'      => '/contact',
+            'cta2_label'    => 'Technical deep dive',
+            'cta2_url'      => '/technical-deep-dive',
+            'stat1_value'   => '12',
+            'stat1_label'   => 'charge points',
+            'stat2_value'   => '1 day',
+            'stat2_label'   => 'on site',
+            'stat3_value'   => '65%',
+            'stat3_label'   => 'solar + battery share',
+            'tone'          => 'dark',
         ],
         [
             'acf_fc_layout' => 'spec_table',
             'eyebrow'       => 'Specifications',
             'heading'       => 'Everything in one leased unit.',
-            'sub'           => 'One prefabricated canopy carrying generation, storage, mains integration and twelve charge points — sized for fleet duty cycles and managed end-to-end.',
+            'use_defaults'  => 1,
             'tone'          => 'light',
         ],
         [
@@ -184,26 +187,25 @@ function halo_seed_product( int $id ): void {
             'acf_fc_layout' => 'column_layout',
             'eyebrow'       => 'Sectors',
             'heading'       => 'One hub. Three jobs.',
-            'sub'           => 'The underlying installation is identical — the configuration, access rules and tariff are what change by sector.',
-            'columns_count' => '3',
+            'cols'          => '3',
             'items'         => [
                 [
-                    'title'     => 'Fleets',
-                    'body'      => 'Reliable, scalable charging that keeps marked, unmarked and commercial vehicles moving around the clock.',
-                    'link_text' => 'Fleet solutions',
-                    'link_url'  => '/case-studies',
+                    'title'      => 'Fleets',
+                    'body'       => 'Reliable, scalable charging that keeps marked, unmarked and commercial vehicles moving around the clock.',
+                    'link_label' => 'Fleet solutions',
+                    'link_url'   => '/case-studies',
                 ],
                 [
-                    'title'     => 'Workplaces',
-                    'body'      => 'Fast deployment for staff and visitor parking, with the option to generate revenue from every bay.',
-                    'link_text' => 'Workplace solutions',
-                    'link_url'  => '/case-studies',
+                    'title'      => 'Workplaces',
+                    'body'       => 'Fast deployment for staff and visitor parking, with the option to generate revenue from every bay.',
+                    'link_label' => 'Workplace solutions',
+                    'link_url'   => '/case-studies',
                 ],
                 [
-                    'title'     => 'Destinations',
-                    'body'      => 'Attract EV drivers, extend dwell time and unlock a new revenue line at retail and leisure sites.',
-                    'link_text' => 'Destination solutions',
-                    'link_url'  => '/case-studies',
+                    'title'      => 'Destinations',
+                    'body'       => 'Attract EV drivers, extend dwell time and unlock a new revenue line at retail and leisure sites.',
+                    'link_label' => 'Destination solutions',
+                    'link_url'   => '/case-studies',
                 ],
             ],
             'tone' => 'warm',
@@ -215,14 +217,14 @@ function halo_seed_product( int $id ): void {
             'tone'          => 'dark',
         ],
         [
-            'acf_fc_layout'     => 'cta_band',
-            'heading'           => 'Fifty-plus parking spaces? Let\'s size your hub.',
-            'sub'               => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'cta_secondary_text'=> 'Technical deep dive',
-            'cta_secondary_url' => '/technical-deep-dive',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'cta_band',
+            'title'         => 'Fifty-plus parking spaces? Let\'s size your hub.',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '/contact',
+            'btn2_label'    => 'Technical deep dive',
+            'btn2_url'      => '/technical-deep-dive',
+            'tone'          => 'dark',
         ],
     ], $id );
 }
@@ -232,19 +234,20 @@ function halo_seed_product( int $id ): void {
 function halo_seed_technical( int $id ): void {
     update_field( 'page_sections', [
         [
-            'acf_fc_layout'     => 'page_hero',
-            'eyebrow'           => 'Product · Technical deep dive',
-            'heading'           => 'The full specification.',
-            'sub'               => 'For engineers and procurement — hardware, performance envelope, software and support, in detail.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'page_hero',
+            'eyebrow'       => 'Product · Technical deep dive',
+            'title'         => 'The full specification.',
+            'sub'           => 'For engineers and procurement — hardware, performance envelope, software and support, in detail.',
+            'cta1_label'    => 'Make an enquiry',
+            'cta1_url'      => '/contact',
+            'compact'       => 1,
+            'tone'          => 'dark',
         ],
         [
             'acf_fc_layout' => 'spec_table',
             'eyebrow'       => 'Full specification',
             'heading'       => 'Hardware, performance and software.',
-            'sub'           => 'Confirmed at site survey. Indicative figures below.',
+            'use_defaults'  => 1,
             'tone'          => 'light',
         ],
         [
@@ -275,15 +278,14 @@ function halo_seed_technical( int $id ): void {
         ],
         [
             'acf_fc_layout' => 'certifications',
-            'eyebrow'       => 'Certifications & install notes',
-            'heading'       => 'Certified to the standards procurement asks for.',
-            'items'         => [
-                [ 'code' => 'CE',           'label' => 'Conformité Européenne' ],
-                [ 'code' => 'BS EN 61851',  'label' => 'EV charging system standard' ],
-                [ 'code' => 'OZEV',         'label' => 'Approved chargepoint' ],
-                [ 'code' => 'IEC 62196',    'label' => 'Type 2 connector' ],
-                [ 'code' => 'ISO 9001',     'label' => 'Quality management' ],
-                [ 'code' => 'ISO 14001',    'label' => 'Environmental management' ],
+            'eyebrow'       => 'Certifications & compliance',
+            'certs'         => [
+                [ 'title' => 'CE — Conformité Européenne' ],
+                [ 'title' => 'BS EN 61851 — EV charging system standard' ],
+                [ 'title' => 'OZEV approved chargepoint' ],
+                [ 'title' => 'IEC 62196 — Type 2 connector' ],
+                [ 'title' => 'ISO 9001 — Quality management' ],
+                [ 'title' => 'ISO 14001 — Environmental management' ],
             ],
             'tone' => 'light',
         ],
@@ -316,12 +318,12 @@ function halo_seed_technical( int $id ): void {
             'tone' => 'warm',
         ],
         [
-            'acf_fc_layout'     => 'cta_band',
-            'heading'           => 'Ready to power your fleet?',
-            'sub'               => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'cta_band',
+            'title'         => 'Ready to power your fleet?',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '/contact',
+            'tone'          => 'dark',
         ],
     ], $id );
 }
@@ -331,28 +333,30 @@ function halo_seed_technical( int $id ): void {
 function halo_seed_case_studies( int $id ): void {
     update_field( 'page_sections', [
         [
-            'acf_fc_layout'     => 'page_hero',
-            'eyebrow'           => 'Case studies',
-            'heading'           => 'Real hubs, really deployed.',
-            'sub'               => 'From a 24/7 police fleet to a destination forecourt — see how the same hub adapts to each job.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'page_hero',
+            'eyebrow'       => 'Case studies',
+            'title'         => 'Real hubs, really deployed.',
+            'sub'           => 'From a 24/7 police fleet to a destination forecourt — see how the same hub adapts to each job.',
+            'cta1_label'    => 'Make an enquiry',
+            'cta1_url'      => '/contact',
+            'compact'       => 1,
+            'tone'          => 'dark',
         ],
         [
             'acf_fc_layout' => 'case_study_grid',
             'eyebrow'       => 'All deployments',
             'heading'       => 'Every deployment, in one place.',
-            'sub'           => 'Filter by sector to see how the same hub adapts to a police fleet, a workplace car park or a destination forecourt.',
+            'show_filters'  => 1,
+            'limit'         => 12,
             'tone'          => 'light',
         ],
         [
-            'acf_fc_layout'     => 'cta_band',
-            'heading'           => 'Ready to power your fleet?',
-            'sub'               => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'cta_band',
+            'title'         => 'Ready to power your fleet?',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '/contact',
+            'tone'          => 'dark',
         ],
     ], $id );
 }
@@ -364,20 +368,27 @@ function halo_seed_about( int $id ): void {
         [
             'acf_fc_layout' => 'page_hero',
             'eyebrow'       => 'About · 3ti Energy Hubs',
-            'heading'       => 'The people closing the charging gap.',
+            'title'         => 'The people closing the charging gap.',
             'sub'           => 'A B Corp-certified team of energy engineers, fleet specialists and sustainability scientists.',
+            'compact'       => 1,
             'tone'          => 'dark',
         ],
         [
-            'acf_fc_layout' => 'big_headline',
+            'acf_fc_layout' => 'section_intro',
             'eyebrow'       => '01 · Our mission',
             'heading'       => 'Make clean, self-generated EV charging the obvious choice for every car park in Britain.',
-            'links'         => [
-                [ 'text' => 'How the hub works',    'url' => '/product' ],
-                [ 'text' => 'See our deployments',  'url' => '/case-studies' ],
-                [ 'text' => 'Read the latest',      'url' => '/news' ],
-            ],
+            'align'         => 'left',
             'tone'          => 'light',
+        ],
+        [
+            'acf_fc_layout' => 'big_headline',
+            'eyebrow'       => 'Explore',
+            'items'         => [
+                [ 'headline' => 'How the hub works',   'url' => '/product',      'sub' => 'The product, in detail' ],
+                [ 'headline' => 'See our deployments', 'url' => '/case-studies', 'sub' => 'Real sites, real results' ],
+                [ 'headline' => 'Read the latest',     'url' => '/news',         'sub' => 'Thinking on fleet electrification' ],
+            ],
+            'tone' => 'offwhite',
         ],
         [
             'acf_fc_layout' => 'story_rows',
@@ -410,10 +421,10 @@ function halo_seed_about( int $id ): void {
             'eyebrow'       => 'By the numbers',
             'heading'       => 'A decade of clean-energy infrastructure.',
             'stats'         => [
-                [ 'value' => '2014',  'label' => 'founded' ],
-                [ 'value' => '50+',   'label' => 'hubs deployed' ],
-                [ 'value' => '600+',  'label' => 'charge points live' ],
-                [ 'value' => 'B Corp','label' => 'certified' ],
+                [ 'value' => '2014',   'label' => 'founded' ],
+                [ 'value' => '50+',    'label' => 'hubs deployed' ],
+                [ 'value' => '600+',   'label' => 'charge points live' ],
+                [ 'value' => 'B Corp', 'label' => 'certified' ],
             ],
             'tone' => 'warm',
         ],
@@ -431,12 +442,12 @@ function halo_seed_about( int $id ): void {
             'tone'          => 'dark',
         ],
         [
-            'acf_fc_layout'     => 'cta_band',
-            'heading'           => 'Ready to power your fleet?',
-            'sub'               => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'cta_band',
+            'title'         => 'Ready to power your fleet?',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '/contact',
+            'tone'          => 'dark',
         ],
     ], $id );
 }
@@ -448,24 +459,24 @@ function halo_seed_news( int $id ): void {
         [
             'acf_fc_layout' => 'page_hero',
             'eyebrow'       => 'News & insights',
-            'heading'       => 'Thinking on fleet electrification.',
+            'title'         => 'Thinking on fleet electrification.',
             'sub'           => 'Whitepapers, technical articles, press coverage and recorded sessions — written for the people who ask the hard questions.',
+            'compact'       => 1,
             'tone'          => 'dark',
         ],
         [
             'acf_fc_layout' => 'news_archive',
-            'eyebrow'       => 'All articles',
-            'heading'       => 'Sector thinking, kept current.',
-            'sub'           => 'Whitepapers, technical articles, press and recorded sessions — written for the people who\'ll ask the hard questions.',
+            'show_filters'  => 1,
+            'limit'         => 9,
             'tone'          => 'light',
         ],
         [
-            'acf_fc_layout'     => 'cta_band',
-            'heading'           => 'Ready to power your fleet?',
-            'sub'               => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-            'cta_primary_text'  => 'Make an enquiry',
-            'cta_primary_url'   => '/contact',
-            'tone'              => 'dark',
+            'acf_fc_layout' => 'cta_band',
+            'title'         => 'Ready to power your fleet?',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '/contact',
+            'tone'          => 'dark',
         ],
     ], $id );
 }
@@ -477,27 +488,23 @@ function halo_seed_contact( int $id ): void {
         [
             'acf_fc_layout' => 'page_hero',
             'eyebrow'       => 'Contact',
-            'heading'       => 'Start a conversation.',
+            'title'         => 'Start a conversation.',
             'sub'           => 'Tell us about your site, or reach us directly — we reply within seven working days.',
+            'compact'       => 1,
             'tone'          => 'dark',
         ],
         [
             'acf_fc_layout' => 'enquiry_form',
-            'eyebrow'       => 'Enquiry',
             'heading'       => 'Tell us about your site.',
             'sub'           => 'Fifty or more parking spaces is the usual starting point. Share a few details and we\'ll come back within seven working days with a sized, costed proposal.',
             'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'location',
-            'eyebrow'       => 'Find us',
-            'heading'       => 'Talk to a person, not a portal.',
             'address'       => '3ti Energy Hubs Ltd' . "\n" . 'Surrey Technology Centre' . "\n" . '40 Occam Road' . "\n" . 'Guildford GU2 7YG',
-            'phone_sales'   => '+44 (0)3331 121 371',
-            'phone_office'  => '+44 (0)3332 343 703',
+            'phone'         => '+44 (0)3331 121 371',
             'email'         => 'info@3ti.co.uk',
-            'hours'         => 'Monday–Friday · 09:00–17:00 GMT',
-            'map_url'       => '',
+            'map_embed'     => '',
             'tone'          => 'warm',
         ],
     ], $id );
