@@ -19,7 +19,7 @@ function halo_populate_all(): void {
     halo_seed_demo_case_studies();
     halo_seed_demo_news();
     halo_seed_nav_menu( $pages );
-    halo_seed_logo_and_favicon();
+    $assets = halo_seed_all_assets();
     flush_rewrite_rules();
 }
 
@@ -876,43 +876,77 @@ function halo_seed_nav_menu( array $pages ): void {
     set_theme_mod( 'nav_menu_locations', $locations );
 }
 
-/* ── Logo and favicon ────────────────────────────────────────────── */
+/* ── Assets: upload everything from theme/images to media library ──── */
 
-function halo_seed_logo_and_favicon(): void {
+/**
+ * Upload every image in the child theme's images/ folder to the WP media
+ * library (skipping any that have already been uploaded by filename).
+ * Sets the site logo, site icon, and GP title-hide options.
+ * Returns [ 'filename.ext' => attachment_id, ... ] for use by the seeder.
+ */
+function halo_seed_all_assets(): array {
     require_once ABSPATH . 'wp-admin/includes/media.php';
     require_once ABSPATH . 'wp-admin/includes/file.php';
     require_once ABSPATH . 'wp-admin/includes/image.php';
 
     $theme_dir = get_stylesheet_directory();
-    $theme_uri = get_stylesheet_directory_uri();
+    $images_dir = $theme_dir . '/images';
+    $ids = [];
 
-    /* Site logo (custom-logo theme mod) */
-    if ( ! get_theme_mod( 'custom_logo' ) ) {
-        $logo_path = $theme_dir . '/images/logo-fasthub-dark.png';
-        if ( file_exists( $logo_path ) ) {
-            $logo_id = halo_attach_image( $logo_path, 'HALO FastHub logo' );
-            if ( $logo_id ) {
-                set_theme_mod( 'custom_logo', $logo_id );
-            }
+    if ( ! is_dir( $images_dir ) ) return $ids;
+
+    $extensions = [ 'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp' ];
+
+    foreach ( new DirectoryIterator( $images_dir ) as $file ) {
+        if ( $file->isDot() || ! $file->isFile() ) continue;
+        $ext = strtolower( $file->getExtension() );
+        if ( ! in_array( $ext, $extensions, true ) ) continue;
+
+        $filename = $file->getFilename();
+        $title    = ucwords( str_replace( [ '-', '_', '.' ], ' ', $file->getBasename( '.' . $ext ) ) );
+
+        /* Skip if already uploaded (match by original filename stored in _wp_attached_file) */
+        $existing = get_posts( [
+            'post_type'      => 'attachment',
+            'posts_per_page' => 1,
+            'meta_key'       => '_halo_source_file',
+            'meta_value'     => $filename,
+            'fields'         => 'ids',
+        ] );
+        if ( $existing ) {
+            $ids[ $filename ] = $existing[0];
+            continue;
+        }
+
+        $id = halo_attach_image( $file->getPathname(), $title );
+        if ( $id ) {
+            update_post_meta( $id, '_halo_source_file', $filename );
+            $ids[ $filename ] = $id;
         }
     }
 
-    /* Site icon (favicon — WP uses a 512px+ image) */
-    if ( ! get_option( 'site_icon' ) ) {
-        $icon_path = $theme_dir . '/images/favicon.png';
-        if ( file_exists( $icon_path ) ) {
-            $icon_id = halo_attach_image( $icon_path, 'HALO site icon' );
-            if ( $icon_id ) {
-                update_option( 'site_icon', $icon_id );
-            }
-        }
+    /* Set site logo */
+    if ( ! get_theme_mod( 'custom_logo' ) && isset( $ids['logo-fasthub-dark.png'] ) ) {
+        set_theme_mod( 'custom_logo', $ids['logo-fasthub-dark.png'] );
     }
 
-    /* GP-specific: disable site title/tagline display when logo is set */
+    /* Set site icon (favicon) */
+    if ( ! get_option( 'site_icon' ) && isset( $ids['favicon.png'] ) ) {
+        update_option( 'site_icon', $ids['favicon.png'] );
+    }
+
+    /* GP: hide text title/tagline when logo image is present */
     set_theme_mod( 'generate_settings', array_merge(
         (array) get_theme_mod( 'generate_settings', [] ),
         [ 'hide_title' => true, 'hide_tagline' => true ]
     ) );
+
+    return $ids;
+}
+
+/* Keep old name as alias so existing callers don't break */
+function halo_seed_logo_and_favicon(): void {
+    halo_seed_all_assets();
 }
 
 function halo_attach_image( string $path, string $title ): int|false {

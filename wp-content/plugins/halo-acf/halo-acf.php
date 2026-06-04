@@ -11,6 +11,12 @@ define( 'HALO_ACF_DIR', plugin_dir_path( __FILE__ ) );
 require_once HALO_ACF_DIR . 'fields.php';
 require_once HALO_ACF_DIR . 'render.php';
 
+/* Auto-upload all theme assets to media library on plugin activation */
+register_activation_hook( __FILE__, function () {
+    require_once HALO_ACF_DIR . 'data-populate.php';
+    halo_seed_all_assets();
+} );
+
 /* Render footer before the GP footer element */
 add_action( 'generate_before_footer', 'halo_render_footer' );
 
