@@ -54,13 +54,6 @@
   text-decoration: none;
 }
 .site-header .site-description { display: none; }
-/* GP renders the logo as .site-logo > a > img.header-image */
-.site-header .site-logo img,
-.site-header .header-image.is-logo-image {
-  height: 36px !important;
-  width: auto !important;
-  display: block;
-}
 
 .main-navigation a {
   font-family: 'Montserrat', sans-serif;
@@ -753,21 +746,25 @@ h1, h2, h3, h4, h5, h6 {
 .halo-card-picker__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
 
 /* ── Mobile navigation ────────────────────────────────────────── */
-.menu-toggle {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 2px solid var(--black);
-  border-radius: 4px;
-  color: var(--black);
-  box-sizing: border-box;
-  flex-shrink: 0;
+/* GP hides .menu-toggle by default; only style it inside the breakpoint */
+@media (max-width: 1100px) {
+  .menu-toggle {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: 2px solid var(--black) !important;
+    border-radius: 4px !important;
+    color: var(--black) !important;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .menu-toggle .gp-icon svg { width: 18px; height: 18px; fill: var(--black); }
 }
-.menu-toggle .gp-icon svg { width: 18px; height: 18px; fill: var(--black); }
 
 @media (max-width: 1100px) {
   #site-navigation.toggled {
