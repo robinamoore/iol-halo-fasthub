@@ -19,6 +19,7 @@ function halo_populate_all(): void {
     halo_seed_demo_case_studies();
     halo_seed_demo_news();
     halo_seed_nav_menu( $pages );
+    halo_seed_logo_and_favicon();
     flush_rewrite_rules();
 }
 
@@ -873,4 +874,64 @@ function halo_seed_nav_menu( array $pages ): void {
     $locations = get_theme_mod( 'nav_menu_locations', [] );
     $locations['primary'] = $menu_id;
     set_theme_mod( 'nav_menu_locations', $locations );
+}
+
+/* ── Logo and favicon ────────────────────────────────────────────── */
+
+function halo_seed_logo_and_favicon(): void {
+    require_once ABSPATH . 'wp-admin/includes/media.php';
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+
+    $theme_dir = get_stylesheet_directory();
+    $theme_uri = get_stylesheet_directory_uri();
+
+    /* Site logo (custom-logo theme mod) */
+    if ( ! get_theme_mod( 'custom_logo' ) ) {
+        $logo_path = $theme_dir . '/images/logo-fasthub-dark.png';
+        if ( file_exists( $logo_path ) ) {
+            $logo_id = halo_attach_image( $logo_path, 'HALO FastHub logo' );
+            if ( $logo_id ) {
+                set_theme_mod( 'custom_logo', $logo_id );
+            }
+        }
+    }
+
+    /* Site icon (favicon — WP uses a 512px+ image) */
+    if ( ! get_option( 'site_icon' ) ) {
+        $icon_path = $theme_dir . '/images/favicon.png';
+        if ( file_exists( $icon_path ) ) {
+            $icon_id = halo_attach_image( $icon_path, 'HALO site icon' );
+            if ( $icon_id ) {
+                update_option( 'site_icon', $icon_id );
+            }
+        }
+    }
+
+    /* GP-specific: disable site title/tagline display when logo is set */
+    set_theme_mod( 'generate_settings', array_merge(
+        (array) get_theme_mod( 'generate_settings', [] ),
+        [ 'hide_title' => true, 'hide_tagline' => true ]
+    ) );
+}
+
+function halo_attach_image( string $path, string $title ): int|false {
+    $upload_dir = wp_upload_dir();
+    $filename   = basename( $path );
+    $dest       = $upload_dir['path'] . '/' . wp_unique_filename( $upload_dir['path'], $filename );
+
+    if ( ! copy( $path, $dest ) ) return false;
+
+    $attachment = [
+        'post_title'     => $title,
+        'post_mime_type' => mime_content_type( $dest ),
+        'post_status'    => 'inherit',
+    ];
+    $id = wp_insert_attachment( $attachment, $dest );
+    if ( is_wp_error( $id ) ) return false;
+
+    $metadata = wp_generate_attachment_metadata( $id, $dest );
+    wp_update_attachment_metadata( $id, $metadata );
+
+    return $id;
 }
