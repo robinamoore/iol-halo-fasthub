@@ -587,12 +587,15 @@ function halo_s_enquiry_form( array $r ): void {
                     <h2><?php echo halo_t( $r['heading'] ?? 'Tell us about your site.' ); ?></h2>
                     <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-enquiry-form__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
                 </div>
-                <div>
+                <div class="halo-enquiry-form__cf7">
                     <?php
-                    if ( function_exists( 'iol_forms_render' ) ) {
-                        echo iol_forms_render( 'enquiry' );
-                    } else {
-                        echo '<p style="color:var(--mid);font-style:italic">Activate the IOL Forms plugin to show the enquiry form.</p>';
+                    $cf7 = function_exists( 'wpcf7_contact_form_by_title' )
+                        ? wpcf7_contact_form_by_title( 'HALO Enquiry' )
+                        : null;
+                    if ( $cf7 ) {
+                        echo do_shortcode( $cf7->shortcode() );
+                    } elseif ( function_exists( 'do_shortcode' ) ) {
+                        echo do_shortcode( '[contact-form-7 id="42" title="HALO Enquiry"]' );
                     }
                     ?>
                 </div>

@@ -665,6 +665,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── 18 · Enquiry Form ────────────────────────────────────────── */
+/* GP owns all form visual styling (colours, borders, focus, button).
+   This block is layout only. */
 .halo-enquiry-form { padding: var(--pad-y) 0; }
 .halo-enquiry-form__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
 .halo-enquiry-form__intro h2 {
@@ -673,7 +675,51 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.018em;
   margin-bottom: 1rem;
 }
-.halo-enquiry-form__sub { font-size: 1rem; font-weight: 400; line-height: 1.6; color: var(--contrast-2); }
+.halo-enquiry-form__sub { font-size: 1rem; line-height: 1.6; color: var(--contrast-2); }
+
+/* CF7 form layout */
+.halo-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.halo-form__row { display: grid; gap: 1.25rem; }
+.halo-form__row--2 { grid-template-columns: 1fr 1fr; }
+.halo-form__field { display: flex; flex-direction: column; gap: 0.4rem; }
+.halo-form__field label { font-size: 0.875rem; font-weight: 500; }
+.halo-form__field abbr { text-decoration: none; color: var(--accent); }
+
+/* Inputs — width and sizing only; colours come from GP form settings */
+.halo-form input[type="text"],
+.halo-form input[type="email"],
+.halo-form input[type="tel"],
+.halo-form select,
+.halo-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+.halo-form textarea { resize: vertical; min-height: 120px; }
+
+/* Consent checkbox row */
+.halo-form__field--check { flex-direction: row; align-items: flex-start; gap: 0.6rem; font-size: 0.875rem; line-height: 1.5; }
+.halo-form__field--check input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; accent-color: var(--accent); }
+
+/* Submit — width only; colour comes from GP form_button_background_color */
+.halo-form .wpcf7-submit {
+  width: auto;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+/* CF7 validation messages */
+.wpcf7-not-valid-tip { font-size: 0.8125rem; color: #c0392b; margin-top: 0.25rem; display: block; }
+.wpcf7-response-output { margin-top: 1.5rem; padding: 0.75rem 1rem; border-radius: 4px; font-size: 0.875rem; }
+.wpcf7-mail-sent-ok    { background: #e8f5e9; border: 1px solid #a5d6a7; }
+.wpcf7-validation-errors,
+.wpcf7-mail-sent-ng    { background: #fdecea; border: 1px solid #ef9a9a; }
 
 /* ── 19 · Location ────────────────────────────────────────────── */
 .halo-location { padding: var(--pad-y) 0; }
@@ -846,7 +892,8 @@ h1, h2, h3, h4, h5, h6 {
   .halo-spec-table__grid         { grid-template-columns: 1fr; }
   .halo-spec-row > div:nth-child(3n) { border-right: 1px solid var(--contrast-3); }
   .halo-spec-row > div { border-right: none !important; }
-  .halo-enquiry-form__inner      { grid-template-columns: 1fr; }
+  .halo-enquiry-form__inner      { grid-template-columns: 1fr; gap: 3rem; }
+  .halo-form__row--2             { grid-template-columns: 1fr; }
   .halo-location__inner          { grid-template-columns: 1fr; }
   .halo-footer__inner            { grid-template-columns: 1fr; gap: 2rem; }
   .halo-timeline__steps          { grid-template-columns: 1fr !important; }
