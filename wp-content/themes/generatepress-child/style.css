@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.005em;
   text-decoration: none;
   padding: 14px 28px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-radius: 999px;
   cursor: pointer;
   transition: box-shadow 0.15s, background 0.15s, color 0.15s;
@@ -152,7 +152,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--contrast);
   border-color: var(--accent);
 }
-.halo-btn--outline-dark:hover { background: var(--base-2); }
+.halo-btn--outline-dark:hover { background: var(--base-2); box-shadow: inset 0 0 0 2px var(--contrast); color: var(--contrast); }
 
 /* ── 01 · Page Hero ───────────────────────────────────────────── */
 .halo-hero {
