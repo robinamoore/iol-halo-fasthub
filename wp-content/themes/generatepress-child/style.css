@@ -180,7 +180,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-hero__sub {
   font-size: 1.25rem;
-  font-weight: 400;
   line-height: 1.4;
   color: rgba(255,255,255,0.7);
   max-width: 52ch;
@@ -249,7 +248,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-cta-band__sub {
   font-size: 1.25rem;
-  font-weight: 400;
   line-height: 1.4;
   color: rgba(255,255,255,0.7);
   margin: 0 auto 2.5rem;
@@ -272,7 +270,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-section-intro:not(.halo-section-intro--left) .halo-section-intro__heading { margin-inline: auto; }
 .halo-section-intro__sub {
   font-size: 1.25rem;
-  font-weight: 400;
   line-height: 1.4;
   color: var(--contrast-2);
   max-width: 52ch;
@@ -301,7 +298,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-col-item__body {
   font-size: 0.9375rem;
-  font-weight: 400;
   line-height: 1.6;
   color: var(--contrast-2);
 }
@@ -345,7 +341,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-tone-dark .halo-stat-value { color: var(--base-3); }
 .halo-stat-label {
   font-size: 0.875rem;
-  font-weight: 400;
   color: var(--contrast-2);
 }
 .halo-tone-dark .halo-stat-label { color: rgba(255,255,255,0.6); }
@@ -366,7 +361,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-story-row:nth-child(even) .halo-story-row__image { order: -1; }
 .halo-story-row__step {
   font-size: 0.75rem;
-  font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--contrast-2);
@@ -380,7 +374,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-story-row__body  {
   font-size: 1rem;
-  font-weight: 400;
   line-height: 1.6;
   color: var(--contrast-2);
 }
@@ -415,7 +408,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-pull-quote__attribution {
   font-size: 0.875rem;
-  font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--contrast-2);
 }
@@ -484,7 +476,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-accordion__body {
   padding: 0 0 1.625rem;
   font-size: 1rem;
-  font-weight: 400;
   line-height: 1.6;
   max-width: 70ch;
 }
@@ -503,7 +494,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-timeline__marker {
   font-size: 0.75rem;
-  font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--contrast-2);
@@ -517,7 +507,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-timeline__step-body {
   font-size: 0.875rem;
-  font-weight: 400;
   line-height: 1.55;
   color: var(--contrast-2);
   margin: 0;
@@ -567,7 +556,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-big-headline__item-sub {
   font-size: 0.9375rem;
-  font-weight: 400;
   color: var(--contrast-2);
   margin-top: 0.5rem;
 }
@@ -847,71 +835,82 @@ h1, h2, h3, h4, h5, h6 {
 .halo-footer {
   background: var(--footer-bg);
   color: var(--base-3);
-  padding: 4rem var(--pad-x) 2rem;
+  padding: 4rem var(--pad-x) 0;
 }
 .halo-footer__inner {
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 3rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .halo-footer__brand-name {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--base-3);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 .halo-footer__brand-sub {
   font-size: 0.8125rem;
-  font-weight: 400;
   color: rgba(255,255,255,0.55);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  max-width: 32ch;
 }
+.halo-footer__social { display: flex; flex-direction: column; gap: 0.375rem; }
 .halo-footer__social a {
-  display: block;
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.6);
   text-decoration: none;
-  margin-bottom: 0.4rem;
 }
 .halo-footer__social a:hover { color: var(--base-3); }
 .halo-footer__col-title {
-  font-size: 0.6875rem;
-  font-weight: 400;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.4);
   margin-bottom: 1rem;
 }
+.halo-footer__col { display: flex; flex-direction: column; gap: 0; }
 .halo-footer__col a {
-  display: block;
   font-size: 0.8125rem;
   color: rgba(255,255,255,0.7);
   text-decoration: none;
-  margin-bottom: 0.5rem;
+  padding: 0.3rem 0;
 }
 .halo-footer__col a:hover { color: var(--base-3); }
 .halo-footer__copy {
   max-width: var(--container);
-  margin: 1.75rem auto 0;
-  font-size: 0.6875rem;
+  margin: 0 auto;
+  padding: 1.25rem 0 1.5rem;
+  font-size: 11px;
   color: rgba(255,255,255,0.35);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
+.halo-footer__copy-left { display: flex; align-items: center; gap: 1.25rem; }
+.halo-footer__copy-right { display: flex; gap: 1.25rem; }
 .halo-footer__copy a { color: inherit; text-decoration: none; }
+.halo-footer__copy a:hover { color: rgba(255,255,255,0.7); }
+/* B Corp badge */
+.halo-footer__bcorp {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 2px;
+  padding: 3px 8px;
+  color: rgba(255,255,255,0.5);
+}
 
 /* ── Case study single — hero ─────────────────────────────────── */
 .halo-cs-hero {

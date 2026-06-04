@@ -779,29 +779,57 @@ function halo_render_footer(): void {
     ?>
     <footer class="halo-footer">
         <div class="halo-footer__inner">
-            <div>
+
+            <!-- Brand column -->
+            <div class="halo-footer__brand">
                 <div class="halo-footer__brand-name">HALO FastHub</div>
-                <div class="halo-footer__brand-sub">All-in-one EV charging hubs for fleet,<br>workplace and destination.</div>
+                <div class="halo-footer__brand-sub">Smart solar EV charging using your existing grid capacity. By 3ti Energy Hubs Ltd.</div>
                 <div class="halo-footer__social">
-                    <a href="https://www.linkedin.com/company/3ti/" target="_blank" rel="noopener">LinkedIn</a>
-                    <a href="mailto:hello@halofasthub.com">hello@halofasthub.com</a>
+                    <a href="https://www.linkedin.com/company/3tienergyhubs/" target="_blank" rel="noopener">LinkedIn →</a>
+                    <a href="https://www.youtube.com/@3tienergyhubs" target="_blank" rel="noopener">YouTube →</a>
                 </div>
             </div>
+
+            <!-- Product column -->
             <div class="halo-footer__col">
                 <div class="halo-footer__col-title">Product</div>
-                <a href="<?php echo halo_u( home_url('/product/') ); ?>">Product overview</a>
+                <a href="<?php echo halo_u( home_url('/product/') ); ?>">Overview</a>
                 <a href="<?php echo halo_u( home_url('/technical-deep-dive/') ); ?>">Technical deep dive</a>
                 <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Case studies</a>
+                <a href="<?php echo halo_u( home_url('/contact/') ); ?>">Get a quote</a>
             </div>
+
+            <!-- Sectors column -->
+            <div class="halo-footer__col">
+                <div class="halo-footer__col-title">Sectors</div>
+                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Fleets</a>
+                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Workplaces</a>
+                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Destinations</a>
+            </div>
+
+            <!-- Company column -->
             <div class="halo-footer__col">
                 <div class="halo-footer__col-title">Company</div>
-                <a href="<?php echo halo_u( home_url('/about/') ); ?>">About</a>
-                <a href="<?php echo halo_u( home_url('/news/') ); ?>">News</a>
+                <a href="<?php echo halo_u( home_url('/about/') ); ?>">About 3ti</a>
+                <a href="<?php echo halo_u( home_url('/news/') ); ?>">News &amp; insights</a>
                 <a href="<?php echo halo_u( home_url('/contact/') ); ?>">Contact</a>
                 <a href="<?php echo halo_u( home_url('/privacy-policy/') ); ?>">Privacy policy</a>
             </div>
+
         </div>
-        <div class="halo-footer__copy">© <?php echo date( 'Y' ); ?> 3ti Energy Hubs Ltd · <a href="https://infinityonline.co.uk" target="_blank" rel="noopener">Site by Infinity Online</a></div>
+
+        <div class="halo-footer__copy">
+            <div class="halo-footer__copy-left">
+                <span>© <?php echo date( 'Y' ); ?> 3ti Energy Hubs Ltd · Company no. 11868514</span>
+                <span class="halo-footer__bcorp">B Corp Certified</span>
+            </div>
+            <div class="halo-footer__copy-right">
+                <a href="<?php echo halo_u( home_url('/privacy-policy/') ); ?>">Privacy</a>
+                <a href="#">Cookies</a>
+                <a href="mailto:info@3ti.co.uk">info@3ti.co.uk</a>
+                <a href="https://infinityonline.co.uk" target="_blank" rel="noopener">Site by IOL</a>
+            </div>
+        </div>
     </footer>
     <?php
 }
