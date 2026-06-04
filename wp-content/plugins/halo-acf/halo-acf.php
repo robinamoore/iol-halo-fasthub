@@ -106,7 +106,10 @@ add_action( 'admin_post_halo_duplicate', function () {
 
 /* Run seeder via URL param or admin-bar button */
 add_action( 'admin_init', function () {
-    if ( isset( $_GET['halo_populate'] ) && current_user_can( 'manage_options' ) ) {
+    if ( ! current_user_can( 'manage_options' ) ) return;
+
+    /* Full site seeder */
+    if ( isset( $_GET['halo_populate'] ) ) {
         require_once HALO_ACF_DIR . 'data-populate.php';
         halo_populate_all();
         wp_die( '
@@ -117,19 +120,47 @@ add_action( 'admin_init', function () {
                <a href="' . esc_url( home_url() ) . '">View home page →</a></p>
         ' );
     }
+
+    /* Upload theme assets (logo + favicon) to media library only */
+    if ( isset( $_GET['halo_upload_media'] ) ) {
+        require_once HALO_ACF_DIR . 'data-populate.php';
+        halo_seed_logo_and_favicon();
+        $media_url = admin_url( 'upload.php' );
+        wp_die( '
+            <style>body{font-family:sans-serif;padding:3rem;background:#f0ebe3}</style>
+            <h2 style="color:#1a1a1a">✓ Media assets uploaded.</h2>
+            <p>Logo and favicon are now in the media library and set as the site logo/icon.</p>
+            <p><a href="' . esc_url( $media_url ) . '" style="color:#f7a803">View Media Library →</a></p>
+        ' );
+    }
 } );
 
-/* Admin notice with setup button when pages not yet seeded */
+/* Admin notice with setup buttons */
 add_action( 'admin_notices', function () {
     if ( ! current_user_can( 'manage_options' ) ) return;
-    if ( get_page_by_path( 'home' ) ) return; // already seeded
-    $url = add_query_arg( 'halo_populate', '1', admin_url() );
-    echo '<div class="notice notice-warning" style="padding:1rem;display:flex;align-items:center;gap:1.5rem">
-        <strong>HALO FastHub</strong> — site not yet populated.
-        <a href="' . esc_url( $url ) . '" class="button button-primary" style="background:#f7a803;border-color:#e09700;color:#1a1a1a;font-weight:600">
-            Run site setup →
-        </a>
-        <span style="color:#666;font-size:13px">Creates all pages, nav menu, demo content.</span>
-    </div>';
+
+    /* Media upload notice — show whenever logo is not yet in the library */
+    if ( get_page_by_path( 'home' ) && ! get_theme_mod( 'custom_logo' ) ) {
+        $url = add_query_arg( 'halo_upload_media', '1', admin_url() );
+        echo '<div class="notice notice-info" style="padding:1rem;display:flex;align-items:center;gap:1.5rem">
+            <strong>HALO FastHub</strong> — logo not yet in media library.
+            <a href="' . esc_url( $url ) . '" class="button button-primary" style="background:#f7a803;border-color:#e09700;color:#1a1a1a;font-weight:600">
+                Upload logo &amp; favicon →
+            </a>
+        </div>';
+        return;
+    }
+
+    /* Full setup notice — show when site hasn't been seeded at all */
+    if ( ! get_page_by_path( 'home' ) ) {
+        $url = add_query_arg( 'halo_populate', '1', admin_url() );
+        echo '<div class="notice notice-warning" style="padding:1rem;display:flex;align-items:center;gap:1.5rem">
+            <strong>HALO FastHub</strong> — site not yet populated.
+            <a href="' . esc_url( $url ) . '" class="button button-primary" style="background:#f7a803;border-color:#e09700;color:#1a1a1a;font-weight:600">
+                Run site setup →
+            </a>
+            <span style="color:#666;font-size:13px">Creates all pages, nav menu, demo content.</span>
+        </div>';
+    }
 } );
 
