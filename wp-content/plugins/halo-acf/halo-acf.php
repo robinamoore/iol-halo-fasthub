@@ -45,6 +45,65 @@ add_filter( 'acf/settings/metabox_placement', function () {
     return 'normal'; // normal (top), side, or after_title
 } );
 
+/* ── Duplicate post / page ────────────────────────────────────────── */
+
+/* Add "Duplicate" link to row actions in list tables */
+add_filter( 'page_row_actions', 'halo_duplicate_row_action', 10, 2 );
+add_filter( 'post_row_actions', 'halo_duplicate_row_action', 10, 2 );
+
+function halo_duplicate_row_action( array $actions, \WP_Post $post ): array {
+    if ( ! current_user_can( 'edit_posts' ) ) return $actions;
+    $url = wp_nonce_url(
+        add_query_arg( [ 'action' => 'halo_duplicate', 'post' => $post->ID ], 'admin.php' ),
+        'halo_duplicate_' . $post->ID
+    );
+    $actions['duplicate'] = '<a href="' . esc_url( $url ) . '">Duplicate</a>';
+    return $actions;
+}
+
+/* Handle the duplicate action */
+add_action( 'admin_action_halo_duplicate', function () {
+    $post_id = absint( $_GET['post'] ?? 0 );
+    if ( ! $post_id || ! current_user_can( 'edit_posts' ) ) wp_die( 'Not allowed.' );
+    check_admin_referer( 'halo_duplicate_' . $post_id );
+
+    $original = get_post( $post_id );
+    if ( ! $original ) wp_die( 'Post not found.' );
+
+    /* Create the duplicate as a draft */
+    $new_id = wp_insert_post( [
+        'post_title'   => $original->post_title . ' (Copy)',
+        'post_content' => $original->post_content,
+        'post_excerpt' => $original->post_excerpt,
+        'post_type'    => $original->post_type,
+        'post_status'  => 'draft',
+        'post_author'  => get_current_user_id(),
+        'post_parent'  => $original->post_parent,
+        'menu_order'   => $original->menu_order,
+        'post_name'    => '',
+    ] );
+
+    if ( is_wp_error( $new_id ) ) wp_die( $new_id->get_error_message() );
+
+    /* Copy all post meta (includes ACF flexible content) */
+    foreach ( get_post_meta( $post_id ) as $key => $values ) {
+        foreach ( $values as $value ) {
+            add_post_meta( $new_id, $key, maybe_unserialize( $value ) );
+        }
+    }
+
+    /* Copy taxonomies */
+    foreach ( get_object_taxonomies( $original->post_type ) as $tax ) {
+        $terms = wp_get_object_terms( $post_id, $tax, [ 'fields' => 'ids' ] );
+        if ( $terms && ! is_wp_error( $terms ) ) {
+            wp_set_object_terms( $new_id, $terms, $tax );
+        }
+    }
+
+    wp_redirect( admin_url( 'edit.php?post_type=' . $original->post_type ) );
+    exit;
+} );
+
 /* Run seeder via URL param or admin-bar button */
 add_action( 'admin_init', function () {
     if ( isset( $_GET['halo_populate'] ) && current_user_can( 'manage_options' ) ) {
