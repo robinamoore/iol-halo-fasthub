@@ -25,12 +25,32 @@ add_action( 'wp_enqueue_scripts', function () {
     );
 } );
 
-/* Activate via /wp-admin/?halo_populate=1 */
+/* Run seeder via URL param or admin-bar button */
 add_action( 'admin_init', function () {
     if ( isset( $_GET['halo_populate'] ) && current_user_can( 'manage_options' ) ) {
         require_once HALO_ACF_DIR . 'data-populate.php';
         halo_populate_all();
-        wp_die( '<h2>HALO data populated.</h2><p><a href="' . esc_url( home_url() ) . '">View site →</a></p>' );
+        wp_die( '
+            <style>body{font-family:sans-serif;padding:3rem;background:#f0ebe3}</style>
+            <h2 style="color:#1a1a1a">✓ HALO site populated.</h2>
+            <p>Pages, nav menu, demo case studies and news articles created.</p>
+            <p><a href="' . esc_url( home_url( '/layout-test/' ) ) . '" style="color:#f7a803">View layout test →</a> &nbsp;
+               <a href="' . esc_url( home_url() ) . '">View home page →</a></p>
+        ' );
     }
+} );
+
+/* Admin notice with setup button when pages not yet seeded */
+add_action( 'admin_notices', function () {
+    if ( ! current_user_can( 'manage_options' ) ) return;
+    if ( get_page_by_path( 'home' ) ) return; // already seeded
+    $url = add_query_arg( 'halo_populate', '1', admin_url() );
+    echo '<div class="notice notice-warning" style="padding:1rem;display:flex;align-items:center;gap:1.5rem">
+        <strong>HALO FastHub</strong> — site not yet populated.
+        <a href="' . esc_url( $url ) . '" class="button button-primary" style="background:#f7a803;border-color:#e09700;color:#1a1a1a;font-weight:600">
+            Run site setup →
+        </a>
+        <span style="color:#666;font-size:13px">Creates all pages, nav menu, demo content.</span>
+    </div>';
 } );
 
