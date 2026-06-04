@@ -1,57 +1,72 @@
-# Mudlark Studio — WordPress site repo
+# HALO FastHub — WordPress site repo
 
-Site for Mudlark Studio, a shared creative arts space in Wivenhoe, Essex (Katie, Caroline, Hannah, Sara).
+Site for HALO FastHub by 3ti Energy Hubs Ltd. B2B marketing site for EV charging infrastructure.
 
-**Live URL (future):** https://mudlark.studio
-**Local dev:** Local by Flywheel — site `mudlark-studio` → `mudlark-studio.local`
+**Live URL (future):** https://fasthub.halo.energy  
+**Local dev:** Local by Flywheel — site `halo` → `http://halo.local`
 
 ## Stack
 
-Built on the **IOL House Kit** standard (matches `christmassweater.store`):
+Built on the **IOL House Kit** standard:
 
 | Layer | Choice |
 |---|---|
-| Theme | GeneratePress (stock, free) + this `generatepress-child` |
-| Builder | GenerateBlocks + GenerateBlocks Pro |
-| Data | Native WP CPT via `mudlark-cpt` plugin (no WooCommerce) |
-| Payments | PayPal Buy Now buttons, per product (no cart) |
-| Workshops | Ticket Tailor embed |
-| Forms | WPForms Lite |
-| House Kit | Symlinked from `~/Sites/IOL_housekit_plugins/` — iol-base, iol-security, iol-seo, iol-cookies, iol-drawer, iol-redirect, iol-tags, iol-404 |
-
-See `~/Sites/IOL_housekit_playbook.md` for the per-site build sequence.
+| Theme | GeneratePress (stock, free) + `generatepress-child` (HALO tokens only) |
+| Builder | ACF Pro — Flexible Content (21 layouts) |
+| CPTs | `iol_case_study`, `iol_news`, `iol_team` via `halo-cpt` plugin |
+| Forms | `iol-forms` plugin — `enquiry` form |
+| House Kit | Symlinked from `~/Sites/IOL_housekit_plugins/` |
+| Font | Montserrat 400/500/600/700 (Google Fonts) |
 
 ## Repo layout
 
 ```
-~/Sites/mudlark-studio/
+~/Sites/halo-fasthub/
 ├── wp-content/
 │   ├── plugins/
-│   │   └── mudlark-cpt/              ← site-specific: mudlark_product CPT
+│   │   ├── halo-acf/          ← all 21 page sections + render + filter JS
+│   │   └── halo-cpt/          ← iol_case_study, iol_news, iol_team CPTs
 │   └── themes/
-│       └── generatepress-child/      ← Mudlark brand tokens only
-├── migration/                        ← deploy checklist, redirect map, snapshots
+│       └── generatepress-child/ ← HALO brand tokens only
+├── patterns/
+│   ├── canonical/             ← client-facing HTML mockups (do not delete)
+│   └── components/            ← component design files
 ├── knowledge/
-│   ├── CLAUDE.md                     ← auto-loaded by Claude in this dir
-│   └── decisions/YYYY-MM-DD-topic.md
-└── scripts/                          ← pull-live, push-code, snapshot-prod
+│   └── CLAUDE.md              ← auto-loaded by Claude in this dir
+├── scripts/
+│   └── setup-halo.sh          ← one-command local site setup
+├── HOWTO.md                   ← full developer reference
+└── README.md                  ← this file
 ```
 
-Local site plugin/theme dirs are symlinks to this repo — edit here, WP sees changes instantly.
+Local site plugin and theme dirs are **symlinks** to this repo — edit here, WP reloads instantly.
 
-## Phases
+## Fresh setup
 
-| Phase | Scope | Status |
-|---|---|---|
-| 0 | Platform rebuild on IOL House Kit | 🟡 in progress (Apr 2026) |
-| 1 | Single scrolling homepage + policy pages + Ticket Tailor | pending |
-| 2 | Artist pages (4) + What's On + artist CMS roles | pending |
-| 3 | `mudlark_product` CPT populated + PayPal buttons per product | scaffolded |
+```bash
+cd ~/Sites/halo-fasthub
+git pull
+bash scripts/setup-halo.sh
+```
+
+Then visit `http://halo.local/wp-admin/?halo_populate=1` to seed pages and taxonomy terms.
+
+## Brand tokens
+
+```css
+--orange:    #F7A803   /* primary — CTAs, accents, eyebrow text */
+--black:     #1A1A1A   /* headings, dark backgrounds */
+--offwhite:  #F7F5F2   /* light section bg */
+--warm:      #F0EBE3   /* warm section bg */
+--mid:       #666666   /* body text, labels */
+--container: 1280px
+```
 
 ## Key decisions
 
-- **No WooCommerce.** Products are pages with a `[mudlark_buy]` shortcode that renders the PayPal button. Low volume is intentional.
-- **No inline security in child theme.** All hardening lives in `iol-security`.
-- **Child theme is brand-only** — palette tokens, Amatic SC + Quicksand, Mudlark header/nav overrides. Nothing else.
-- **PayPal button HTML** is stored verbatim on each product (admin paste-in). Hidden from REST for safety.
-- **Ticket Tailor** is the only booking layer — no calendar plugin, no WC Bookings.
+- **ACF Flexible Content only** — no Gutenberg blocks, no GenerateBlocks.
+- **No WooCommerce.**
+- **No security/SEO/cookies/redirect code in child theme** — those are shared iol-* plugins.
+- **Child theme is brand-only** — Montserrat, HALO colour tokens, GP shell resets. Nothing else.
+- **All PHP uses `halo_` prefix** to avoid collisions.
+- **Design mockups** in `patterns/canonical/` are the visual spec — match these.
