@@ -18,6 +18,7 @@ function halo_populate_all(): void {
     halo_seed_layout_test(    $pages['layout-test'] );
     halo_seed_demo_case_studies();
     halo_seed_demo_news();
+    halo_seed_nav_menu( $pages );
     flush_rewrite_rules();
 }
 
@@ -819,4 +820,57 @@ function halo_seed_demo_news(): void {
         if ( $term ) wp_set_object_terms( $id, $term->term_id, 'news_category' );
         update_post_meta( $id, 'news_excerpt', $a['excerpt'] );
     }
+}
+
+/* ── Navigation menu ─────────────────────────────────────────────── */
+
+function halo_seed_nav_menu( array $pages ): void {
+    $menu_name = 'Primary Navigation';
+
+    $existing = wp_get_nav_menu_object( $menu_name );
+    if ( $existing ) {
+        wp_delete_nav_menu( $existing->term_id );
+    }
+
+    $menu_id = wp_create_nav_menu( $menu_name );
+    if ( is_wp_error( $menu_id ) ) return;
+
+    $items = [
+        [ 'title' => 'Product',      'slug' => 'product' ],
+        [ 'title' => 'Case Studies', 'slug' => 'case-studies' ],
+        [ 'title' => 'About',        'slug' => 'about' ],
+        [ 'title' => 'News',         'slug' => 'news' ],
+    ];
+
+    foreach ( $items as $item ) {
+        $page_id = $pages[ $item['slug'] ] ?? 0;
+        if ( ! $page_id ) continue;
+        wp_update_nav_menu_item( $menu_id, 0, [
+            'menu-item-title'     => $item['title'],
+            'menu-item-object'    => 'page',
+            'menu-item-object-id' => $page_id,
+            'menu-item-type'      => 'post_type',
+            'menu-item-status'    => 'publish',
+        ] );
+    }
+
+    /* Contact as CTA pill */
+    $contact_id = $pages['contact'] ?? 0;
+    if ( $contact_id ) {
+        $item_id = wp_update_nav_menu_item( $menu_id, 0, [
+            'menu-item-title'     => 'Make an enquiry',
+            'menu-item-object'    => 'page',
+            'menu-item-object-id' => $contact_id,
+            'menu-item-type'      => 'post_type',
+            'menu-item-status'    => 'publish',
+        ] );
+        if ( $item_id && ! is_wp_error( $item_id ) ) {
+            update_post_meta( $item_id, '_menu_item_classes', [ 'menu-item-cta' ] );
+        }
+    }
+
+    /* Assign to theme location */
+    $locations = get_theme_mod( 'nav_menu_locations', [] );
+    $locations['primary'] = $menu_id;
+    set_theme_mod( 'nav_menu_locations', $locations );
 }
