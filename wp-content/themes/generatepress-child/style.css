@@ -30,7 +30,6 @@
   top: 0;
   z-index: 100;
   background: var(--white);
-  border-bottom: 1px solid var(--border);
   height: 64px;
   display: flex;
   align-items: center;
@@ -55,9 +54,9 @@
   text-decoration: none;
 }
 .site-header .site-description { display: none; }
-.site-header .halo-logo,
-.site-header .custom-logo,
-.site-header .custom-logo-link img {
+/* GP renders the logo as .site-logo > a > img.header-image */
+.site-header .site-logo img,
+.site-header .header-image.is-logo-image {
   height: 36px !important;
   width: auto !important;
   display: block;
@@ -78,8 +77,9 @@
 .main-navigation .menu-item-cta {
   display: flex;
   align-items: center;
-  align-self: center;  /* don't stretch to full nav height when parent is flex */
+  align-self: center;
   height: auto;
+  margin-left: 1.5rem;
 }
 .main-navigation .menu-item-cta > a {
   display: inline-flex !important;
@@ -101,7 +101,7 @@
 }
 .main-navigation .menu-item-cta > a:hover {
   color: var(--black) !important;
-  box-shadow: inset 0 0 0 1px var(--black);
+  box-shadow: inset 0 0 0 2px var(--black);
 }
 
 /* ── Hide GP native footer ────────────────────────────────────── */
@@ -176,7 +176,7 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--orange);
 }
 .halo-btn--primary:hover {
-  box-shadow: inset 0 0 0 1px var(--black);
+  box-shadow: inset 0 0 0 2px var(--black);
 }
 /* Outline on dark background — transparent, orange keyline */
 .halo-btn--outline {
@@ -754,13 +754,20 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Mobile navigation ────────────────────────────────────────── */
 .menu-toggle {
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 6px 10px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
+  border: 2px solid var(--black);
+  border-radius: 4px;
   color: var(--black);
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
-.menu-toggle .gp-icon svg { width: 20px; height: 20px; fill: var(--black); }
+.menu-toggle .gp-icon svg { width: 18px; height: 18px; fill: var(--black); }
 
 @media (max-width: 1100px) {
   #site-navigation.toggled {
