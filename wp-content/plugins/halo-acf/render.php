@@ -465,16 +465,31 @@ function halo_s_cs_grid( array $r ): void {
             <?php endif; ?>
             <div class="halo-cs-grid__grid">
                 <?php while ( $query->have_posts() ) : $query->the_post();
-                    $sector_terms = get_the_terms( get_the_ID(), 'cs_sector' );
+                    $id           = get_the_ID();
+                    $sector_terms = get_the_terms( $id, 'cs_sector' );
                     $sector_name  = $sector_terms && ! is_wp_error( $sector_terms ) ? $sector_terms[0]->name : '';
                     $sector_slug  = $sector_terms && ! is_wp_error( $sector_terms ) ? $sector_terms[0]->slug : '';
-                    $summary      = get_post_meta( get_the_ID(), 'cs_card_summary', true ) ?: get_the_excerpt();
+                    $client       = get_post_meta( $id, 'cs_client', true ) ?: get_the_title();
+                    $stat_val     = get_post_meta( $id, 'cs_stat1_value', true );
+                    $stat_lbl     = get_post_meta( $id, 'cs_stat1_label', true );
                 ?>
                     <a href="<?php the_permalink(); ?>" class="halo-cs-card" data-term="<?php echo esc_attr( $sector_slug ); ?>">
-                        <?php if ( has_post_thumbnail() ) : ?><div class="halo-cs-card__image"><?php the_post_thumbnail( 'medium_large', ['loading'=>'lazy'] ); ?></div><?php endif; ?>
-                        <?php if ( $sector_name ) : ?><p class="halo-cs-card__sector"><?php echo halo_t( $sector_name ); ?></p><?php endif; ?>
-                        <h3 class="halo-cs-card__title"><?php the_title(); ?></h3>
-                        <?php if ( $summary ) : ?><p class="halo-cs-card__summary"><?php echo halo_t( $summary ); ?></p><?php endif; ?>
+                        <div class="halo-cs-card__image">
+                            <?php the_post_thumbnail( 'medium_large', ['loading'=>'lazy'] ); ?>
+                        </div>
+                        <div class="halo-cs-card__body">
+                            <div class="halo-cs-card__header">
+                                <?php if ( $sector_name ) : ?><span class="halo-cs-card__sector"><?php echo halo_t( $sector_name ); ?></span><?php endif; ?>
+                                <span class="halo-cs-card__arrow">→</span>
+                            </div>
+                            <h3 class="halo-cs-card__title"><?php echo halo_t( $client ); ?></h3>
+                            <?php if ( $stat_val ) : ?>
+                                <div class="halo-cs-card__stat">
+                                    <span class="halo-cs-card__stat-value"><?php echo halo_t( $stat_val ); ?></span>
+                                    <?php if ( $stat_lbl ) : ?><span class="halo-cs-card__stat-label"><?php echo halo_t( $stat_lbl ); ?></span><?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </a>
                 <?php endwhile; wp_reset_postdata(); ?>
             </div>
@@ -510,10 +525,20 @@ function halo_s_news_archive( array $r ): void {
                     $cs   = $cat && ! is_wp_error( $cat ) ? $cat[0]->slug : '';
                 ?>
                     <a href="<?php the_permalink(); ?>" class="halo-news-card" data-term="<?php echo esc_attr( $cs ); ?>">
-                        <?php if ( has_post_thumbnail() ) : ?><div class="halo-news-card__image"><?php the_post_thumbnail( 'medium_large', ['loading'=>'lazy'] ); ?></div><?php endif; ?>
-                        <?php if ( $cn ) : ?><p class="halo-news-card__cat"><?php echo halo_t( $cn ); ?></p><?php endif; ?>
-                        <h3 class="halo-news-card__title"><?php the_title(); ?></h3>
-                        <p class="halo-news-card__date"><?php echo get_the_date(); ?></p>
+                        <div class="halo-news-card__image">
+                            <?php the_post_thumbnail( 'medium_large', ['loading'=>'lazy'] ); ?>
+                            <?php if ( $cn ) : ?><span class="halo-news-card__badge"><?php echo halo_t( $cn ); ?></span><?php endif; ?>
+                        </div>
+                        <div class="halo-news-card__body">
+                            <h3 class="halo-news-card__title"><?php the_title(); ?></h3>
+                            <div class="halo-news-card__meta">
+                                <span><?php echo get_the_date( 'M Y' );
+                                    $rt = get_post_meta( get_the_ID(), 'news_read_time', true );
+                                    if ( $rt ) echo ' · ' . esc_html( $rt ) . ' min read';
+                                ?></span>
+                                <span class="halo-news-card__arrow">→</span>
+                            </div>
+                        </div>
                     </a>
                 <?php endwhile; wp_reset_postdata(); ?>
             </div>
@@ -695,21 +720,40 @@ function halo_s_card_picker( array $r ): void {
                     $pid = is_object( $item ) ? $item->ID : $item;
                     if ( $source === 'team' ) :
                         $role  = get_post_meta( $pid, 'team_role', true );
-                        $photo = get_post_meta( $pid, 'team_photo', true );
+                        $bio   = get_post_meta( $pid, 'team_bio', true );
                 ?>
-                        <div class="halo-col-item">
-                            <?php if ( is_array( $photo ) && ! empty( $photo['url'] ) ) : echo halo_img( $photo, 'halo-col-item__image' ); endif; ?>
-                            <h3 class="halo-col-item__title"><?php echo halo_t( get_the_title( $pid ) ); ?></h3>
-                            <?php if ( $role ) : ?><p class="halo-col-item__body"><?php echo halo_t( $role ); ?></p><?php endif; ?>
+                        <div class="halo-team-card">
+                            <div class="halo-team-card__photo">
+                                <?php if ( has_post_thumbnail( $pid ) ) echo get_the_post_thumbnail( $pid, 'medium', ['loading'=>'lazy'] ); ?>
+                            </div>
+                            <div class="halo-team-card__info">
+                                <h3 class="halo-team-card__name"><?php echo halo_t( get_the_title( $pid ) ); ?></h3>
+                                <?php if ( $role ) : ?><p class="halo-team-card__role"><?php echo halo_t( $role ); ?></p><?php endif; ?>
+                                <?php if ( $bio )  : ?><p class="halo-team-card__bio"><?php echo halo_t( $bio ); ?></p><?php endif; ?>
+                            </div>
                         </div>
                     <?php elseif ( $source === 'case_study' ) :
-                        $st = get_the_terms( $pid, 'cs_sector' );
-                        $sn = $st && ! is_wp_error( $st ) ? $st[0]->name : '';
+                        $st  = get_the_terms( $pid, 'cs_sector' );
+                        $sn  = $st && ! is_wp_error( $st ) ? $st[0]->name : '';
+                        $cl  = get_post_meta( $pid, 'cs_client', true ) ?: get_the_title( $pid );
+                        $sv  = get_post_meta( $pid, 'cs_stat1_value', true );
+                        $sl  = get_post_meta( $pid, 'cs_stat1_label', true );
                     ?>
                         <a href="<?php echo halo_u( get_permalink( $pid ) ); ?>" class="halo-cs-card">
-                            <?php if ( has_post_thumbnail( $pid ) ) : echo '<div class="halo-cs-card__image">' . get_the_post_thumbnail( $pid, 'medium_large', ['loading'=>'lazy'] ) . '</div>'; endif; ?>
-                            <?php if ( $sn ) : ?><p class="halo-cs-card__sector"><?php echo halo_t( $sn ); ?></p><?php endif; ?>
-                            <h3 class="halo-cs-card__title"><?php echo halo_t( get_the_title( $pid ) ); ?></h3>
+                            <div class="halo-cs-card__image"><?php echo get_the_post_thumbnail( $pid, 'medium_large', ['loading'=>'lazy'] ); ?></div>
+                            <div class="halo-cs-card__body">
+                                <div class="halo-cs-card__header">
+                                    <?php if ( $sn ) : ?><span class="halo-cs-card__sector"><?php echo halo_t( $sn ); ?></span><?php endif; ?>
+                                    <span class="halo-cs-card__arrow">→</span>
+                                </div>
+                                <h3 class="halo-cs-card__title"><?php echo halo_t( $cl ); ?></h3>
+                                <?php if ( $sv ) : ?>
+                                    <div class="halo-cs-card__stat">
+                                        <span class="halo-cs-card__stat-value"><?php echo halo_t( $sv ); ?></span>
+                                        <?php if ( $sl ) : ?><span class="halo-cs-card__stat-label"><?php echo halo_t( $sl ); ?></span><?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </a>
                     <?php else :
                         $ct = get_the_terms( $pid, 'news_category' );
