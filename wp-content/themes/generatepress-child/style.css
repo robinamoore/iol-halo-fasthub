@@ -144,7 +144,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-btn--outline {
   background: transparent;
   color: var(--base-3);
-  border-color: var(--accent);
+  border: 1px solid var(--accent);
 }
 .halo-btn--outline:hover { box-shadow: inset 0 0 0 2px var(--base-3); color: var(--base-3); }
 .halo-btn--outline-dark {
