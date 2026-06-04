@@ -25,6 +25,26 @@ add_action( 'wp_enqueue_scripts', function () {
     );
 } );
 
+/* ── Editor: disable Gutenberg, hide TinyMCE, surface ACF only ────── */
+
+/* 1. Kill the block editor for all HALO post types */
+add_filter( 'use_block_editor_for_post_type', function ( $use, $post_type ) {
+    $types = [ 'page', 'post', 'cs_item', 'news_item' ];
+    return in_array( $post_type, $types, true ) ? false : $use;
+}, 10, 2 );
+
+/* 2. Remove the standard content textarea — ACF fields are the only editor */
+add_action( 'init', function () {
+    foreach ( [ 'page', 'post', 'cs_item', 'news_item' ] as $type ) {
+        remove_post_type_support( $type, 'editor' );
+    }
+} );
+
+/* 3. In Classic Editor, move ACF metabox to the top so it's immediately visible */
+add_filter( 'acf/settings/metabox_placement', function () {
+    return 'normal'; // normal (top), side, or after_title
+} );
+
 /* Run seeder via URL param or admin-bar button */
 add_action( 'admin_init', function () {
     if ( isset( $_GET['halo_populate'] ) && current_user_can( 'manage_options' ) ) {
