@@ -54,7 +54,7 @@ add_filter( 'post_row_actions', 'halo_duplicate_row_action', 10, 2 );
 function halo_duplicate_row_action( array $actions, \WP_Post $post ): array {
     if ( ! current_user_can( 'edit_posts' ) ) return $actions;
     $url = wp_nonce_url(
-        add_query_arg( [ 'action' => 'halo_duplicate', 'post' => $post->ID ], 'admin.php' ),
+        add_query_arg( [ 'action' => 'halo_duplicate', 'post' => $post->ID ], admin_url( 'admin-post.php' ) ),
         'halo_duplicate_' . $post->ID
     );
     $actions['duplicate'] = '<a href="' . esc_url( $url ) . '">Duplicate</a>';
@@ -62,7 +62,7 @@ function halo_duplicate_row_action( array $actions, \WP_Post $post ): array {
 }
 
 /* Handle the duplicate action */
-add_action( 'admin_action_halo_duplicate', function () {
+add_action( 'admin_post_halo_duplicate', function () {
     $post_id = absint( $_GET['post'] ?? 0 );
     if ( ! $post_id || ! current_user_can( 'edit_posts' ) ) wp_die( 'Not allowed.' );
     check_admin_referer( 'halo_duplicate_' . $post_id );
@@ -88,7 +88,7 @@ add_action( 'admin_action_halo_duplicate', function () {
     /* Copy all post meta (includes ACF flexible content) */
     foreach ( get_post_meta( $post_id ) as $key => $values ) {
         foreach ( $values as $value ) {
-            add_post_meta( $new_id, $key, maybe_unserialize( $value ) );
+            add_post_meta( $new_id, $key, $value );
         }
     }
 
