@@ -235,9 +235,10 @@ function halo_s_pull_quote( array $r ): void {
     ?>
     <section class="halo-pull-quote halo-section <?php echo esc_attr( $tone ); ?>">
         <div class="halo-inner">
+            <div class="halo-pull-quote__rule" aria-hidden="true"></div>
             <p class="halo-pull-quote__text"><?php echo halo_t( $r['quote'] ?? '' ); ?></p>
             <?php if ( ! empty( $r['attribution'] ) ) : ?>
-                <p class="halo-pull-quote__attribution">— <?php echo halo_t( $r['attribution'] ); ?></p>
+                <p class="halo-pull-quote__attribution"><?php echo halo_t( $r['attribution'] ); ?></p>
             <?php endif; ?>
         </div>
     </section>
@@ -336,7 +337,7 @@ function halo_s_timeline( array $r ): void {
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
                 <h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ?? '' ); ?></h2>
             </div>
-            <div class="halo-timeline__steps">
+            <div class="halo-timeline__steps" style="--step-count:<?php echo count( $steps ); ?>">
                 <?php foreach ( $steps as $step ) : ?>
                     <div class="halo-timeline__step">
                         <div class="halo-timeline__marker"><?php echo halo_t( $step['marker'] ?? '' ); ?></div>

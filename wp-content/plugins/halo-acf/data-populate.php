@@ -15,6 +15,9 @@ function halo_populate_all(): void {
     halo_seed_about(          $pages['about'] );
     halo_seed_news(           $pages['news'] );
     halo_seed_contact(        $pages['contact'] );
+    halo_seed_layout_test(    $pages['layout-test'] );
+    halo_seed_demo_case_studies();
+    halo_seed_demo_news();
     flush_rewrite_rules();
 }
 
@@ -38,6 +41,7 @@ function halo_create_pages(): array {
         [ 'title' => 'About',               'slug' => 'about',               'front' => false ],
         [ 'title' => 'News',                'slug' => 'news',                'front' => false ],
         [ 'title' => 'Contact',             'slug' => 'contact',             'front' => false ],
+        [ 'title' => 'Layout test',         'slug' => 'layout-test',         'front' => false ],
     ];
     $ids = [];
     foreach ( $defs as $p ) {
@@ -508,4 +512,311 @@ function halo_seed_contact( int $id ): void {
             'tone'          => 'warm',
         ],
     ], $id );
+}
+
+/* ── LAYOUT TEST — one of every section ──────────────────────────── */
+
+function halo_seed_layout_test( int $id ): void {
+    update_field( 'page_sections', [
+
+        /* 01 */ [
+            'acf_fc_layout' => 'page_hero',
+            'eyebrow'       => '01 · Page Hero',
+            'title'         => 'Smart energy. Fully managed.',
+            'sub'           => 'Solar canopy, battery storage, mains integration and twelve charge points — one leased unit, installed in a day.',
+            'cta1_label'    => 'Primary CTA',
+            'cta1_url'      => '#',
+            'cta2_label'    => 'Secondary CTA',
+            'cta2_url'      => '#',
+            'stat1_value'   => '12',
+            'stat1_label'   => 'charge points per hub',
+            'stat2_value'   => '1 day',
+            'stat2_label'   => 'on site',
+            'stat3_value'   => 'No',
+            'stat3_label'   => 'grid upgrade required',
+            'tone'          => 'dark',
+        ],
+
+        /* 02 */ [
+            'acf_fc_layout' => 'cta_band',
+            'title'         => '02 · CTA Band — Ready to power your fleet?',
+            'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
+            'btn1_label'    => 'Make an enquiry',
+            'btn1_url'      => '#',
+            'btn2_label'    => 'Explore the product',
+            'btn2_url'      => '#',
+            'tone'          => 'dark',
+        ],
+
+        /* 03 */ [
+            'acf_fc_layout' => 'section_intro',
+            'eyebrow'       => '03 · Section Intro',
+            'heading'       => 'One canopy. Four systems. Twelve chargers.',
+            'sub'           => 'HALO FastHub bundles solar canopy, battery storage, mains integration and twelve charge points into a single leased unit.',
+            'align'         => 'center',
+            'tone'          => 'light',
+        ],
+
+        /* 04 */ [
+            'acf_fc_layout' => 'column_layout',
+            'eyebrow'       => '04 · Column Layout',
+            'heading'       => 'One hub. Three jobs.',
+            'cols'          => '3',
+            'items'         => [
+                [ 'title' => 'Fleets',       'body' => 'Reliable, scalable charging that keeps marked, unmarked and commercial vehicles moving around the clock.',   'link_label' => 'Fleet solutions',       'link_url' => '#' ],
+                [ 'title' => 'Workplaces',   'body' => 'Fast deployment for staff and visitor parking, with the option to generate revenue from every bay.',          'link_label' => 'Workplace solutions',   'link_url' => '#' ],
+                [ 'title' => 'Destinations', 'body' => 'Attract EV drivers, extend dwell time and unlock a new revenue line at retail and leisure sites.',            'link_label' => 'Destination solutions', 'link_url' => '#' ],
+            ],
+            'tone' => 'warm',
+        ],
+
+        /* 05 */ [
+            'acf_fc_layout' => 'stat_grid',
+            'eyebrow'       => '05 · Stat Grid',
+            'heading'       => 'By the numbers.',
+            'stats'         => [
+                [ 'value' => '12',        'label' => 'Type 2 charge points' ],
+                [ 'value' => '1 day',     'label' => 'from delivery to live charging' ],
+                [ 'value' => '19.32 kWp', 'label' => 'solar generation' ],
+                [ 'value' => '65%',       'label' => 'solar + battery share of demand' ],
+            ],
+            'tone' => 'offwhite',
+        ],
+
+        /* 06 */ [
+            'acf_fc_layout' => 'story_rows',
+            'eyebrow'       => '06 · Story Rows',
+            'heading'       => 'How the energy flows.',
+            'rows'          => [
+                [ 'step' => '01', 'title' => 'Solar generation.',   'body' => 'The 19.32 kWp monocrystalline canopy generates throughout the operational day.', 'image' => 0 ],
+                [ 'step' => '02', 'title' => 'Battery storage.',    'body' => 'Integrated smart-grid balanced storage shifts solar generation into evening windows.', 'image' => 0 ],
+            ],
+            'tone' => 'offwhite',
+        ],
+
+        /* 07 */ [
+            'acf_fc_layout' => 'pull_quote',
+            'quote'         => '07 · Pull Quote — FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy.',
+            'attribution'   => 'Keith Dickinson · Director of Resources · Merseyside Police',
+            'tone'          => 'dark',
+        ],
+
+        /* 08 */ [
+            'acf_fc_layout' => 'spec_table',
+            'eyebrow'       => '08 · Spec Table',
+            'heading'       => 'Hardware, performance and software.',
+            'use_defaults'  => 1,
+            'tone'          => 'light',
+        ],
+
+        /* 09 */ [
+            'acf_fc_layout' => 'accordion',
+            'eyebrow'       => '09 · Accordion',
+            'heading'       => 'Common questions.',
+            'items'         => [
+                [ 'question' => 'Do I need planning permission?',     'answer' => 'Most car-park hub installations sit under permitted development.' ],
+                [ 'question' => 'Who owns the hardware?',             'answer' => '3ti Energy Hubs owns the hardware throughout the lease term.' ],
+                [ 'question' => 'Is a grid upgrade required?',        'answer' => 'No. HALO FastHub connects behind your existing meter.' ],
+            ],
+            'tone' => 'warm',
+        ],
+
+        /* 10 */ [
+            'acf_fc_layout' => 'timeline',
+            'eyebrow'       => '10 · Timeline',
+            'heading'       => 'From enquiry to charging in four steps.',
+            'steps'         => [
+                [ 'marker' => '01', 'title' => 'Site assessment',    'body' => 'We visit, survey and size the hub to your operational profile.' ],
+                [ 'marker' => '02', 'title' => 'Proposal',           'body' => 'Sized, costed and scheduled within seven working days.' ],
+                [ 'marker' => '03', 'title' => 'Installation',       'body' => 'Single-day HIAB crane lift and electrical tie-in.' ],
+                [ 'marker' => '04', 'title' => 'Go live',            'body' => 'HALO OS is pre-configured — energise and handover the same day.' ],
+            ],
+            'tone' => 'light',
+        ],
+
+        /* 11 */ [
+            'acf_fc_layout' => 'logo_strip',
+            'headline'      => '11 · Logo Strip — logos appear here once uploaded',
+            'logos'         => [],
+            'tone'          => 'offwhite',
+        ],
+
+        /* 12 */ [
+            'acf_fc_layout' => 'big_headline',
+            'eyebrow'       => '12 · Big Headline',
+            'items'         => [
+                [ 'headline' => 'Fleet depots & police fleets',       'url' => '#', 'sub' => 'Overnight charging for marked and unmarked vehicles' ],
+                [ 'headline' => 'Corporate workplaces',               'url' => '#', 'sub' => 'Staff, visitor and revenue-generating bays' ],
+                [ 'headline' => 'Destination forecourts',             'url' => '#', 'sub' => 'Retail and leisure dwell-time charging' ],
+            ],
+            'tone' => 'light',
+        ],
+
+        /* 13 */ [
+            'acf_fc_layout' => 'certifications',
+            'eyebrow'       => '13 · Certifications',
+            'certs'         => [
+                [ 'title' => 'CE — Conformité Européenne' ],
+                [ 'title' => 'BS EN 61851 — EV charging standard' ],
+                [ 'title' => 'OZEV approved chargepoint' ],
+                [ 'title' => 'IEC 62196 — Type 2 connector' ],
+            ],
+            'tone' => 'offwhite',
+        ],
+
+        /* 14 */ [
+            'acf_fc_layout' => 'case_study_grid',
+            'eyebrow'       => '14 · Case Study Grid',
+            'heading'       => 'Real hubs, really deployed.',
+            'show_filters'  => 1,
+            'limit'         => 6,
+            'tone'          => 'light',
+        ],
+
+        /* 15 */ [
+            'acf_fc_layout' => 'news_archive',
+            'eyebrow'       => '15 · News Archive',
+            'show_filters'  => 1,
+            'limit'         => 6,
+            'tone'          => 'offwhite',
+        ],
+
+        /* 16 */ [
+            'acf_fc_layout' => 'related_case_studies',
+            'eyebrow'       => '16 · Related Case Studies',
+            'heading'       => 'See it in action.',
+        ],
+
+        /* 17 */ [
+            'acf_fc_layout' => 'article_body',
+            'content'       => '<h2>17 · Article Body</h2><p>This is the WYSIWYG content block used for news articles and case study sections. It supports headings, paragraphs, lists and blockquotes.</p><ul><li>Bullet point one</li><li>Bullet point two</li></ul><blockquote>A pull-quote styled within the article body.</blockquote>',
+        ],
+
+        /* 18 */ [
+            'acf_fc_layout' => 'enquiry_form',
+            'heading'       => '18 · Enquiry Form — Tell us about your site.',
+            'sub'           => 'Fifty or more parking spaces is the usual starting point.',
+            'tone'          => 'light',
+        ],
+
+        /* 19 */ [
+            'acf_fc_layout' => 'location',
+            'address'       => '3ti Energy Hubs Ltd' . "\n" . 'Surrey Technology Centre' . "\n" . '40 Occam Road' . "\n" . 'Guildford GU2 7YG',
+            'phone'         => '+44 (0)3331 121 371',
+            'email'         => 'info@3ti.co.uk',
+            'map_embed'     => '',
+            'tone'          => 'warm',
+        ],
+
+        /* 20 */ [
+            'acf_fc_layout' => 'roi_calculator',
+            'note'          => '20 · ROI Calculator placeholder',
+        ],
+
+        /* 21 */ [
+            'acf_fc_layout' => 'card_picker',
+            'eyebrow'       => '21 · Card Picker — case studies',
+            'heading'       => 'Real deployments.',
+            'source'        => 'case_study',
+            'tone'          => 'offwhite',
+        ],
+
+    ], $id );
+}
+
+/* ── Demo case studies ───────────────────────────────────────────── */
+
+function halo_seed_demo_case_studies(): void {
+    $cases = [
+        [
+            'title'   => 'Merseyside Police — Fleet depot charging',
+            'slug'    => 'merseyside-police',
+            'sector'  => 'Fleet',
+            'summary' => 'Twelve 24/7 charge points for marked and unmarked vehicles across two depots. Installed in a single operational day with zero service disruption.',
+        ],
+        [
+            'title'   => 'Segen Academy — Staff & visitor workplace',
+            'slug'    => 'segen-academy',
+            'sector'  => 'Workplace',
+            'summary' => 'Solar-topped staff car park with twelve charge points. Revenue from non-staff sessions offsets the lease cost within month one.',
+        ],
+        [
+            'title'   => 'Harbourside Retail — Destination forecourt',
+            'slug'    => 'harbourside-retail',
+            'sector'  => 'Destination',
+            'summary' => 'Forty-minute dwell-time charging at a regional retail park. Average 6.8 kWh dispensed per visit — measurably extending time on site.',
+        ],
+    ];
+
+    $fleet_term = get_term_by( 'name', 'Fleet',       'cs_sector' );
+    $work_term  = get_term_by( 'name', 'Workplace',   'cs_sector' );
+    $dest_term  = get_term_by( 'name', 'Destination', 'cs_sector' );
+    $term_map   = [ 'Fleet' => $fleet_term, 'Workplace' => $work_term, 'Destination' => $dest_term ];
+
+    foreach ( $cases as $c ) {
+        $existing = get_page_by_path( $c['slug'], OBJECT, 'iol_case_study' );
+        if ( $existing ) continue;
+
+        $id = wp_insert_post( [
+            'post_type'    => 'iol_case_study',
+            'post_status'  => 'publish',
+            'post_title'   => $c['title'],
+            'post_name'    => $c['slug'],
+            'post_excerpt' => $c['summary'],
+        ] );
+        if ( is_wp_error( $id ) ) continue;
+
+        $term = $term_map[ $c['sector'] ] ?? false;
+        if ( $term && ! is_wp_error( $term ) ) wp_set_object_terms( $id, $term->term_id, 'cs_sector' );
+        update_post_meta( $id, 'cs_card_summary', $c['summary'] );
+    }
+}
+
+/* ── Demo news articles ──────────────────────────────────────────── */
+
+function halo_seed_demo_news(): void {
+    $articles = [
+        [
+            'title'    => 'The 2026 fleet electrification gap — and how to close it',
+            'slug'     => '2026-fleet-electrification-gap',
+            'category' => 'Whitepaper',
+            'excerpt'  => 'Fleet managers face a window of two to three years before ZEV mandate targets become binding. This paper maps the gap and the infrastructure options available today.',
+        ],
+        [
+            'title'    => 'Inside HALO smart-grid balancing',
+            'slug'     => 'inside-halo-smart-grid-balancing',
+            'category' => 'Article',
+            'excerpt'  => 'How HALO OS arbitrates second-by-second between solar generation, battery state-of-charge and mains draw — and why that arbitration matters to your energy bill.',
+        ],
+        [
+            'title'    => 'HALO FastHub deployed at Merseyside Police',
+            'slug'     => 'merseyside-police-deployment',
+            'category' => 'Press',
+            'excerpt'  => '3ti Energy Hubs has completed installation of a HALO FastHub at Merseyside Police\'s main vehicle depot, providing 24/7 charging for the force\'s electric fleet.',
+        ],
+    ];
+
+    $cat_map = [];
+    foreach ( [ 'Whitepaper', 'Article', 'Press', 'Webinar' ] as $cat ) {
+        $t = get_term_by( 'name', $cat, 'news_category' );
+        if ( $t && ! is_wp_error( $t ) ) $cat_map[ $cat ] = $t;
+    }
+
+    foreach ( $articles as $a ) {
+        $existing = get_page_by_path( $a['slug'], OBJECT, 'iol_news' );
+        if ( $existing ) continue;
+
+        $id = wp_insert_post( [
+            'post_type'    => 'iol_news',
+            'post_status'  => 'publish',
+            'post_title'   => $a['title'],
+            'post_name'    => $a['slug'],
+            'post_excerpt' => $a['excerpt'],
+        ] );
+        if ( is_wp_error( $id ) ) continue;
+
+        $term = $cat_map[ $a['category'] ] ?? false;
+        if ( $term ) wp_set_object_terms( $id, $term->term_id, 'news_category' );
+        update_post_meta( $id, 'news_excerpt', $a['excerpt'] );
+    }
 }
