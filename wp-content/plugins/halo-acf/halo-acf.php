@@ -10,6 +10,7 @@ define( 'HALO_ACF_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once HALO_ACF_DIR . 'fields.php';
 require_once HALO_ACF_DIR . 'render.php';
+require_once HALO_ACF_DIR . 'css-editor.php';
 
 /* Auto-upload all theme assets to media library on plugin activation */
 register_activation_hook( __FILE__, function () {
