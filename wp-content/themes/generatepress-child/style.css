@@ -414,14 +414,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-cta-band .halo-eyebrow { color: rgba(255,255,255,0.55); }
 .halo-cta-band__title {
-  font-size: clamp(2.5rem, 7vw, 6rem);
   font-weight: 500;
-  letter-spacing: -0.022em;
   line-height: 1.02;
   color: var(--base-3);
   margin: 0 0 1.5rem;
-  max-width: 18ch;
 }
+.halo-cta-band__title--large  { font-size: clamp(2.5rem, 7vw, 6rem);   letter-spacing: -0.022em; max-width: 18ch; }
+.halo-cta-band__title--medium { font-size: clamp(2rem, 4vw, 3.5rem);   letter-spacing: -0.018em; max-width: 24ch; }
+.halo-cta-band__title--small  { font-size: clamp(1.75rem, 2.5vw, 2.5rem); letter-spacing: -0.014em; max-width: 32ch; }
 .halo-cta-band__sub {
   font-size: 1.25rem;
   line-height: 1.4;

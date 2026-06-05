@@ -173,11 +173,12 @@ function halo_s_hero_fullbleed( array $r ): void {
 /* ── 02 · CTA Band ───────────────────────────────────────────── */
 
 function halo_s_cta_band( array $r ): void {
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'large';
     ?>
     <section class="halo-cta-band halo-section <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-            <h2 class="halo-cta-band__title"><?php echo halo_title( $r['title'] ?? '' ); ?></h2>
+            <h2 class="halo-cta-band__title halo-cta-band__title--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['title'] ?? '' ); ?></h2>
             <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-cta-band__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
             <div class="halo-cta-band__ctas">
                 <?php echo halo_btn( $r['btn1_label'] ?? '', $r['btn1_url'] ?? '', 'primary' ); ?>
