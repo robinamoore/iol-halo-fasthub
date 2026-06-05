@@ -14,6 +14,29 @@ add_action( 'wp_head', function () {
 }, 1 );
 
 /**
+ * Stacked logo lockup — HALO on top, FastHub below.
+ * Uses GP's official filter so the rest of GP's logo logic (link, classes) still runs.
+ */
+add_filter( 'generate_logo_output', function ( $html ) {
+    $dir  = get_stylesheet_directory_uri() . '/images/';
+    $halo = $dir . 'logo-halo-dark.png';
+    $hub  = $dir . 'logo-fasthub-dark.png';
+    return sprintf(
+        '<div class="site-logo">
+            <a href="%s" rel="home" aria-label="HALO FastHub — home">
+                <div class="halo-logo-stack">
+                    <img src="%s" alt="HALO" class="halo-logo-stack__halo">
+                    <img src="%s" alt="FastHub" class="halo-logo-stack__fasthub">
+                </div>
+            </a>
+        </div>',
+        esc_url( home_url( '/' ) ),
+        esc_url( $halo ),
+        esc_url( $hub )
+    );
+}, 10, 1 );
+
+/**
  * Move the mobile hamburger breakpoint to 1100px.
  * GP Free drops at 768px by default; this filter is the official GP hook.
  * Matches the max-width media query in style.css.

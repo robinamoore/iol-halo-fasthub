@@ -49,6 +49,16 @@
 }
 .site-header .site-description { display: none; }
 
+/* Stacked logo lockup — HALO above, FastHub below */
+.halo-logo-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+.halo-logo-stack__halo    { height: 20px; width: auto; display: block; }
+.halo-logo-stack__fasthub { height: 11px; width: auto; display: block; }
+
 /* Enquiry CTA in nav — orange pill */
 .main-navigation .menu-item-cta {
   display: flex;
