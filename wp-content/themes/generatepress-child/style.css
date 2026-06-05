@@ -9,10 +9,11 @@
  *   generate_settings        → global_colors, typography, font_manager, color options
  *   generate_spacing_settings → header padding, nav item height, container width
  *
- * GP outputs these as :root custom properties:
- *   --contrast   #1A1A1A    --contrast-2  #666666    --contrast-3  #E0DDD9
- *   --base       #E0DDD9    --base-2      #F7F5F2    --base-3      #FFFFFF
- *   --accent     #F7A803    --warm        #F0EBE3    --footer-bg   #1A1A1A
+ * GP outputs these as :root custom properties (HALO FastHub Brand Guidelines V1.0):
+ *   --contrast   #000000    --charcoal    #3D4647    --contrast-2  #8A8A8A
+ *   --contrast-3 #D8D8D8    --base        #D8D8D8    --base-2      #F5F5F5
+ *   --base-3     #FFFFFF    --warm        #E8E6DF    --accent      #F7A803
+ *   --footer-bg  #000000
  *
  * This file contains only:
  *   · Layout tokens (container, section padding)
@@ -49,15 +50,12 @@
 }
 .site-header .site-description { display: none; }
 
-/* Stacked logo lockup — HALO above, FastHub below */
-.halo-logo-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3px;
+/* Logo — single combined lockup. 300×100px source displayed at 36px tall. */
+.halo-logo {
+  height: 36px;
+  width: auto;
+  display: block;
 }
-.halo-logo-stack__halo    { height: 20px; width: auto; display: block; }
-.halo-logo-stack__fasthub { height: 11px; width: auto; display: block; }
 
 /* Enquiry CTA in nav — orange pill */
 .main-navigation .menu-item-cta {
