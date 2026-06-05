@@ -176,7 +176,8 @@ function halo_s_cta_band( array $r ): void {
     ?>
     <section class="halo-cta-band halo-section <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
-            <h2 class="halo-cta-band__title"><?php echo halo_t( $r['title'] ?? '' ); ?></h2>
+            <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
+            <h2 class="halo-cta-band__title"><?php echo halo_title( $r['title'] ?? '' ); ?></h2>
             <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-cta-band__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
             <div class="halo-cta-band__ctas">
                 <?php echo halo_btn( $r['btn1_label'] ?? '', $r['btn1_url'] ?? '', 'primary' ); ?>

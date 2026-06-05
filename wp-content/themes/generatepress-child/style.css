@@ -411,23 +411,25 @@ h1, h2, h3, h4, h5, h6 {
 .halo-cta-band {
   background: var(--contrast);
   padding: 20px 0 var(--pad-y);
-  text-align: center;
 }
+.halo-cta-band .halo-eyebrow { color: rgba(255,255,255,0.55); }
 .halo-cta-band__title {
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-size: clamp(2.5rem, 7vw, 6rem);
   font-weight: 500;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
   color: var(--base-3);
-  margin: 0 0 1rem;
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
 }
 .halo-cta-band__sub {
   font-size: 1.25rem;
   line-height: 1.4;
   color: rgba(255,255,255,0.7);
-  margin: 0 auto 2.5rem;
+  margin: 0 0 2.5rem;
   max-width: 52ch;
 }
-.halo-cta-band__ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.halo-cta-band__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
 
 /* ── 03 · Section Intro ───────────────────────────────────────── */
 .halo-section-intro { padding: 20px 0 calc(var(--pad-y) * 0.5); }

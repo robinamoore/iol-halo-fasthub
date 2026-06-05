@@ -107,7 +107,8 @@ function halo_register_field_group(): void {
                         'name'       => 'cta_band',
                         'label'      => '02 · CTA Band',
                         'sub_fields' => [
-                            [ 'key'=>'field_halo_cta_title',      'name'=>'title',      'label'=>'Heading', 'type'=>'text', 'required'=>1, 'placeholder'=>'Ready to electrify your site?' ],
+                            [ 'key'=>'field_halo_cta_eyebrow',    'name'=>'eyebrow',    'label'=>'Eyebrow (optional)', 'type'=>'text', 'placeholder'=>'Enquire' ],
+                            [ 'key'=>'field_halo_cta_title',      'name'=>'title',      'label'=>'Heading', 'type'=>'textarea', 'rows'=>2, 'required'=>1, 'placeholder'=>'Ready to power your fleet?' ],
                             [ 'key'=>'field_halo_cta_sub',        'name'=>'sub',        'label'=>'Subline', 'type'=>'textarea', 'rows'=>2 ],
                             [ 'key'=>'field_halo_cta_btn1_label', 'name'=>'btn1_label', 'label'=>'Button 1 label', 'type'=>'text', 'placeholder'=>'Make an enquiry' ],
                             [ 'key'=>'field_halo_cta_btn1_url',   'name'=>'btn1_url',   'label'=>'Button 1 URL',   'type'=>'text' ],
