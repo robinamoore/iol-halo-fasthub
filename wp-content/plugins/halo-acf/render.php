@@ -32,6 +32,13 @@ function halo_tone_class( string $tone ): string {
     return 'halo-tone-' . ( in_array( $tone, $allowed, true ) ? $tone : 'light' );
 }
 
+function halo_pad_classes( array $r ): string {
+    $allowed = [ 'none', 'small', 'medium', 'large' ];
+    $t = in_array( $r['padding_top']    ?? '', $allowed, true ) ? $r['padding_top']    : 'small';
+    $b = in_array( $r['padding_bottom'] ?? '', $allowed, true ) ? $r['padding_bottom'] : 'large';
+    return "halo-pad-t-{$t} halo-pad-b-{$b}";
+}
+
 /* ── Main dispatcher ─────────────────────────────────────────── */
 
 function halo_render_sections( int $post_id ): void {
@@ -84,7 +91,7 @@ function halo_s_hero( array $r ): void {
 /* Split hero — headline left, optional image panel right */
 function halo_s_hero_split( array $r, bool $compact ): void {
     ?>
-    <section class="halo-hero halo-section<?php echo $compact ? ' halo-hero--compact' : ''; ?>">
+    <section class="halo-hero halo-section<?php echo $compact ? ' halo-hero--compact' : ''; ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner halo-hero__inner">
             <div class="halo-hero__content">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
@@ -164,7 +171,7 @@ function halo_s_hero_fullbleed( array $r ): void {
 
 function halo_s_cta_band( array $r ): void {
     ?>
-    <section class="halo-cta-band halo-section">
+    <section class="halo-cta-band halo-section <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <h2 class="halo-cta-band__title"><?php echo halo_t( $r['title'] ?? '' ); ?></h2>
             <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-cta-band__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
@@ -183,7 +190,7 @@ function halo_s_section_intro( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
     $align = ( $r['align'] ?? 'center' ) === 'left' ? ' halo-section-intro--left' : '';
     ?>
-    <section class="halo-section-intro halo-section <?php echo esc_attr( $tone . $align ); ?>">
+    <section class="halo-section-intro halo-section <?php echo esc_attr( $tone . $align ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
             <h2 class="halo-section-intro__heading"><?php echo halo_t( $r['heading'] ?? '' ); ?></h2>
@@ -201,7 +208,7 @@ function halo_s_columns( array $r ): void {
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     ?>
-    <section class="halo-columns halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-columns halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div style="margin-bottom:2.5rem">
@@ -233,7 +240,7 @@ function halo_s_stats( array $r ): void {
     if ( ! $stats ) return;
     $count = count( $stats );
     ?>
-    <section class="halo-stats halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-stats halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div style="margin-bottom:2rem;text-align:center">
@@ -262,7 +269,7 @@ function halo_s_story_rows( array $r ): void {
     $rows = $r['rows'] ?? [];
     if ( ! $rows ) return;
     ?>
-    <section class="halo-story-rows halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-story-rows halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-story-rows__header">
@@ -290,7 +297,7 @@ function halo_s_story_rows( array $r ): void {
 function halo_s_pull_quote( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
     ?>
-    <section class="halo-pull-quote halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-pull-quote halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-pull-quote__rule" aria-hidden="true"></div>
             <p class="halo-pull-quote__text"><?php echo halo_t( $r['quote'] ?? '' ); ?></p>
@@ -330,7 +337,7 @@ function halo_s_spec_table( array $r ): void {
     }
     if ( ! $rows ) return;
     ?>
-    <section class="halo-spec-table halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-spec-table halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-spec-table__intro">
@@ -362,7 +369,7 @@ function halo_s_accordion( array $r ): void {
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     ?>
-    <section class="halo-accordion halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-accordion halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-accordion__intro">
@@ -388,7 +395,7 @@ function halo_s_timeline( array $r ): void {
     $steps = $r['steps'] ?? [];
     if ( ! $steps ) return;
     ?>
-    <section class="halo-timeline halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-timeline halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-timeline__intro">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
@@ -417,7 +424,7 @@ function halo_s_logo_strip( array $r ): void {
     $logos = $r['logos'] ?? [];
     if ( ! $logos ) return;
     ?>
-    <section class="halo-logo-strip halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-logo-strip halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['headline'] ) ) : ?><p class="halo-logo-strip__headline"><?php echo halo_t( $r['headline'] ); ?></p><?php endif; ?>
             <div class="halo-logo-strip__logos">
@@ -442,7 +449,7 @@ function halo_s_big_headline( array $r ): void {
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     ?>
-    <section class="halo-big-headline halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-big-headline halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) ) : ?>
                 <div class="halo-big-headline__eyebrow"><?php echo halo_eyebrow( $r['eyebrow'] ); ?></div>
@@ -470,7 +477,7 @@ function halo_s_certifications( array $r ): void {
     $certs = $r['certs'] ?? [];
     if ( ! $certs ) return;
     ?>
-    <section class="halo-certs halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-certs halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-certs__intro"><?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?></div>
             <div class="halo-certs__grid">
@@ -504,7 +511,7 @@ function halo_s_cs_grid( array $r ): void {
     $query   = new WP_Query( [ 'post_type'=>'iol_case_study', 'posts_per_page'=>$limit, 'post_status'=>'publish' ] );
     $sectors = $show_filters ? get_terms( [ 'taxonomy'=>'cs_sector', 'hide_empty'=>true ] ) : [];
     ?>
-    <section class="halo-cs-grid halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-cs-grid halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div style="margin-bottom:2rem">
@@ -565,7 +572,7 @@ function halo_s_news_archive( array $r ): void {
     $query = new WP_Query( [ 'post_type'=>'iol_news', 'posts_per_page'=>$limit, 'post_status'=>'publish' ] );
     $cats  = $show_filters ? get_terms( [ 'taxonomy'=>'news_category', 'hide_empty'=>true ] ) : [];
     ?>
-    <section class="halo-news-archive halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-news-archive halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( $cats && ! is_wp_error( $cats ) ) : ?>
                 <div class="halo-news-archive__filters">
@@ -615,7 +622,7 @@ function halo_s_related( array $r ): void {
     }
     if ( ! $items ) return;
     ?>
-    <section class="halo-related halo-section halo-tone-offwhite">
+    <section class="halo-related halo-section halo-tone-offwhite <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-related__intro">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
@@ -645,7 +652,7 @@ function halo_s_article_body( array $r ): void {
     $content = $r['content'] ?? '';
     if ( ! $content ) return;
     ?>
-    <section class="halo-article-body halo-section halo-tone-light">
+    <section class="halo-article-body halo-section halo-tone-light <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-article-body__inner">
                 <div class="halo-article-body__content">
@@ -662,7 +669,7 @@ function halo_s_article_body( array $r ): void {
 function halo_s_enquiry_form( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
     ?>
-    <section class="halo-enquiry-form halo-section <?php echo esc_attr( $tone ); ?>" id="enquiry">
+    <section class="halo-enquiry-form halo-section <?php echo esc_attr( $tone ); ?>" id="enquiry <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-enquiry-form__inner">
                 <div class="halo-enquiry-form__intro">
@@ -695,7 +702,7 @@ function halo_s_location( array $r ): void {
     $map_static  = $r['map_static'] ?? [];
     $has_consent = isset( $_COOKIE['iol_consent_maps'] ) && $_COOKIE['iol_consent_maps'] === '1';
     ?>
-    <section class="halo-location halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-location halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-location__inner">
                 <div class="halo-location__details">
@@ -739,7 +746,7 @@ function halo_s_location( array $r ): void {
 
 function halo_s_roi( array $r ): void {
     ?>
-    <section class="halo-roi halo-section">
+    <section class="halo-roi halo-section <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <p class="halo-roi__label">Coming soon</p>
             <h2 class="halo-roi__title">Calculate your ROI</h2>
@@ -764,7 +771,7 @@ function halo_s_card_picker( array $r ): void {
     };
     if ( ! $items ) return;
     ?>
-    <section class="halo-card-picker halo-section <?php echo esc_attr( $tone ); ?>">
+    <section class="halo-card-picker halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-card-picker__intro">

@@ -17,6 +17,25 @@ function halo_register_field_group(): void {
         'dark'     => 'Dark (black)',
     ];
 
+    $pad_choices = [
+        'none'   => 'None (0)',
+        'small'  => 'Small (20px)',
+        'medium' => 'Medium (48px)',
+        'large'  => 'Large (96px)',
+    ];
+
+    /* Returns padding_top + padding_bottom fields with layout-unique keys */
+    $pf = function( string $pfx ) use ( $pad_choices ): array {
+        return [
+            [ 'key' => "field_halo_{$pfx}_pad_top",    'name' => 'padding_top',    'label' => 'Top padding',
+              'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'small',
+              'instructions' => 'Space above the first content element.' ],
+            [ 'key' => "field_halo_{$pfx}_pad_bottom", 'name' => 'padding_bottom', 'label' => 'Bottom padding',
+              'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'large',
+              'instructions' => 'Space below the last content element.' ],
+        ];
+    };
+
     acf_add_local_field_group( [
         'key'      => 'group_halo_page_sections',
         'title'    => 'Page Sections',
@@ -29,7 +48,11 @@ function halo_register_field_group(): void {
                 'name'         => 'page_sections',
                 'type'         => 'flexible_content',
                 'button_label' => 'Add section',
-                'layouts'      => [
+                'layouts'      => array_map( function( array $layout ) use ( $pf ): array {
+                    $pfx = str_replace( 'layout_halo_', '', $layout['key'] );
+                    $layout['sub_fields'] = array_merge( $layout['sub_fields'], $pf( $pfx ) );
+                    return $layout;
+                }, [
 
                     /* ── 01 · Page Hero ───────────────────────────── */
                     [
@@ -463,7 +486,7 @@ function halo_register_field_group(): void {
                         ],
                     ],
 
-                ],
+                ] ), // end array_map — padding fields appended to all layouts
             ],
         ],
         'menu_order' => 0,
@@ -471,3 +494,4 @@ function halo_register_field_group(): void {
         'style'      => 'default',
     ] );
 }
+
