@@ -415,9 +415,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--contrast);
   margin: 0 0 1.5rem;
 }
-.halo-cta-band__title--large  { font-size: clamp(2.5rem, 7vw, 6rem);      letter-spacing: -0.022em; max-width: 18ch; }
-.halo-cta-band__title--medium { font-size: clamp(2rem, 4vw, 3.5rem);      letter-spacing: -0.018em; max-width: 24ch; }
-.halo-cta-band__title--small  { font-size: clamp(1.75rem, 2.5vw, 2.5rem); letter-spacing: -0.014em; max-width: 32ch; }
+.halo-cta-band__title--large  { font-size: clamp(3rem, 8vw, 7rem);         letter-spacing: -0.026em; max-width: 16ch; }
+.halo-cta-band__title--medium { font-size: clamp(2.5rem, 5.5vw, 5.5rem);  letter-spacing: -0.022em; max-width: 18ch; }
+.halo-cta-band__title--small  { font-size: clamp(1.75rem, 3vw, 3.5rem);   letter-spacing: -0.018em; max-width: 24ch; }
 .halo-cta-band__sub {
   font-size: 1.25rem;
   line-height: 1.4;
