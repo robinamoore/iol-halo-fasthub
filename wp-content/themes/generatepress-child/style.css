@@ -43,7 +43,8 @@
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 var(--pad-x);
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
   display: flex;
   align-items: center;
   justify-content: space-between;
