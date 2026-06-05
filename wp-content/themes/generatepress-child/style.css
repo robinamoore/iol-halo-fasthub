@@ -371,6 +371,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .halo-hero-fb { height: 560px; }
   .halo-hero-fb__content { padding-bottom: 4rem; }
+  .halo-hero-fb__bar { border-top: none; }
   .halo-hero-fb__bar-inner { flex-direction: column; align-items: flex-start; gap: 0; }
   .halo-hero-fb__bar-sub { margin-bottom: 1.5rem; }
   .halo-hero-fb__bar-stat,
