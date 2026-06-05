@@ -368,6 +368,10 @@ h1, h2, h3, h4, h5, h6 {
   border-left: 1px solid var(--contrast-3);
   padding-left: 2rem;
 }
+.halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat:first-child {
+  border-left: none;
+  padding-left: 0;
+}
 .halo-hero-fb__bar-sub {
   font-size: 1.125rem;
   line-height: 1.45;
