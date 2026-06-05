@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /* ── Helpers ─────────────────────────────────────────────────── */
 
 function halo_t( string $s ): string { return esc_html( $s ); }
+function halo_title( string $s ): string { return nl2br( esc_html( $s ) ); }
 function halo_u( string $s ): string { return esc_url( $s ); }
 
 function halo_btn( string $label, string $url, string $mod = 'primary' ): string {
@@ -95,7 +96,7 @@ function halo_s_hero_split( array $r, bool $compact ): void {
         <div class="halo-inner halo-hero__inner">
             <div class="halo-hero__content">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                <h1 class="halo-hero__title"><?php echo halo_t( $r['title'] ?? '' ); ?></h1>
+                <h1 class="halo-hero__title"><?php echo halo_title( $r['title'] ?? '' ); ?></h1>
                 <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-hero__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
                 <div class="halo-hero__ctas">
                     <?php echo halo_btn( $r['cta1_label'] ?? '', $r['cta1_url'] ?? '', 'primary' ); ?>
@@ -139,7 +140,7 @@ function halo_s_hero_fullbleed( array $r ): void {
         <div class="halo-hero-fb__content">
             <div class="halo-inner">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                <h1 class="halo-hero-fb__title"><?php echo halo_t( $r['title'] ?? '' ); ?></h1>
+                <h1 class="halo-hero-fb__title"><?php echo halo_title( $r['title'] ?? '' ); ?></h1>
                 <div class="halo-hero-fb__ctas">
                     <?php echo halo_btn( $r['cta1_label'] ?? '', $r['cta1_url'] ?? '', 'primary' ); ?>
                     <?php echo halo_btn( $r['cta2_label'] ?? '', $r['cta2_url'] ?? '', 'outline' ); ?>
