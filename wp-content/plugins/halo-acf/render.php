@@ -174,8 +174,9 @@ function halo_s_hero_fullbleed( array $r ): void {
 
 function halo_s_cta_band( array $r ): void {
     $size = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'large';
+    $tone = halo_tone_class( $r['tone'] ?? 'dark' );
     ?>
-    <section class="halo-cta-band halo-section <?php echo halo_pad_classes( $r ); ?>">
+    <section class="halo-cta-band halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
             <h2 class="halo-cta-band__title halo-cta-band__title--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['title'] ?? '' ); ?></h2>

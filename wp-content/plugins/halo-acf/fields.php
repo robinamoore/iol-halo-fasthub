@@ -107,6 +107,7 @@ function halo_register_field_group(): void {
                         'name'       => 'cta_band',
                         'label'      => '02 · CTA Band',
                         'sub_fields' => [
+                            [ 'key'=>'field_halo_cta_tone',       'name'=>'tone',       'label'=>'Background colour', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'dark' ],
                             [ 'key'=>'field_halo_cta_eyebrow',    'name'=>'eyebrow',    'label'=>'Eyebrow (optional)', 'type'=>'text', 'placeholder'=>'Enquire' ],
                             [ 'key'=>'field_halo_cta_title',      'name'=>'title',      'label'=>'Heading', 'type'=>'textarea', 'rows'=>2, 'required'=>1, 'placeholder'=>'Ready to power your fleet?' ],
                             [ 'key'=>'field_halo_cta_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
