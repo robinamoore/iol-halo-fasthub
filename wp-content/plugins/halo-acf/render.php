@@ -127,12 +127,13 @@ function halo_s_hero_split( array $r, bool $compact ): void {
 function halo_s_hero_fullbleed( array $r ): void {
     $img  = $r['image'] ?? [];
     $img_url = is_array( $img ) ? ( $img['url'] ?? '' ) : '';
+    $tone = halo_tone_class( $r['tone'] ?? 'dark' );
     $s1v  = $r['stat1_value'] ?? ''; $s1u = $r['stat1_unit'] ?? ''; $s1l = $r['stat1_label'] ?? '';
     $s2v  = $r['stat2_value'] ?? ''; $s2u = $r['stat2_unit'] ?? ''; $s2l = $r['stat2_label'] ?? '';
     $s3v  = $r['stat3_value'] ?? ''; $s3u = $r['stat3_unit'] ?? ''; $s3l = $r['stat3_label'] ?? '';
     $has_bar = $s1v !== '' || $s2v !== '' || $s3v !== '' || ! empty( $r['sub'] );
     ?>
-    <section class="halo-hero-fb">
+    <section class="halo-hero-fb <?php echo esc_attr( $tone ); ?>">
         <?php if ( $img_url ) : ?>
         <div class="halo-hero-fb__bg" style="background-image:url('<?php echo esc_url( $img_url ); ?>')"></div>
         <?php endif; ?>
@@ -151,7 +152,7 @@ function halo_s_hero_fullbleed( array $r ): void {
     </section>
 
     <?php if ( $has_bar ) : ?>
-    <div class="halo-hero-fb__bar">
+    <div class="halo-hero-fb__bar <?php echo esc_attr( $tone ); ?>">
         <div class="halo-inner halo-hero-fb__bar-inner">
             <?php if ( ! empty( $r['sub'] ) ) : ?>
             <div class="halo-hero-fb__bar-sub"><?php echo halo_t( $r['sub'] ); ?></div>

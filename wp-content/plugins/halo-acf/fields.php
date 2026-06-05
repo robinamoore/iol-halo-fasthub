@@ -61,7 +61,8 @@ function halo_register_field_group(): void {
                         'label'      => '01 · Page Hero',
                         'sub_fields' => [
                             [ 'key'=>'field_halo_hero_tone', 'name'=>'tone', 'label'=>'Background colour', 'type'=>'select',
-                              'choices'=>$tone_choices, 'default_value'=>'dark' ],
+                              'choices'=>$tone_choices, 'default_value'=>'dark',
+                              'instructions'=>'Split/compact: controls the section background. Full-bleed: the photo covers the section — only the stat bar below will change colour. Dark is recommended for full-bleed.' ],
                             [
                                 'key'           => 'field_halo_hero_style',
                                 'name'          => 'style',
