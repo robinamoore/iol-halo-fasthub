@@ -231,6 +231,13 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.026em;
   line-height: 1;
 }
+.halo-hero__stat-unit {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  margin-left: 6px;
+  letter-spacing: 0;
+}
 .halo-hero__stat-label {
   font-size: 0.9375rem;
   font-weight: 500;
@@ -264,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(
     180deg,
     rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.28) 42%,
+    rgba(0,0,0,0.35) 45%,
     rgba(0,0,0,0.78) 100%
   );
   pointer-events: none;
@@ -272,7 +279,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero-fb__content {
   position: relative;
   z-index: 2;
-  padding-bottom: 8rem;
+  padding-bottom: 132px;
 }
 .halo-hero-fb__content .halo-eyebrow { color: rgba(255,255,255,0.65); }
 .halo-hero-fb__title {
@@ -313,6 +320,13 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
+}
+.halo-hero-fb__bar-unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  margin-left: 6px;
+  letter-spacing: 0;
 }
 .halo-hero-fb__bar-label {
   font-size: 11px;
