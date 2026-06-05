@@ -407,11 +407,12 @@ h1, h2, h3, h4, h5, h6 {
   .halo-hero-fb { height: 560px; }
   .halo-hero-fb__content { padding-bottom: 4rem; }
   .halo-hero-fb__bar-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
-  .halo-hero-fb__bar-sub { grid-column: 1 / -1; }
-  .halo-hero-fb__bar-stat { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1rem; }
+  .halo-hero-fb__bar-sub { margin-bottom: 1.5rem; }
+  .halo-hero-fb__bar-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--contrast-3); padding-top: 1.25rem; padding-bottom: 1.25rem; }
+  .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-stat { border-top-color: rgba(255,255,255,0.12); }
 }
 
 /* ── 02 · CTA Band ────────────────────────────────────────────── */
