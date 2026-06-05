@@ -248,7 +248,7 @@ function halo_s_stats( array $r ): void {
     <section class="halo-stats halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
-                <div style="margin-bottom:2rem;text-align:center">
+                <div class="halo-stats__header">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
                     <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-stats__heading halo-stats__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
@@ -257,7 +257,7 @@ function halo_s_stats( array $r ): void {
                 <?php foreach ( $stats as $stat ) : ?>
                     <div class="halo-stat-item">
                         <?php if ( ! empty( $stat['note'] ) ) : ?><div class="halo-stat-note"><?php echo halo_t( $stat['note'] ); ?></div><?php endif; ?>
-                        <div class="halo-stat-value-row">
+                        <div class="halo-stat-body">
                             <span class="halo-stat-value"><?php echo halo_t( $stat['value'] ?? '' ); ?></span>
                             <span class="halo-stat-label"><?php echo halo_t( $stat['label'] ?? '' ); ?></span>
                         </div>
