@@ -351,31 +351,33 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-unit  { color: rgba(255,255,255,0.55); }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-value { color: var(--base-3); }
 .halo-hero-fb__bar-inner {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: 3rem;
+  display: flex;
   align-items: center;
+  gap: 3rem;
   padding-top: 2.5rem;
   padding-bottom: 3rem;
   border-top: 1px dotted var(--contrast-3);
 }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-inner { border-top-color: rgba(255,255,255,0.18); }
 /* Split/compact hero bar — no sub-copy column, equal 3-col grid */
-.halo-hero-fb__bar--stats-only .halo-hero-fb__bar-inner {
-  grid-template-columns: repeat(3, 1fr);
-}
 .halo-hero-fb__bar-sub {
+  flex: 1.4;
   font-size: 1.125rem;
   line-height: 1.45;
   color: var(--contrast-2);
   max-width: 44ch;
 }
 .halo-hero-fb__bar-stat {
-  border-left: 1px solid var(--contrast-3);
-  padding-left: 2rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
+}
+/* Divider: left border when a stat follows sub-copy or another stat */
+.halo-hero-fb__bar-sub + .halo-hero-fb__bar-stat,
+.halo-hero-fb__bar-stat + .halo-hero-fb__bar-stat {
+  border-left: 1px solid var(--contrast-3);
+  padding-left: 2rem;
 }
 .halo-hero-fb__bar-unit {
   font-size: 14px;
@@ -402,9 +404,11 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .halo-hero-fb { height: 560px; }
   .halo-hero-fb__content { padding-bottom: 4rem; }
-  .halo-hero-fb__bar-inner { grid-template-columns: 1fr; gap: 0; }
+  .halo-hero-fb__bar-inner { flex-direction: column; align-items: flex-start; gap: 0; }
   .halo-hero-fb__bar-sub { margin-bottom: 1.5rem; }
-  .halo-hero-fb__bar-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--contrast-3); padding-top: 1.25rem; padding-bottom: 1.25rem; }
+  .halo-hero-fb__bar-stat,
+  .halo-hero-fb__bar-sub + .halo-hero-fb__bar-stat,
+  .halo-hero-fb__bar-stat + .halo-hero-fb__bar-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--contrast-3); padding-top: 1.25rem; padding-bottom: 1.25rem; width: 100%; }
   .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-stat { border-top-color: rgba(255,255,255,0.12); }
 }
 

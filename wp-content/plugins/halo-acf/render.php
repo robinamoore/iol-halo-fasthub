@@ -100,7 +100,7 @@ function halo_s_hero_bar( array $r, string $tone, bool $include_sub = false ): v
     if ( ! $has_bar ) return;
     $has_sub = $include_sub && $sub !== '';
     ?>
-    <div class="halo-hero-fb__bar <?php echo esc_attr( $tone ); ?><?php echo $has_sub ? '' : ' halo-hero-fb__bar--stats-only'; ?>">
+    <div class="halo-hero-fb__bar <?php echo esc_attr( $tone ); ?>">
         <div class="halo-inner halo-hero-fb__bar-inner">
             <?php if ( $has_sub ) : ?>
             <div class="halo-hero-fb__bar-sub"><?php echo halo_t( $sub ); ?></div>
