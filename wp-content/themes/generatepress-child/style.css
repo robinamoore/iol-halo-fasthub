@@ -280,6 +280,17 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero .halo-btn--outline { color: var(--contrast); }
 .halo-hero.halo-tone-dark .halo-btn--outline { color: var(--base-3); }
 
+/* Fullbleed hero — 2nd button needs solid dark bg for accessibility over photo */
+.halo-hero-fb .halo-btn--outline {
+  background: var(--contrast);
+  color: var(--base-3);
+  border-color: var(--contrast);
+}
+.halo-hero-fb .halo-btn--outline:hover {
+  background: rgba(0,0,0,0.75);
+  box-shadow: none;
+}
+
 /* Compact hero variant */
 .halo-hero--compact { padding: 4.5rem 0; }
 .halo-hero--compact .halo-hero__inner { grid-template-columns: 1fr; }
