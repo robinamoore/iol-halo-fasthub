@@ -1030,15 +1030,15 @@ h1, h2, h3, h4, h5, h6 {
 .halo-footer {
   background: var(--footer-bg);
   color: var(--base-3);
-  padding: 4rem var(--pad-x) 0;
+  padding: 4rem 0 0;
 }
 .halo-footer__inner {
   max-width: var(--container);
   margin: 0 auto;
+  padding: 0 var(--pad-x) 2.5rem;
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 3rem;
-  padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .halo-footer__brand-name {
@@ -1083,7 +1083,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-footer__copy {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 1.25rem 0 1.5rem;
+  padding: 1.25rem var(--pad-x) 1.5rem;
   font-size: 11px;
   color: rgba(255,255,255,0.35);
   display: flex;

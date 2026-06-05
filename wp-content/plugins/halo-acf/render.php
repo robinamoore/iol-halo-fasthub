@@ -419,7 +419,7 @@ function halo_s_logo_strip( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'offwhite' );
     $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $align = ( $r['heading_align'] ?? 'center' ) === 'left' ? 'halo-logo-strip__header--left' : '';
-    $logos = $r['logos'] ?? [];
+    $logos = is_array( $r['logos'] ?? [] ) ? ( $r['logos'] ?? [] ) : [];
     if ( ! $logos && empty( $r['eyebrow'] ) && empty( $r['heading'] ) ) return;
     ?>
     <section class="halo-logo-strip halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
