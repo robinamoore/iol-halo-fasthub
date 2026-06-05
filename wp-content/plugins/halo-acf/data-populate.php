@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 function halo_populate_all(): void {
     halo_seed_taxonomy_terms();
+    halo_seed_all_assets();
     $pages = halo_create_pages();
     $spec_table_id = halo_seed_spec_table();
     halo_seed_home(           $pages['home'] );
@@ -20,7 +21,6 @@ function halo_populate_all(): void {
     halo_seed_demo_case_studies();
     halo_seed_demo_news();
     halo_seed_nav_menu( $pages );
-    $assets = halo_seed_all_assets();
     flush_rewrite_rules();
 }
 
@@ -73,6 +73,7 @@ function halo_create_pages(): array {
 /* ── HOME ────────────────────────────────────────────────────────── */
 
 function halo_seed_home( int $id ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -93,7 +94,8 @@ function halo_seed_home( int $id ): void {
         ],
         [
             'acf_fc_layout' => 'logo_strip',
-            'headline'      => 'Trusted across fleets · workplaces · destinations',
+            'eyebrow'       => 'Trusted by',
+            'heading'       => 'Leading operators across fleets, workplaces and destinations.',
             'logos'         => [],
             'tone'          => 'offwhite',
         ],
@@ -169,6 +171,7 @@ function halo_seed_spec_table(): int {
 }
 
 function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -269,6 +272,7 @@ function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
 /* ── TECHNICAL DEEP DIVE ─────────────────────────────────────────── */
 
 function halo_seed_technical( int $id ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -368,6 +372,7 @@ function halo_seed_technical( int $id ): void {
 /* ── CASE STUDIES ────────────────────────────────────────────────── */
 
 function halo_seed_case_studies( int $id ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -401,6 +406,7 @@ function halo_seed_case_studies( int $id ): void {
 /* ── ABOUT ───────────────────────────────────────────────────────── */
 
 function halo_seed_about( int $id ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -492,6 +498,7 @@ function halo_seed_about( int $id ): void {
 /* ── NEWS ────────────────────────────────────────────────────────── */
 
 function halo_seed_news( int $id ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -521,6 +528,7 @@ function halo_seed_news( int $id ): void {
 /* ── CONTACT ─────────────────────────────────────────────────────── */
 
 function halo_seed_contact( int $id ): void {
+    if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -670,8 +678,10 @@ function halo_seed_layout_test( int $id, int $spec_table_id = 0 ): void {
 
         /* 11 */ [
             'acf_fc_layout' => 'logo_strip',
-            'headline'      => '11 · Logo Strip — logos appear here once uploaded',
-            'logos'         => [],
+            'eyebrow'       => 'Trusted by',
+            'heading'       => 'Leading operators across fleets, workplaces and destinations.',
+            'logos'         => array_map( fn($id) => [ 'image' => (int) $id, 'alt' => 'Client logo' ],
+                              get_posts(['post_type'=>'attachment','posts_per_page'=>5,'post_status'=>'inherit','fields'=>'ids']) ),
             'tone'          => 'offwhite',
         ],
 

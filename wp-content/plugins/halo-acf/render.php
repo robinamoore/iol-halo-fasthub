@@ -417,27 +417,33 @@ function halo_s_timeline( array $r ): void {
 
 function halo_s_logo_strip( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'offwhite' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
+    $align = ( $r['heading_align'] ?? 'center' ) === 'left' ? 'halo-logo-strip__header--left' : '';
     $logos = $r['logos'] ?? [];
-    if ( ! $logos ) return;
+    if ( ! $logos && empty( $r['eyebrow'] ) && empty( $r['heading'] ) ) return;
     ?>
     <section class="halo-logo-strip halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
-            <div class="halo-logo-strip__row">
-                <?php if ( ! empty( $r['headline'] ) ) : ?>
-                    <div class="halo-logo-strip__text">
-                        <p class="halo-logo-strip__headline"><?php echo halo_t( $r['headline'] ); ?></p>
-                    </div>
-                <?php endif; ?>
-                <div class="halo-logo-strip__logos">
-                    <?php foreach ( $logos as $logo ) :
-                        $img = $logo['image'] ?? [];
-                        if ( empty( $img['url'] ) ) continue;
-                    ?>
-                        <div class="halo-logo-strip__logo">
-                            <img src="<?php echo halo_u( $img['url'] ); ?>" alt="<?php echo halo_t( $logo['alt'] ?? ( $img['alt'] ?? '' ) ); ?>" loading="lazy">
-                        </div>
-                    <?php endforeach; ?>
+            <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
+                <div class="halo-logo-strip__header <?php echo esc_attr( $align ); ?>">
+                    <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
+                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 class="halo-logo-strip__heading halo-logo-strip__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
+            <?php endif; ?>
+            <div class="halo-logo-strip__logos">
+                <?php foreach ( $logos as $logo ) :
+                    $img_raw = $logo['image'] ?? [];
+                    $img = is_array( $img_raw ) ? $img_raw : [];
+                    if ( empty( $img['url'] ) && ! empty( $img_raw ) ) {
+                        $src = wp_get_attachment_image_src( (int) $img_raw, 'medium' );
+                        if ( $src ) $img = [ 'url' => $src[0], 'alt' => get_post_meta( (int) $img_raw, '_wp_attachment_image_alt', true ) ];
+                    }
+                    if ( empty( $img['url'] ) ) continue;
+                ?>
+                    <div class="halo-logo-strip__logo">
+                        <img src="<?php echo halo_u( $img['url'] ); ?>" alt="<?php echo halo_t( $logo['alt'] ?? ( $img['alt'] ?? '' ) ); ?>" loading="lazy">
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -448,13 +454,17 @@ function halo_s_logo_strip( array $r ): void {
 
 function halo_s_big_headline( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     ?>
     <section class="halo-big-headline halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
-            <?php if ( ! empty( $r['eyebrow'] ) ) : ?>
-                <div class="halo-big-headline__eyebrow"><?php echo halo_eyebrow( $r['eyebrow'] ); ?></div>
+            <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
+                <div class="halo-big-headline__header">
+                    <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
+                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 class="halo-big-headline__heading halo-big-headline__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
+                </div>
             <?php endif; ?>
             <div class="halo-big-headline__items">
                 <?php foreach ( $items as $item ) : ?>
@@ -476,12 +486,18 @@ function halo_s_big_headline( array $r ): void {
 
 function halo_s_certifications( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'offwhite' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $certs = $r['certs'] ?? [];
     if ( ! $certs ) return;
     ?>
     <section class="halo-certs halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
-            <div class="halo-certs__intro"><?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?></div>
+            <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
+                <div class="halo-certs__intro">
+                    <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
+                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 class="halo-certs__heading halo-certs__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
+                </div>
+            <?php endif; ?>
             <div class="halo-certs__grid">
                 <?php foreach ( $certs as $cert ) : ?>
                     <div class="halo-cert-item">

@@ -302,8 +302,11 @@ function halo_register_field_group(): void {
                         'name'       => 'logo_strip',
                         'label'      => '11 · Logo Strip',
                         'sub_fields' => [
-                            [ 'key'=>'field_halo_ls_tone',     'name'=>'tone',     'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
-                            [ 'key'=>'field_halo_ls_headline', 'name'=>'headline', 'label'=>'Headline (optional)', 'type'=>'text', 'placeholder'=>'Trusted by leading operators' ],
+                            [ 'key'=>'field_halo_ls_tone',         'name'=>'tone',          'label'=>'Background',          'type'=>'select',   'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
+                            [ 'key'=>'field_halo_ls_eyebrow',      'name'=>'eyebrow',       'label'=>'Eyebrow (optional)',   'type'=>'text' ],
+                            [ 'key'=>'field_halo_ls_heading',      'name'=>'heading',       'label'=>'Heading (optional)',   'type'=>'text' ],
+                            [ 'key'=>'field_halo_ls_heading_size', 'name'=>'heading_size',  'label'=>'Heading size',         'type'=>'select', 'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'small' ],
+                            [ 'key'=>'field_halo_ls_heading_align','name'=>'heading_align', 'label'=>'Heading alignment',   'type'=>'select', 'choices'=>['center'=>'Centre','left'=>'Left'], 'default_value'=>'center' ],
                             [
                                 'key'          => 'field_halo_ls_logos',
                                 'name'         => 'logos',
@@ -325,8 +328,10 @@ function halo_register_field_group(): void {
                         'name'       => 'big_headline',
                         'label'      => '12 · Big Headline',
                         'sub_fields' => [
-                            [ 'key'=>'field_halo_bh_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
-                            [ 'key'=>'field_halo_bh_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text', 'placeholder'=>'Sectors we serve' ],
+                            [ 'key'=>'field_halo_bh_tone',         'name'=>'tone',         'label'=>'Background',        'type'=>'select',   'choices'=>$tone_choices, 'default_value'=>'light' ],
+                            [ 'key'=>'field_halo_bh_eyebrow',      'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text', 'placeholder'=>'Sectors we serve' ],
+                            [ 'key'=>'field_halo_bh_heading',      'name'=>'heading',      'label'=>'Heading (optional)', 'type'=>'text' ],
+                            [ 'key'=>'field_halo_bh_heading_size', 'name'=>'heading_size', 'label'=>'Heading size',       'type'=>'select', 'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'small' ],
                             [
                                 'key'          => 'field_halo_bh_items',
                                 'name'         => 'items',
@@ -349,8 +354,10 @@ function halo_register_field_group(): void {
                         'name'       => 'certifications',
                         'label'      => '13 · Certifications',
                         'sub_fields' => [
-                            [ 'key'=>'field_halo_ce_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
-                            [ 'key'=>'field_halo_ce_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
+                            [ 'key'=>'field_halo_ce_tone',         'name'=>'tone',         'label'=>'Background',        'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
+                            [ 'key'=>'field_halo_ce_eyebrow',      'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text' ],
+                            [ 'key'=>'field_halo_ce_heading',      'name'=>'heading',      'label'=>'Heading (optional)', 'type'=>'text' ],
+                            [ 'key'=>'field_halo_ce_heading_size', 'name'=>'heading_size', 'label'=>'Heading size',       'type'=>'select', 'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'small' ],
                             [
                                 'key'          => 'field_halo_ce_certs',
                                 'name'         => 'certs',

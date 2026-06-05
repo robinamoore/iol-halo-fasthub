@@ -706,35 +706,19 @@ h1, h2, h3, h4, h5, h6 {
 .halo-tone-dark .halo-timeline__step-body { color: rgba(255,255,255,0.6); }
 
 /* ── 11 · Logo Strip ──────────────────────────────────────────── */
-/* Text label on left, logo grid on right */
-.halo-logo-strip { padding: 3.5rem 0; }
-.halo-logo-strip__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-.halo-logo-strip__text { flex: 0 0 auto; }
-.halo-logo-strip__headline {
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--contrast-2);
-  margin: 0;
-  white-space: nowrap;
-}
+.halo-logo-strip { padding: 20px 0 var(--pad-y); }
+.halo-logo-strip__header { text-align: center; margin-bottom: 2.5rem; }
+.halo-logo-strip__header--left { text-align: left; }
+.halo-logo-strip__heading { font-weight: 500; margin: 0.5rem 0 0; }
 .halo-logo-strip__logos {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.75rem;
-  align-items: center;
-  min-width: 480px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 .halo-logo-strip__logo {
-  height: 44px;
+  height: 56px;
+  width: 160px;
   background: var(--warm);
   border: 1px solid var(--contrast-3);
   overflow: hidden;
@@ -742,7 +726,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
 }
-.halo-logo-strip__logo img { height: 100%; width: 100%; object-fit: contain; padding: 6px; }
+.halo-logo-strip__logo img { height: 100%; width: 100%; object-fit: contain; padding: 8px; }
 
 /* ── 12 · Big Headline ────────────────────────────────────────── */
 .halo-big-headline { padding: 20px 0 var(--pad-y); }
