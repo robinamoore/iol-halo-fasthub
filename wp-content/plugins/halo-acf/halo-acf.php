@@ -115,6 +115,33 @@ add_action( 'admin_post_halo_duplicate', function () {
 add_action( 'admin_init', function () {
     if ( ! current_user_can( 'manage_options' ) ) return;
 
+    /* Single-page force-reseed (clears then reseeds one page) */
+    if ( isset( $_GET['halo_seed_page'] ) ) {
+        require_once HALO_ACF_DIR . 'data-populate.php';
+        $slug = sanitize_key( $_GET['halo_seed_page'] );
+        $page = get_page_by_path( $slug );
+        if ( $page ) {
+            delete_field( 'page_sections', $page->ID );
+            $fn = 'halo_seed_' . str_replace( '-', '_', $slug );
+            if ( function_exists( $fn ) ) {
+                $spec_id = get_posts(['post_type'=>'halo_spec_table','posts_per_page'=>1,'fields'=>'ids'])[0] ?? 0;
+                $fn( $page->ID, $spec_id );
+                wp_die( '<style>body{font-family:sans-serif;padding:2rem}</style><p>✓ Seeded: <strong>' . esc_html( $slug ) . '</strong> (ID ' . $page->ID . '). <a href="' . esc_url( get_permalink( $page->ID ) ) . '">View page →</a></p>' );
+            }
+            wp_die( 'No seed function found for: ' . esc_html( $fn ) );
+        }
+        wp_die( 'Page not found: ' . esc_html( $slug ) );
+    }
+
+    /* CPT-only seeder (case studies, news, team — safe to re-run, skips existing) */
+    if ( isset( $_GET['halo_seed_cpts'] ) ) {
+        require_once HALO_ACF_DIR . 'data-populate.php';
+        halo_seed_demo_case_studies();
+        halo_seed_demo_news();
+        halo_seed_team_members();
+        wp_die( '<style>body{font-family:sans-serif;padding:2rem}</style><h2>✓ CPTs seeded.</h2><p>Case studies, news articles and team members created (existing entries skipped).</p>' );
+    }
+
     /* Full site seeder */
     if ( isset( $_GET['halo_populate'] ) ) {
         require_once HALO_ACF_DIR . 'data-populate.php';

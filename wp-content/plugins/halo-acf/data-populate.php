@@ -20,6 +20,7 @@ function halo_populate_all(): void {
     halo_seed_layout_test(    $pages['layout-test'], $spec_table_id );
     halo_seed_demo_case_studies();
     halo_seed_demo_news();
+    halo_seed_team_members();
     halo_seed_nav_menu( $pages );
     flush_rewrite_rules();
 }
@@ -777,18 +778,54 @@ function halo_seed_demo_case_studies(): void {
             'slug'    => 'merseyside-police',
             'sector'  => 'Fleet',
             'summary' => 'Twelve 24/7 charge points for marked and unmarked vehicles across two depots. Installed in a single operational day with zero service disruption.',
+            'stat1v'  => '6 hrs', 'stat1l' => 'crane lift to first charge',
+            'stat2v'  => '12',    'stat2l' => 'vehicles charging simultaneously',
+            'stat3v'  => '0',     'stat3l' => 'grid upgrade required',
         ],
         [
             'title'   => 'Segen Academy — Staff & visitor workplace',
             'slug'    => 'segen-academy',
             'sector'  => 'Workplace',
             'summary' => 'Solar-topped staff car park with twelve charge points. Revenue from non-staff sessions offsets the lease cost within month one.',
+            'stat1v'  => '100%', 'stat1l' => 'visitor demand met from solar',
+            'stat2v'  => '£0',   'stat2l' => 'net lease cost after charge revenue',
+            'stat3v'  => '19.32 kWp', 'stat3l' => 'solar generation capacity',
         ],
         [
             'title'   => 'Harbourside Retail — Destination forecourt',
             'slug'    => 'harbourside-retail',
             'sector'  => 'Destination',
             'summary' => 'Forty-minute dwell-time charging at a regional retail park. Average 6.8 kWh dispensed per visit — measurably extending time on site.',
+            'stat1v'  => '+18%', 'stat1l' => 'dwell time at the centre',
+            'stat2v'  => '6.8 kWh', 'stat2l' => 'dispensed per visit on average',
+            'stat3v'  => '40 min', 'stat3l' => 'average charge session',
+        ],
+        [
+            'title'   => 'Avalon Logistics — Overnight fleet charging',
+            'slug'    => 'avalon-logistics',
+            'sector'  => 'Fleet',
+            'summary' => 'High-utilisation overnight charging for a 38-strong LCV fleet. Battery storage shifts off-peak generation to peak morning departure windows.',
+            'stat1v'  => '2.4 yr', 'stat1l' => 'payback on charging revenue',
+            'stat2v'  => '38',     'stat2l' => 'vehicles charged every night',
+            'stat3v'  => '64k',    'stat3l' => 'EV miles per year from solar',
+        ],
+        [
+            'title'   => 'Northgate Business Park — Tenant amenity',
+            'slug'    => 'northgate-business-park',
+            'sector'  => 'Workplace',
+            'summary' => 'Multi-tenant business park installs HALO FastHub as a billable amenity, generating new income while attracting EV-driving tenants.',
+            'stat1v'  => '38',   'stat1l' => 'tenant vehicles charged daily',
+            'stat2v'  => '£28k', 'stat2l' => 'annual charge revenue',
+            'stat3v'  => '1 day', 'stat3l' => 'installation time on site',
+        ],
+        [
+            'title'   => 'Bevan Group — Retail destination',
+            'slug'    => 'bevan-group',
+            'sector'  => 'Destination',
+            'summary' => 'Garden centre adds EV charging as a visitor incentive. Solar canopy doubles as a feature entrance structure, reinforcing sustainability credentials.',
+            'stat1v'  => '+22%', 'stat1l' => 'repeat visitor rate since install',
+            'stat2v'  => '£0',   'stat2l' => 'capital cost — fully leased',
+            'stat3v'  => '91%',  'stat3l' => 'solar share of charging energy',
         ],
     ];
 
@@ -812,7 +849,11 @@ function halo_seed_demo_case_studies(): void {
 
         $term = $term_map[ $c['sector'] ] ?? false;
         if ( $term && ! is_wp_error( $term ) ) wp_set_object_terms( $id, $term->term_id, 'cs_sector' );
-        update_post_meta( $id, 'cs_card_summary', $c['summary'] );
+        update_post_meta( $id, 'cs_card_summary',  $c['summary'] );
+        update_post_meta( $id, 'cs_client',        explode( ' — ', $c['title'] )[0] );
+        if ( ! empty( $c['stat1v'] ) ) { update_post_meta( $id, 'cs_stat1_value', $c['stat1v'] ); update_post_meta( $id, 'cs_stat1_label', $c['stat1l'] ); }
+        if ( ! empty( $c['stat2v'] ) ) { update_post_meta( $id, 'cs_stat2_value', $c['stat2v'] ); update_post_meta( $id, 'cs_stat2_label', $c['stat2l'] ); }
+        if ( ! empty( $c['stat3v'] ) ) { update_post_meta( $id, 'cs_stat3_value', $c['stat3v'] ); update_post_meta( $id, 'cs_stat3_label', $c['stat3l'] ); }
     }
 }
 
@@ -824,19 +865,57 @@ function halo_seed_demo_news(): void {
             'title'    => 'The 2026 fleet electrification gap — and how to close it',
             'slug'     => '2026-fleet-electrification-gap',
             'category' => 'Whitepaper',
+            'read_time'=> 8,
             'excerpt'  => 'Fleet managers face a window of two to three years before ZEV mandate targets become binding. This paper maps the gap and the infrastructure options available today.',
         ],
         [
             'title'    => 'Inside HALO smart-grid balancing',
             'slug'     => 'inside-halo-smart-grid-balancing',
             'category' => 'Article',
+            'read_time'=> 5,
             'excerpt'  => 'How HALO OS arbitrates second-by-second between solar generation, battery state-of-charge and mains draw — and why that arbitration matters to your energy bill.',
         ],
         [
             'title'    => 'HALO FastHub deployed at Merseyside Police',
             'slug'     => 'merseyside-police-deployment',
             'category' => 'Press',
+            'read_time'=> 2,
             'excerpt'  => '3ti Energy Hubs has completed installation of a HALO FastHub at Merseyside Police\'s main vehicle depot, providing 24/7 charging for the force\'s electric fleet.',
+        ],
+        [
+            'title'    => 'What does a ZEV mandate actually mean for fleet operators?',
+            'slug'     => 'zev-mandate-fleet-operators',
+            'category' => 'Article',
+            'read_time'=> 6,
+            'excerpt'  => 'The Zero Emission Vehicle mandate requires 80% of new car sales to be electric by 2030. For fleet operators with large depots, the infrastructure question is the one that matters most.',
+        ],
+        [
+            'title'    => 'Solar canopy vs roof solar: why the car park wins',
+            'slug'     => 'solar-canopy-vs-roof-solar',
+            'category' => 'Article',
+            'read_time'=> 4,
+            'excerpt'  => 'Roof space is finite, planning-constrained and often already allocated. Car park canopy solar is uncontested ground — and it comes with twelve charge points built in.',
+        ],
+        [
+            'title'    => 'HALO FastHub wins Smart Energy Innovation Award 2026',
+            'slug'     => 'smart-energy-innovation-award-2026',
+            'category' => 'Press',
+            'read_time'=> 2,
+            'excerpt'  => '3ti Energy Hubs has been recognised at the Smart Energy Innovation Awards for its HALO FastHub platform, which combines solar generation, battery storage and EV charging in a single deployed unit.',
+        ],
+        [
+            'title'    => 'Five questions to ask before committing to an EV charging contract',
+            'slug'     => 'five-questions-ev-charging-contract',
+            'category' => 'Whitepaper',
+            'read_time'=> 7,
+            'excerpt'  => 'Not all EV charging contracts are equal. Before you sign, here are the five questions every site owner and fleet manager should be asking their prospective supplier.',
+        ],
+        [
+            'title'    => 'Webinar: designing a future-proof fleet depot',
+            'slug'     => 'webinar-future-proof-fleet-depot',
+            'category' => 'Webinar',
+            'read_time'=> 45,
+            'excerpt'  => 'Join our Head of Fleet Solutions for a live walkthrough of how to spec a HALO FastHub installation for a mixed-fleet depot — covering load management, grid capacity and phased rollout planning.',
         ],
     ];
 
@@ -861,7 +940,67 @@ function halo_seed_demo_news(): void {
 
         $term = $cat_map[ $a['category'] ] ?? false;
         if ( $term ) wp_set_object_terms( $id, $term->term_id, 'news_category' );
-        update_post_meta( $id, 'news_excerpt', $a['excerpt'] );
+        update_post_meta( $id, 'news_excerpt',    $a['excerpt'] );
+        update_post_meta( $id, 'news_read_time',  $a['read_time'] ?? 4 );
+    }
+}
+
+/* ── Team members ────────────────────────────────────────────────── */
+
+function halo_seed_team_members(): void {
+    $members = [
+        [
+            'title' => 'Emma Crawford',
+            'slug'  => 'emma-crawford',
+            'role'  => 'Managing Director',
+            'bio'   => 'Emma leads 3ti Energy Hubs with a background in infrastructure finance and clean energy deployment. She has overseen the rollout of HALO FastHub across fleet, workplace and destination clients since 2021.',
+        ],
+        [
+            'title' => 'James Hartley',
+            'slug'  => 'james-hartley',
+            'role'  => 'Technical Director',
+            'bio'   => 'James oversees the engineering and integration of every HALO FastHub deployment. He holds a masters in power electronics and has designed grid-connected solar+storage systems since 2014.',
+        ],
+        [
+            'title' => 'Sarah Okafor',
+            'slug'  => 'sarah-okafor',
+            'role'  => 'Head of Customer Success',
+            'bio'   => 'Sarah manages client relationships from site assessment through to live operation. Her team runs the HALO OS monitoring platform and handles ongoing hub performance reporting.',
+        ],
+        [
+            'title' => 'Tom Bridges',
+            'slug'  => 'tom-bridges',
+            'role'  => 'Commercial Director',
+            'bio'   => 'Tom structures the lease and partnership agreements that make HALO FastHub accessible with zero capital outlay. He previously led infrastructure sales at a leading EV network operator.',
+        ],
+        [
+            'title' => 'Priya Nair',
+            'slug'  => 'priya-nair',
+            'role'  => 'Head of Fleet Solutions',
+            'bio'   => 'Priya specialises in fleet depot design and ZEV mandate planning. She works directly with fleet managers to model utilisation, load profiles and phased rollout strategies.',
+        ],
+        [
+            'title' => 'Dan Fielding',
+            'slug'  => 'dan-fielding',
+            'role'  => 'Installation Manager',
+            'bio'   => 'Dan coordinates all on-site delivery — from crane lift scheduling to DNO liaison. His record stands at six operational HALO FastHubs in a single working week.',
+        ],
+    ];
+
+    foreach ( $members as $m ) {
+        $existing = get_page_by_path( $m['slug'], OBJECT, 'iol_team' );
+        if ( $existing ) continue;
+
+        $id = wp_insert_post( [
+            'post_type'   => 'iol_team',
+            'post_status' => 'publish',
+            'post_title'  => $m['title'],
+            'post_name'   => $m['slug'],
+        ] );
+        if ( is_wp_error( $id ) ) continue;
+
+        update_post_meta( $id, 'team_role', $m['role'] );
+        update_post_meta( $id, 'team_bio',  $m['bio'] );
     }
 }
 
