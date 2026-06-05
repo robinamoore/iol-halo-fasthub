@@ -256,9 +256,11 @@ function halo_s_stats( array $r ): void {
             <div class="halo-stats__grid" data-count="<?php echo esc_attr( $count ); ?>">
                 <?php foreach ( $stats as $stat ) : ?>
                     <div class="halo-stat-item">
-                        <span class="halo-stat-value"><?php echo halo_t( $stat['value'] ?? '' ); ?></span>
-                        <span class="halo-stat-label"><?php echo halo_t( $stat['label'] ?? '' ); ?></span>
-                        <?php if ( ! empty( $stat['note'] ) ) : ?><p class="halo-stat-note"><?php echo halo_t( $stat['note'] ); ?></p><?php endif; ?>
+                        <?php if ( ! empty( $stat['note'] ) ) : ?><div class="halo-stat-note"><?php echo halo_t( $stat['note'] ); ?></div><?php endif; ?>
+                        <div class="halo-stat-value-row">
+                            <span class="halo-stat-value"><?php echo halo_t( $stat['value'] ?? '' ); ?></span>
+                            <span class="halo-stat-label"><?php echo halo_t( $stat['label'] ?? '' ); ?></span>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -283,6 +285,7 @@ function halo_s_story_rows( array $r ): void {
                     <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-story-rows__heading halo-story-rows__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
+            <div class="halo-story-rows__list">
             <?php foreach ( $rows as $row ) : ?>
                 <div class="halo-story-row">
                     <div class="halo-story-row__content">
@@ -293,6 +296,7 @@ function halo_s_story_rows( array $r ): void {
                     <?php echo halo_img( $row['image'] ?? [], 'halo-story-row__image' ); ?>
                 </div>
             <?php endforeach; ?>
+            </div>
         </div>
     </section>
     <?php
@@ -435,16 +439,22 @@ function halo_s_logo_strip( array $r ): void {
     ?>
     <section class="halo-logo-strip halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
-            <?php if ( ! empty( $r['headline'] ) ) : ?><p class="halo-logo-strip__headline"><?php echo halo_t( $r['headline'] ); ?></p><?php endif; ?>
-            <div class="halo-logo-strip__logos">
-                <?php foreach ( $logos as $logo ) :
-                    $img = $logo['image'] ?? [];
-                    if ( empty( $img['url'] ) ) continue;
-                ?>
-                    <div class="halo-logo-strip__logo">
-                        <img src="<?php echo halo_u( $img['url'] ); ?>" alt="<?php echo halo_t( $logo['alt'] ?? ( $img['alt'] ?? '' ) ); ?>" loading="lazy">
+            <div class="halo-logo-strip__row">
+                <?php if ( ! empty( $r['headline'] ) ) : ?>
+                    <div class="halo-logo-strip__text">
+                        <p class="halo-logo-strip__headline"><?php echo halo_t( $r['headline'] ); ?></p>
                     </div>
-                <?php endforeach; ?>
+                <?php endif; ?>
+                <div class="halo-logo-strip__logos">
+                    <?php foreach ( $logos as $logo ) :
+                        $img = $logo['image'] ?? [];
+                        if ( empty( $img['url'] ) ) continue;
+                    ?>
+                        <div class="halo-logo-strip__logo">
+                            <img src="<?php echo halo_u( $img['url'] ); ?>" alt="<?php echo halo_t( $logo['alt'] ?? ( $img['alt'] ?? '' ) ); ?>" loading="lazy">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </section>
