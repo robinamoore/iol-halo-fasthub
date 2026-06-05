@@ -284,7 +284,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero-fb .halo-btn--outline {
   background: var(--contrast);
   color: var(--base-3);
-  border-color: var(--contrast);
+  border-color: var(--accent);
 }
 .halo-hero-fb .halo-btn--outline:hover {
   box-shadow: inset 0 0 0 2px var(--base-3);
