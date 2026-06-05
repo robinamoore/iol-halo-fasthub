@@ -93,6 +93,12 @@
 
 /* ── Shared section styles ────────────────────────────────────── */
 .halo-section { width: 100%; box-sizing: border-box; }
+
+/* No double-padding between adjacent sections */
+.halo-section + .halo-section { padding-top: 0; }
+
+/* Hero stat bar is not .halo-section — zero gap into the next block */
+.halo-hero-fb__bar + .halo-section { padding-top: 0; }
 .halo-inner   {
   max-width: var(--container);
   margin: 0 auto;
