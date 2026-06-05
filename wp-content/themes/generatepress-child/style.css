@@ -363,18 +363,15 @@ h1, h2, h3, h4, h5, h6 {
 /* Split/compact hero bar — no sub-copy column, equal 3-col grid */
 .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-inner {
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
 }
 .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat {
-  border-left: none;
+  border-left: 1px solid var(--contrast-3);
   padding-left: 2rem;
-  border-top: 1px solid var(--contrast-3);
-  padding-top: 1.75rem;
 }
 .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat:first-child {
+  border-left: none;
   padding-left: 0;
 }
-.halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat { border-top-color: rgba(255,255,255,0.18); }
 .halo-hero-fb__bar-sub {
   font-size: 1.125rem;
   line-height: 1.45;
