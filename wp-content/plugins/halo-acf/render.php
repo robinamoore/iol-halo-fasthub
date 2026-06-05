@@ -326,27 +326,10 @@ function halo_s_spec_table( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
     $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
 
-    $default_rows = [
-        [ 'AC Power Output',         '7.4kW / 22kW',              'Per charge point' ],
-        [ 'DC Power Output',         'Up to 150kW',               'Shared power model' ],
-        [ 'Charge connectors',       'Type 2 AC + CCS DC',        'All vehicles covered' ],
-        [ 'Simultaneous charging',   'Up to 12 vehicles',         'Hub dependent' ],
-        [ 'Network connectivity',    '4G / LAN',                  'Real-time monitoring' ],
-        [ 'Payment',                 'RFID + contactless',        'Open access option available' ],
-        [ 'IP rating',               'IP54',                      'Outdoor rated' ],
-        [ 'Operating temperature',   '-25°C to +50°C',            '' ],
-        [ 'Cable management',        'Retractable tethered',      'Or untethered option' ],
-        [ 'Energy management',       'Smart load balancing',      'OCPP 1.6 / 2.0.1' ],
-        [ 'Warranty',                '3 years standard',          '5 year extended available' ],
-        [ 'Installation footprint',  'From 1.2m × 0.6m per unit','Hub layout dependent' ],
-    ];
-
-    $use_defaults = ! isset( $r['use_defaults'] ) || ! empty( $r['use_defaults'] );
-    if ( $use_defaults ) {
-        $rows = $default_rows;
-    } else {
-        $rows = array_map( fn($row) => [ $row['spec'] ?? '', $row['value'] ?? '', $row['note'] ?? '' ], $r['custom_rows'] ?? [] );
-    }
+    $table_id = ! empty( $r['table_post'] ) ? (int) $r['table_post'] : 0;
+    if ( ! $table_id ) return;
+    $raw_rows = get_field( 'rows', $table_id ) ?: [];
+    $rows = array_map( fn($row) => [ $row['spec'] ?? '', $row['value'] ?? '', $row['note'] ?? '' ], $raw_rows );
     if ( ! $rows ) return;
     ?>
     <section class="halo-spec-table halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">

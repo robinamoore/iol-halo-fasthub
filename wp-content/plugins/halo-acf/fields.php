@@ -241,21 +241,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_st_eyebrow',      'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_st_heading',      'name'=>'heading',      'label'=>'Heading (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_st_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
-                            [ 'key'=>'field_halo_st_use_defaults', 'name'=>'use_defaults', 'label'=>'Use HALO FastHub default spec', 'type'=>'true_false', 'ui'=>1, 'default_value'=>1, 'instructions'=>'Pre-fills with standard HALO FastHub specifications. Untick to enter custom rows.' ],
-                            [
-                                'key'               => 'field_halo_st_rows',
-                                'name'              => 'custom_rows',
-                                'label'             => 'Custom spec rows',
-                                'type'              => 'repeater',
-                                'button_label'      => 'Add row',
-                                'instructions'      => 'Only used when "Use default spec" is unticked.',
-                                'conditional_logic' => [ [ [ 'field'=>'field_halo_st_use_defaults','operator'=>'!=value','value'=>'1' ] ] ],
-                                'sub_fields'        => [
-                                    [ 'key'=>'field_halo_st_spec',  'name'=>'spec',  'label'=>'Spec name', 'type'=>'text', 'required'=>1, 'placeholder'=>'AC Power Output' ],
-                                    [ 'key'=>'field_halo_st_value', 'name'=>'value', 'label'=>'Value',     'type'=>'text', 'required'=>1, 'placeholder'=>'7.4kW / 22kW' ],
-                                    [ 'key'=>'field_halo_st_note',  'name'=>'note',  'label'=>'Note',      'type'=>'text' ],
-                                ],
-                            ],
+                            [ 'key'=>'field_halo_st_table',        'name'=>'table_post',   'label'=>'Spec table', 'type'=>'post_object', 'post_type'=>['halo_spec_table'], 'allow_null'=>0, 'return_format'=>'id', 'required'=>1, 'instructions'=>'Select a spec table to display. Create and manage tables via Spec Tables in the menu.' ],
                         ],
                     ],
 

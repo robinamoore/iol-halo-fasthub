@@ -47,6 +47,17 @@ function halo_register_post_types(): void {
         'menu_icon'    => 'dashicons-groups',
         'show_in_rest' => false,
     ] );
+
+    register_post_type( 'halo_spec_table', [
+        'label'        => 'Spec Tables',
+        'labels'       => [ 'name'=>'Spec Tables', 'singular_name'=>'Spec Table', 'add_new_item'=>'Add Spec Table', 'edit_item'=>'Edit Spec Table' ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'supports'     => [ 'title' ],
+        'menu_icon'    => 'dashicons-list-view',
+        'show_in_rest' => false,
+    ] );
 }
 
 /* ── Taxonomies ──────────────────────────────────────────────── */
@@ -210,5 +221,28 @@ function halo_register_cpt_fields(): void {
         ],
         'menu_order' => 0,
         'position'   => 'side',
+    ] );
+
+    /* Spec Table ─────────────────────────────────────────────── */
+    acf_add_local_field_group( [
+        'key'      => 'group_halo_spec_table',
+        'title'    => 'Spec Table Rows',
+        'location' => [ [ [ 'param'=>'post_type', 'operator'=>'==', 'value'=>'halo_spec_table' ] ] ],
+        'fields'   => [
+            [
+                'key'          => 'field_hst_rows',
+                'name'         => 'rows',
+                'label'        => 'Rows',
+                'type'         => 'repeater',
+                'button_label' => 'Add row',
+                'sub_fields'   => [
+                    [ 'key'=>'field_hst_spec',  'name'=>'spec',  'label'=>'Specification', 'type'=>'text', 'required'=>1, 'placeholder'=>'AC Power Output' ],
+                    [ 'key'=>'field_hst_value', 'name'=>'value', 'label'=>'Value',         'type'=>'text', 'required'=>1, 'placeholder'=>'7.4kW / 22kW' ],
+                    [ 'key'=>'field_hst_note',  'name'=>'note',  'label'=>'Note (optional)', 'type'=>'text' ],
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+        'position'   => 'normal',
     ] );
 }

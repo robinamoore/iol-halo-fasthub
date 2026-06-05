@@ -8,14 +8,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function halo_populate_all(): void {
     halo_seed_taxonomy_terms();
     $pages = halo_create_pages();
+    $spec_table_id = halo_seed_spec_table();
     halo_seed_home(           $pages['home'] );
-    halo_seed_product(        $pages['product'] );
+    halo_seed_product(        $pages['product'], $spec_table_id );
     halo_seed_technical(      $pages['technical-deep-dive'] );
     halo_seed_case_studies(   $pages['case-studies'] );
     halo_seed_about(          $pages['about'] );
     halo_seed_news(           $pages['news'] );
     halo_seed_contact(        $pages['contact'] );
-    halo_seed_layout_test(    $pages['layout-test'] );
+    halo_seed_layout_test(    $pages['layout-test'], $spec_table_id );
     halo_seed_demo_case_studies();
     halo_seed_demo_news();
     halo_seed_nav_menu( $pages );
@@ -137,7 +138,37 @@ function halo_seed_home( int $id ): void {
 
 /* ── PRODUCT ─────────────────────────────────────────────────────── */
 
-function halo_seed_product( int $id ): void {
+function halo_seed_spec_table(): int {
+    $existing = get_page_by_path( 'halo-fasthub-standard', OBJECT, 'halo_spec_table' );
+    if ( $existing ) return (int) $existing->ID;
+
+    $id = wp_insert_post( [
+        'post_type'   => 'halo_spec_table',
+        'post_status' => 'publish',
+        'post_title'  => 'HALO FastHub — Standard Specification',
+        'post_name'   => 'halo-fasthub-standard',
+    ] );
+    if ( is_wp_error( $id ) ) return 0;
+
+    update_field( 'rows', [
+        [ 'spec'=>'AC Power Output',        'value'=>'7.4kW / 22kW',               'note'=>'Per charge point' ],
+        [ 'spec'=>'DC Power Output',        'value'=>'Up to 150kW',                'note'=>'Shared power model' ],
+        [ 'spec'=>'Charge connectors',      'value'=>'Type 2 AC + CCS DC',         'note'=>'All vehicles covered' ],
+        [ 'spec'=>'Simultaneous charging',  'value'=>'Up to 12 vehicles',          'note'=>'Hub dependent' ],
+        [ 'spec'=>'Network connectivity',   'value'=>'4G / LAN',                   'note'=>'Real-time monitoring' ],
+        [ 'spec'=>'Payment',                'value'=>'RFID + contactless',         'note'=>'Open access option available' ],
+        [ 'spec'=>'IP rating',              'value'=>'IP54',                       'note'=>'Outdoor rated' ],
+        [ 'spec'=>'Operating temperature',  'value'=>'-25°C to +50°C',             'note'=>'' ],
+        [ 'spec'=>'Cable management',       'value'=>'Retractable tethered',       'note'=>'Or untethered option' ],
+        [ 'spec'=>'Energy management',      'value'=>'Smart load balancing',       'note'=>'OCPP 1.6 / 2.0.1' ],
+        [ 'spec'=>'Warranty',               'value'=>'3 years standard',           'note'=>'5 year extended available' ],
+        [ 'spec'=>'Installation footprint', 'value'=>'From 1.2m × 0.6m per unit', 'note'=>'Hub layout dependent' ],
+    ], $id );
+
+    return (int) $id;
+}
+
+function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
     update_field( 'page_sections', [
         [
             'acf_fc_layout' => 'page_hero',
@@ -160,7 +191,7 @@ function halo_seed_product( int $id ): void {
             'acf_fc_layout' => 'spec_table',
             'eyebrow'       => 'Specifications',
             'heading'       => 'Everything in one leased unit.',
-            'use_defaults'  => 1,
+            'table_post'    => $spec_table_id,
             'tone'          => 'light',
         ],
         [
@@ -253,7 +284,7 @@ function halo_seed_technical( int $id ): void {
             'acf_fc_layout' => 'spec_table',
             'eyebrow'       => 'Full specification',
             'heading'       => 'Hardware, performance and software.',
-            'use_defaults'  => 1,
+            'table_post'    => $spec_table_id,
             'tone'          => 'light',
         ],
         [
@@ -518,7 +549,7 @@ function halo_seed_contact( int $id ): void {
 
 /* ── LAYOUT TEST — one of every section ──────────────────────────── */
 
-function halo_seed_layout_test( int $id ): void {
+function halo_seed_layout_test( int $id, int $spec_table_id = 0 ): void {
     update_field( 'page_sections', [
 
         /* 01 */ [
@@ -608,7 +639,7 @@ function halo_seed_layout_test( int $id ): void {
             'acf_fc_layout' => 'spec_table',
             'eyebrow'       => '08 · Spec Table',
             'heading'       => 'Hardware, performance and software.',
-            'use_defaults'  => 1,
+            'table_post'    => $spec_table_id,
             'tone'          => 'light',
         ],
 
