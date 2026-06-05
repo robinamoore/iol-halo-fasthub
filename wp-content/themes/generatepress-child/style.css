@@ -31,7 +31,7 @@
 /* ── GP full-width reset ──────────────────────────────────────── */
 .site.grid-container  { max-width: none !important; padding: 0 !important; }
 .site-content         { max-width: none !important; padding: 0 !important; display: block !important; }
-.site-main            { margin: 0; width: 100%; min-width: 0; display: block; }
+.site-main            { margin: 0 !important; width: 100%; min-width: 0; display: block; }
 
 /* ── GP header ────────────────────────────────────────────────── */
 .site-header {
