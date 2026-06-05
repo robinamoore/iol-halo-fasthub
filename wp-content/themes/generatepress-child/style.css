@@ -92,13 +92,15 @@
 .site-footer { display: none !important; }
 
 /* ── Shared section styles ────────────────────────────────────── */
-.halo-section { width: 100%; box-sizing: border-box; }
+/* GP applies margin-bottom:20px to .site-main>* — zero it for our sections */
+.halo-section { width: 100%; box-sizing: border-box; margin: 0; }
 
 /* No double-padding between adjacent sections */
 .halo-section + .halo-section { padding-top: 0; }
 
 /* Hero stat bar is not .halo-section — zero gap into the next block */
 .halo-hero-fb__bar + .halo-section { padding-top: 0; }
+.halo-hero-fb__bar { margin-bottom: 0; }
 .halo-inner   {
   max-width: var(--container);
   margin: 0 auto;
@@ -300,11 +302,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-hero-fb__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* Support bar — black strip immediately below, sub-copy + stats */
+/* Support bar — light grey strip immediately below hero, sub-copy + stats */
 .halo-hero-fb__bar {
-  background: var(--contrast);
-  color: var(--base-3);
-  border-top: 1px solid rgba(255,255,255,0.12);
+  background: var(--base-2);
+  color: var(--contrast);
+  border-top: 1px solid var(--contrast-3);
 }
 .halo-hero-fb__bar-inner {
   display: grid;
@@ -317,11 +319,11 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero-fb__bar-sub {
   font-size: 1.125rem;
   line-height: 1.45;
-  color: rgba(255,255,255,0.78);
+  color: var(--contrast-2);
   max-width: 44ch;
 }
 .halo-hero-fb__bar-stat {
-  border-left: 1px solid rgba(255,255,255,0.18);
+  border-left: 1px solid var(--contrast-3);
   padding-left: 2rem;
   display: flex;
   flex-direction: column;
@@ -330,7 +332,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero-fb__bar-unit {
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255,255,255,0.55);
+  color: var(--contrast-2);
   margin-left: 6px;
   letter-spacing: 0;
 }
@@ -338,13 +340,14 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: var(--contrast-2);
 }
 .halo-hero-fb__bar-value {
   font-size: 2.25rem;
   font-weight: 500;
   letter-spacing: -0.018em;
   line-height: 1;
+  color: var(--contrast);
 }
 
 /* Responsive — stack on mobile */
