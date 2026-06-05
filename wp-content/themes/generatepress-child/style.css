@@ -547,9 +547,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-tone-dark .halo-story-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
 .halo-story-row:nth-child(even) .halo-story-row__image { order: -1; }
-/* outer padding only — flips with the image order */
-.halo-story-row__content { padding: 0 1.5rem 0 0; }
-.halo-story-row:nth-child(even) .halo-story-row__content { padding: 0 0 0 1.5rem; }
+/* row 1: text left, no extra outer pad — sits close to card edge */
+/* row 2: text right, inner left pad — pushes text away from image */
+.halo-story-row__content { padding: 0 0 0 40px; }
+.halo-story-row:nth-child(even) .halo-story-row__content { padding: 0 0 0 40px; }
 /* Step number — displayed large like "01", "02" */
 .halo-story-row__step {
   font-size: clamp(2.5rem, 4vw, 3.25rem);
@@ -1239,7 +1240,7 @@ h1, h2, h3, h4, h5, h6 {
   .halo-story-row                { grid-template-columns: 1fr; gap: 2rem; }
   .halo-story-row:nth-child(even) .halo-story-row__image { order: 0; }
   .halo-story-row__content,
-  .halo-story-row:nth-child(even) .halo-story-row__content { padding: 0 0.75rem; }
+  .halo-story-row:nth-child(even) .halo-story-row__content { padding: 0; }
   .halo-columns__grid            { grid-template-columns: 1fr !important; }
   .halo-stats__grid              { grid-template-columns: repeat(2,1fr) !important; }
   .halo-cs-grid__grid,
