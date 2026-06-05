@@ -76,7 +76,6 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_hero_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow', 'type'=>'text' ],
                             [ 'key'=>'field_halo_hero_title', 'name'=>'title', 'label'=>'Title', 'type'=>'textarea', 'rows'=>3, 'required'=>1, 'instructions'=>'Use line breaks for multiline headlines. Each line becomes a new line in the heading.' ],
                             [ 'key'=>'field_halo_hero_sub',     'name'=>'sub',     'label'=>'Sub-copy / support bar left', 'type'=>'textarea', 'rows'=>2, 'instructions'=>'In full-bleed style this becomes the support bar left-column text.' ],
-                            [ 'key'=>'field_halo_hero_compact', 'name'=>'compact', 'label'=>'Compact (legacy — use Style field instead)', 'type'=>'true_false', 'ui'=>1 ],
                             [ 'key'=>'field_halo_hero_cta1_label', 'name'=>'cta1_label', 'label'=>'Primary CTA label', 'type'=>'text', 'placeholder'=>'Make an enquiry' ],
                             [ 'key'=>'field_halo_hero_cta1_url',   'name'=>'cta1_url',   'label'=>'Primary CTA URL',   'type'=>'text' ],
                             [ 'key'=>'field_halo_hero_cta2_label', 'name'=>'cta2_label', 'label'=>'Secondary CTA label', 'type'=>'text' ],

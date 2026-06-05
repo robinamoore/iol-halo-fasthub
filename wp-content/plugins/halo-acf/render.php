@@ -78,7 +78,7 @@ function halo_render_sections( int $post_id ): void {
 
 function halo_s_hero( array $r ): void {
     // Resolve style — new 'style' field takes precedence, legacy 'compact' as fallback
-    $style = $r['style'] ?? ( ! empty( $r['compact'] ) ? 'compact' : 'split' );
+    $style = $r['style'] ?? 'split';
 
     if ( $style === 'fullbleed' ) {
         halo_s_hero_fullbleed( $r );
