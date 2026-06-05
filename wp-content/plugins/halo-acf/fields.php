@@ -128,9 +128,10 @@ function halo_register_field_group(): void {
                         'sub_fields' => [
                             [ 'key'=>'field_halo_si_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
                             [ 'key'=>'field_halo_si_align',   'name'=>'align',   'label'=>'Alignment',  'type'=>'select', 'choices'=>['center'=>'Centre','left'=>'Left'], 'default_value'=>'center' ],
-                            [ 'key'=>'field_halo_si_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow',    'type'=>'text' ],
-                            [ 'key'=>'field_halo_si_heading', 'name'=>'heading', 'label'=>'Heading',    'type'=>'text', 'required'=>1 ],
-                            [ 'key'=>'field_halo_si_sub',     'name'=>'sub',     'label'=>'Sub text',   'type'=>'textarea', 'rows'=>3 ],
+                            [ 'key'=>'field_halo_si_eyebrow',      'name'=>'eyebrow',       'label'=>'Eyebrow',       'type'=>'text' ],
+                            [ 'key'=>'field_halo_si_heading',      'name'=>'heading',       'label'=>'Heading',       'type'=>'textarea', 'rows'=>3, 'required'=>1 ],
+                            [ 'key'=>'field_halo_si_heading_size', 'name'=>'heading_size',  'label'=>'Heading size',  'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_si_sub',          'name'=>'sub',           'label'=>'Sub text',      'type'=>'textarea', 'rows'=>3 ],
                         ],
                     ],
 

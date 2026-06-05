@@ -195,11 +195,12 @@ function halo_s_cta_band( array $r ): void {
 function halo_s_section_intro( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
     $align = ( $r['align'] ?? 'center' ) === 'left' ? ' halo-section-intro--left' : '';
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     ?>
     <section class="halo-section-intro halo-section <?php echo esc_attr( $tone . $align ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-            <h2 class="halo-section-intro__heading"><?php echo halo_t( $r['heading'] ?? '' ); ?></h2>
+            <h2 class="halo-section-intro__heading halo-section-intro__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ?? '' ); ?></h2>
             <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-section-intro__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
         </div>
     </section>
