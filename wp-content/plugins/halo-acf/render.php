@@ -11,7 +11,7 @@ function halo_title( string $s ): string { return nl2br( esc_html( $s ) ); }
 function halo_u( string $s ): string { return esc_url( $s ); }
 
 function halo_btn( string $label, string $url, string $mod = 'primary' ): string {
-    if ( ! $label || ! $url ) return '';
+    if ( $label === '' || $url === '' ) return '';
     return '<a href="' . halo_u( $url ) . '" class="halo-btn halo-btn--' . esc_attr( $mod ) . '">' . halo_t( $label ) . ' <span aria-hidden="true">→</span></a>';
 }
 
@@ -104,10 +104,10 @@ function halo_s_hero_split( array $r, bool $compact ): void {
                 </div>
                 <?php
                 $s1v = $r['stat1_value'] ?? ''; $s2v = $r['stat2_value'] ?? ''; $s3v = $r['stat3_value'] ?? '';
-                if ( $s1v || $s2v || $s3v ) : ?>
+                if ( $s1v !== '' || $s2v !== '' || $s3v !== '' ) : ?>
                 <div class="halo-hero__stats">
                     <?php foreach ( [ ['stat1_value','stat1_unit','stat1_label'], ['stat2_value','stat2_unit','stat2_label'], ['stat3_value','stat3_unit','stat3_label'] ] as [$vk,$uk,$lk] ) :
-                        if ( empty( $r[$vk] ) ) continue; ?>
+                        if ( ( $r[$vk] ?? '' ) === '' ) continue; ?>
                         <div class="halo-hero__stat">
                             <span class="halo-hero__stat-value"><?php echo halo_t( $r[$vk] ); ?><?php if ( ! empty( $r[$uk] ) ) : ?><span class="halo-hero__stat-unit"><?php echo halo_t( $r[$uk] ); ?></span><?php endif; ?></span>
                             <span class="halo-hero__stat-label"><?php echo halo_t( $r[$lk] ?? '' ); ?></span>
@@ -129,7 +129,7 @@ function halo_s_hero_fullbleed( array $r ): void {
     $s1v  = $r['stat1_value'] ?? ''; $s1u = $r['stat1_unit'] ?? ''; $s1l = $r['stat1_label'] ?? '';
     $s2v  = $r['stat2_value'] ?? ''; $s2u = $r['stat2_unit'] ?? ''; $s2l = $r['stat2_label'] ?? '';
     $s3v  = $r['stat3_value'] ?? ''; $s3u = $r['stat3_unit'] ?? ''; $s3l = $r['stat3_label'] ?? '';
-    $has_bar = $s1v || $s2v || $s3v || ! empty( $r['sub'] );
+    $has_bar = $s1v !== '' || $s2v !== '' || $s3v !== '' || ! empty( $r['sub'] );
     ?>
     <section class="halo-hero-fb">
         <?php if ( $img_url ) : ?>
@@ -156,7 +156,7 @@ function halo_s_hero_fullbleed( array $r ): void {
             <div class="halo-hero-fb__bar-sub"><?php echo halo_t( $r['sub'] ); ?></div>
             <?php endif; ?>
             <?php foreach ( [ [$s1v,$s1u,$s1l], [$s2v,$s2u,$s2l], [$s3v,$s3u,$s3l] ] as [$v,$u,$l] ) :
-                if ( ! $v ) continue; ?>
+                if ( $v === '' ) continue; ?>
             <div class="halo-hero-fb__bar-stat">
                 <span class="halo-hero-fb__bar-label"><?php echo halo_t( $l ); ?></span>
                 <span class="halo-hero-fb__bar-value"><?php echo halo_t( $v ); ?><?php if ( $u ) : ?><span class="halo-hero-fb__bar-unit"><?php echo halo_t( $u ); ?></span><?php endif; ?></span>
