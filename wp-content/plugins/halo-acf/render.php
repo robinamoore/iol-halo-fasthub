@@ -90,6 +90,33 @@ function halo_s_hero( array $r ): void {
 }
 
 /* Split hero — headline left, optional image panel right */
+/* Shared stat bar — used by all three hero styles */
+function halo_s_hero_bar( array $r, string $tone, bool $include_sub = false ): void {
+    $s1v = $r['stat1_value'] ?? ''; $s1u = $r['stat1_unit'] ?? ''; $s1l = $r['stat1_label'] ?? '';
+    $s2v = $r['stat2_value'] ?? ''; $s2u = $r['stat2_unit'] ?? ''; $s2l = $r['stat2_label'] ?? '';
+    $s3v = $r['stat3_value'] ?? ''; $s3u = $r['stat3_unit'] ?? ''; $s3l = $r['stat3_label'] ?? '';
+    $sub = $r['sub'] ?? '';
+    $has_bar = $s1v !== '' || $s2v !== '' || $s3v !== '' || ( $include_sub && $sub !== '' );
+    if ( ! $has_bar ) return;
+    $has_sub = $include_sub && $sub !== '';
+    ?>
+    <div class="halo-hero-fb__bar <?php echo esc_attr( $tone ); ?><?php echo $has_sub ? '' : ' halo-hero-fb__bar--stats-only'; ?>">
+        <div class="halo-inner halo-hero-fb__bar-inner">
+            <?php if ( $has_sub ) : ?>
+            <div class="halo-hero-fb__bar-sub"><?php echo halo_t( $sub ); ?></div>
+            <?php endif; ?>
+            <?php foreach ( [ [$s1v,$s1u,$s1l], [$s2v,$s2u,$s2l], [$s3v,$s3u,$s3l] ] as [$v,$u,$l] ) :
+                if ( $v === '' ) continue; ?>
+            <div class="halo-hero-fb__bar-stat">
+                <span class="halo-hero-fb__bar-label"><?php echo halo_t( $l ); ?></span>
+                <span class="halo-hero-fb__bar-value"><?php echo halo_t( $v ); ?><?php if ( $u ) : ?><span class="halo-hero-fb__bar-unit"><?php echo halo_t( $u ); ?></span><?php endif; ?></span>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
+}
+
 function halo_s_hero_split( array $r, bool $compact ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'dark' );
     ?>
@@ -103,35 +130,19 @@ function halo_s_hero_split( array $r, bool $compact ): void {
                     <?php echo halo_btn( $r['cta1_label'] ?? '', $r['cta1_url'] ?? '', 'primary' ); ?>
                     <?php echo halo_btn( $r['cta2_label'] ?? '', $r['cta2_url'] ?? '', 'outline' ); ?>
                 </div>
-                <?php
-                $s1v = $r['stat1_value'] ?? ''; $s2v = $r['stat2_value'] ?? ''; $s3v = $r['stat3_value'] ?? '';
-                if ( $s1v !== '' || $s2v !== '' || $s3v !== '' ) : ?>
-                <div class="halo-hero__stats">
-                    <?php foreach ( [ ['stat1_value','stat1_unit','stat1_label'], ['stat2_value','stat2_unit','stat2_label'], ['stat3_value','stat3_unit','stat3_label'] ] as [$vk,$uk,$lk] ) :
-                        if ( ( $r[$vk] ?? '' ) === '' ) continue; ?>
-                        <div class="halo-hero__stat">
-                            <span class="halo-hero__stat-value"><?php echo halo_t( $r[$vk] ); ?><?php if ( ! empty( $r[$uk] ) ) : ?><span class="halo-hero__stat-unit"><?php echo halo_t( $r[$uk] ); ?></span><?php endif; ?></span>
-                            <span class="halo-hero__stat-label"><?php echo halo_t( $r[$lk] ?? '' ); ?></span>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
             </div>
             <?php if ( ! $compact ) : echo halo_img( $r['image'] ?? [], 'halo-hero__image', false ); endif; ?>
         </div>
     </section>
+    <?php halo_s_hero_bar( $r, $tone, false ); ?>
     <?php
 }
 
 /* Full-bleed hero — photo background + gradient + headline at bottom + support bar */
 function halo_s_hero_fullbleed( array $r ): void {
-    $img  = $r['image'] ?? [];
+    $img     = $r['image'] ?? [];
     $img_url = is_array( $img ) ? ( $img['url'] ?? '' ) : '';
-    $tone = halo_tone_class( $r['tone'] ?? 'dark' );
-    $s1v  = $r['stat1_value'] ?? ''; $s1u = $r['stat1_unit'] ?? ''; $s1l = $r['stat1_label'] ?? '';
-    $s2v  = $r['stat2_value'] ?? ''; $s2u = $r['stat2_unit'] ?? ''; $s2l = $r['stat2_label'] ?? '';
-    $s3v  = $r['stat3_value'] ?? ''; $s3u = $r['stat3_unit'] ?? ''; $s3l = $r['stat3_label'] ?? '';
-    $has_bar = $s1v !== '' || $s2v !== '' || $s3v !== '' || ! empty( $r['sub'] );
+    $tone    = halo_tone_class( $r['tone'] ?? 'dark' );
     ?>
     <section class="halo-hero-fb <?php echo esc_attr( $tone ); ?>">
         <?php if ( $img_url ) : ?>
@@ -151,22 +162,7 @@ function halo_s_hero_fullbleed( array $r ): void {
         </div>
     </section>
 
-    <?php if ( $has_bar ) : ?>
-    <div class="halo-hero-fb__bar <?php echo esc_attr( $tone ); ?>">
-        <div class="halo-inner halo-hero-fb__bar-inner">
-            <?php if ( ! empty( $r['sub'] ) ) : ?>
-            <div class="halo-hero-fb__bar-sub"><?php echo halo_t( $r['sub'] ); ?></div>
-            <?php endif; ?>
-            <?php foreach ( [ [$s1v,$s1u,$s1l], [$s2v,$s2u,$s2l], [$s3v,$s3u,$s3l] ] as [$v,$u,$l] ) :
-                if ( $v === '' ) continue; ?>
-            <div class="halo-hero-fb__bar-stat">
-                <span class="halo-hero-fb__bar-label"><?php echo halo_t( $l ); ?></span>
-                <span class="halo-hero-fb__bar-value"><?php echo halo_t( $v ); ?><?php if ( $u ) : ?><span class="halo-hero-fb__bar-unit"><?php echo halo_t( $u ); ?></span><?php endif; ?></span>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-    <?php endif; ?>
+    <?php halo_s_hero_bar( $r, $tone, true ); // include sub-copy for fullbleed ?>
     <?php
 }
 

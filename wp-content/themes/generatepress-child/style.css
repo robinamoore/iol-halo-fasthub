@@ -361,6 +361,16 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 2.5rem;
   padding-bottom: 3rem;
 }
+/* Split/compact hero bar — no sub-copy column, equal 3-col grid */
+.halo-hero-fb__bar--stats-only .halo-hero-fb__bar-inner {
+  grid-template-columns: repeat(3, 1fr);
+}
+.halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat {
+  border-left: none;
+  padding-left: 0;
+  border-top: 2px solid var(--accent);
+  padding-top: 1.25rem;
+}
 .halo-hero-fb__bar-sub {
   font-size: 1.125rem;
   line-height: 1.45;
