@@ -349,7 +349,7 @@ h1, h2, h3, h4, h5, h6 {
   border-top-color: rgba(255,255,255,0.12);
 }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-sub   { color: rgba(255,255,255,0.78); }
-.halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-stat  { border-top-color: rgba(255,255,255,0.3); }
+.halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-stat  { border-left-color: rgba(255,255,255,0.18); }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-label { color: rgba(255,255,255,0.5); }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-unit  { color: rgba(255,255,255,0.55); }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-value { color: var(--base-3); }
@@ -366,10 +366,8 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: repeat(3, 1fr);
 }
 .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat {
-  border-left: none;
-  padding-left: 0;
-  border-top: 2px solid var(--accent);
-  padding-top: 1.25rem;
+  border-left: 1px solid var(--contrast-3);
+  padding-left: 2rem;
 }
 .halo-hero-fb__bar-sub {
   font-size: 1.125rem;
@@ -378,8 +376,8 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 44ch;
 }
 .halo-hero-fb__bar-stat {
-  border-top: 2px solid var(--accent);
-  padding-top: 1.25rem;
+  border-left: 1px solid var(--contrast-3);
+  padding-left: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
