@@ -456,9 +456,10 @@ h1, h2, h3, h4, h5, h6 {
 .halo-section-intro:not(.halo-section-intro--left) .halo-section-intro__sub { margin-inline: auto; }
 
 /* ── Shared heading size classes (all blocks) ─────────────────── */
-[class$="__heading--large"]  { font-size: clamp(3rem, 8vw, 7rem);          font-weight: 500; letter-spacing: -0.026em; line-height: 1.02; margin: 0 0 1.25rem; max-width: 16ch; }
-[class$="__heading--medium"] { font-size: clamp(2.5rem, 5.5vw, 5.5rem);   font-weight: 500; letter-spacing: -0.022em; line-height: 1.04; margin: 0 0 1.25rem; max-width: 18ch; }
+[class$="__heading--large"]  { font-size: clamp(3rem, 8vw, 7rem);           font-weight: 500; letter-spacing: -0.026em; line-height: 1.02; margin: 0 0 1.25rem; max-width: 16ch; }
+[class$="__heading--medium"] { font-size: clamp(2.5rem, 5.5vw, 5.5rem);    font-weight: 500; letter-spacing: -0.022em; line-height: 1.04; margin: 0 0 1.25rem; max-width: 18ch; }
 [class$="__heading--small"]  { font-size: clamp(2.25rem, 3.75vw, 3.75rem); font-weight: 500; letter-spacing: -0.018em; line-height: 1.06; margin: 0 0 1.25rem; max-width: 24ch; }
+[class$="__heading--xsmall"] { font-size: clamp(1.75rem, 3vw, 2.5rem);     font-weight: 500; letter-spacing: -0.014em; line-height: 1.08; margin: 0 0 1.25rem; max-width: 32ch; }
 
 /* ── 04 · Column Layout ───────────────────────────────────────── */
 .halo-columns { padding: 20px 0 var(--pad-y); }

@@ -111,7 +111,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_cta_eyebrow',    'name'=>'eyebrow',    'label'=>'Eyebrow (optional)', 'type'=>'text', 'placeholder'=>'Enquire' ],
                             [ 'key'=>'field_halo_cta_title',      'name'=>'title',      'label'=>'Heading', 'type'=>'textarea', 'rows'=>2, 'required'=>1, 'placeholder'=>'Ready to power your fleet?' ],
                             [ 'key'=>'field_halo_cta_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'large' ],
+                              'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'large' ],
                             [ 'key'=>'field_halo_cta_sub',        'name'=>'sub',        'label'=>'Subline', 'type'=>'textarea', 'rows'=>2 ],
                             [ 'key'=>'field_halo_cta_btn1_label', 'name'=>'btn1_label', 'label'=>'Button 1 label', 'type'=>'text', 'placeholder'=>'Make an enquiry' ],
                             [ 'key'=>'field_halo_cta_btn1_url',   'name'=>'btn1_url',   'label'=>'Button 1 URL',   'type'=>'text' ],
@@ -130,7 +130,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_si_align',   'name'=>'align',   'label'=>'Alignment',  'type'=>'select', 'choices'=>['center'=>'Centre','left'=>'Left'], 'default_value'=>'center' ],
                             [ 'key'=>'field_halo_si_eyebrow',      'name'=>'eyebrow',       'label'=>'Eyebrow',       'type'=>'text' ],
                             [ 'key'=>'field_halo_si_heading',      'name'=>'heading',       'label'=>'Heading',       'type'=>'textarea', 'rows'=>3, 'required'=>1 ],
-                            [ 'key'=>'field_halo_si_heading_size', 'name'=>'heading_size',  'label'=>'Heading size',  'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_si_heading_size', 'name'=>'heading_size',  'label'=>'Heading size',  'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [ 'key'=>'field_halo_si_sub',          'name'=>'sub',           'label'=>'Sub text',      'type'=>'textarea', 'rows'=>3 ],
                         ],
                     ],
@@ -142,10 +142,9 @@ function halo_register_field_group(): void {
                         'label'      => '04 · Column Layout',
                         'sub_fields' => [
                             [ 'key'=>'field_halo_cl_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
-                            [ 'key'=>'field_halo_cl_cols',    'name'=>'cols',    'label'=>'Columns',    'type'=>'select', 'choices'=>['2'=>'2','3'=>'3','4'=>'4'], 'default_value'=>'3', 'instructions'=>'Columns on desktop. Always stacks to 1 on mobile.' ],
                             [ 'key'=>'field_halo_cl_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_cl_heading', 'name'=>'heading', 'label'=>'Heading (optional)', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_halo_cl_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_cl_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [
                                 'key'          => 'field_halo_cl_items',
                                 'name'         => 'items',
@@ -174,7 +173,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_sg_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'warm' ],
                             [ 'key'=>'field_halo_sg_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_sg_heading', 'name'=>'heading', 'label'=>'Heading (optional)', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_halo_sg_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_sg_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [
                                 'key'          => 'field_halo_sg_stats',
                                 'name'         => 'stats',
@@ -201,7 +200,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_sr_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
                             [ 'key'=>'field_halo_sr_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_sr_heading', 'name'=>'heading', 'label'=>'Heading (optional)', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_halo_sr_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_sr_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [
                                 'key'          => 'field_halo_sr_rows',
                                 'name'         => 'rows',
@@ -240,7 +239,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_st_tone',         'name'=>'tone',         'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
                             [ 'key'=>'field_halo_st_eyebrow',      'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_st_heading',      'name'=>'heading',      'label'=>'Heading (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_halo_st_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_st_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [ 'key'=>'field_halo_st_use_defaults', 'name'=>'use_defaults', 'label'=>'Use HALO FastHub default spec', 'type'=>'true_false', 'ui'=>1, 'default_value'=>1, 'instructions'=>'Pre-fills with standard HALO FastHub specifications. Untick to enter custom rows.' ],
                             [
                                 'key'               => 'field_halo_st_rows',
@@ -268,7 +267,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_ac_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
                             [ 'key'=>'field_halo_ac_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_ac_heading', 'name'=>'heading', 'label'=>'Heading (optional)', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_halo_ac_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_ac_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [
                                 'key'          => 'field_halo_ac_items',
                                 'name'         => 'items',
@@ -293,7 +292,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_tl_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
                             [ 'key'=>'field_halo_tl_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_tl_heading', 'name'=>'heading', 'label'=>'Heading',           'type'=>'text', 'required'=>1 ],
-                            [ 'key'=>'field_halo_tl_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_tl_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [
                                 'key'          => 'field_halo_tl_steps',
                                 'name'         => 'steps',
@@ -400,7 +399,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_csg_tone',         'name'=>'tone',         'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
                             [ 'key'=>'field_halo_csg_eyebrow',      'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_csg_heading',      'name'=>'heading',      'label'=>'Heading (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_halo_csg_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_csg_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [ 'key'=>'field_halo_csg_show_filters', 'name'=>'show_filters', 'label'=>'Show sector filter pills', 'type'=>'true_false', 'ui'=>1, 'default_value'=>1 ],
                             [ 'key'=>'field_halo_csg_limit',        'name'=>'limit',        'label'=>'Posts to show', 'type'=>'number', 'default_value'=>6, 'min'=>3, 'max'=>12 ],
                         ],
@@ -426,7 +425,7 @@ function halo_register_field_group(): void {
                         'sub_fields' => [
                             [ 'key'=>'field_halo_rel_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow', 'type'=>'text', 'placeholder'=>'Case studies' ],
                             [ 'key'=>'field_halo_rel_heading', 'name'=>'heading', 'label'=>'Heading', 'type'=>'textarea', 'rows'=>2, 'placeholder'=>'See it in action' ],
-                            [ 'key'=>'field_halo_rel_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_rel_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [ 'key'=>'field_halo_rel_items',   'name'=>'items',   'label'=>'Pick case studies (leave blank for latest 3)', 'type'=>'relationship', 'post_type'=>['iol_case_study'], 'max'=>3, 'return_format'=>'post_object' ],
                         ],
                     ],
@@ -449,7 +448,7 @@ function halo_register_field_group(): void {
                         'sub_fields' => [
                             [ 'key'=>'field_halo_ef_tone',    'name'=>'tone',    'label'=>'Background',  'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
                             [ 'key'=>'field_halo_ef_heading', 'name'=>'heading', 'label'=>'Heading',     'type'=>'text', 'default_value'=>'Tell us about your site.' ],
-                            [ 'key'=>'field_halo_ef_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_ef_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [ 'key'=>'field_halo_ef_sub',     'name'=>'sub',     'label'=>'Sub text',    'type'=>'textarea', 'rows'=>2 ],
                         ],
                     ],
@@ -488,7 +487,7 @@ function halo_register_field_group(): void {
                             [ 'key'=>'field_halo_cp_tone',    'name'=>'tone',    'label'=>'Background',  'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
                             [ 'key'=>'field_halo_cp_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_cp_heading', 'name'=>'heading', 'label'=>'Heading',     'type'=>'text' ],
-                            [ 'key'=>'field_halo_cp_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small'], 'default_value'=>'medium' ],
+                            [ 'key'=>'field_halo_cp_heading_size', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select', 'choices'=>['large'=>'Large','medium'=>'Medium','small'=>'Small','xsmall'=>'X-Small'], 'default_value'=>'medium' ],
                             [
                                 'key'         => 'field_halo_cp_source',
                                 'name'        => 'source',
