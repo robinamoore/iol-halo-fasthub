@@ -24,7 +24,7 @@ add_filter( 'generate_logo_output', function ( $html ) {
     return sprintf(
         '<div class="site-logo">
             <a href="%s" rel="home" aria-label="HALO FastHub — home">
-                <img src="%s" alt="HALO FastHub" class="halo-logo" width="300" height="100">
+                <img src="%s" alt="HALO FastHub" class="halo-logo" width="800" height="200">
             </a>
         </div>',
         esc_url( home_url( '/' ) ),
