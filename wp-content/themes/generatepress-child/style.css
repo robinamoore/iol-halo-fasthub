@@ -501,7 +501,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-tone-dark .halo-col-item__title { color: var(--base-3); }
 .halo-tone-dark .halo-col-item__body  { color: rgba(255,255,255,0.7); }
 /* Push button to bottom so all buttons align across columns */
-.halo-col-item .halo-btn { margin-top: auto; padding-top: 1.25rem; align-self: flex-start; }
+.halo-col-item .halo-btn { margin-top: auto; align-self: flex-start; }
 
 /* ── 05 · Stat Grid ───────────────────────────────────────────── */
 /* White cards floating on the section background — per design spec */
