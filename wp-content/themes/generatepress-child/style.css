@@ -95,11 +95,11 @@
 /* GP applies margin-bottom:20px to .site-main>* — zero it for our sections */
 .halo-section { width: 100%; box-sizing: border-box; margin: 0; }
 
-/* No double-padding between adjacent sections */
-.halo-section + .halo-section { padding-top: 0; }
+/* Adjacent sections: no external gap, 20px internal breathing room */
+.halo-section + .halo-section { padding-top: 20px; }
 
-/* Hero stat bar is not .halo-section — zero gap into the next block */
-.halo-hero-fb__bar + .halo-section { padding-top: 0; }
+/* Hero stat bar is not .halo-section — same 20px breathing room */
+.halo-hero-fb__bar + .halo-section { padding-top: 20px; }
 .halo-hero-fb__bar { margin-bottom: 0; }
 .halo-inner   {
   max-width: var(--container);
@@ -175,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero {
   background: var(--contrast);
   color: var(--base-3);
-  padding: var(--pad-y) 0;
+  padding: 20px 0 var(--pad-y);
   position: relative;
   overflow: hidden;
 }
@@ -365,7 +365,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── 02 · CTA Band ────────────────────────────────────────────── */
 .halo-cta-band {
   background: var(--contrast);
-  padding: var(--pad-y) 0;
+  padding: 20px 0 var(--pad-y);
   text-align: center;
 }
 .halo-cta-band__title {
@@ -385,7 +385,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-cta-band__ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
 /* ── 03 · Section Intro ───────────────────────────────────────── */
-.halo-section-intro { padding: var(--pad-y) 0 calc(var(--pad-y) * 0.5); }
+.halo-section-intro { padding: 20px 0 calc(var(--pad-y) * 0.5); }
 .halo-section-intro--left { text-align: left; }
 .halo-section-intro:not(.halo-section-intro--left) { text-align: center; }
 .halo-section-intro__heading {
@@ -408,7 +408,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-section-intro:not(.halo-section-intro--left) .halo-section-intro__sub { margin-inline: auto; }
 
 /* ── 04 · Column Layout ───────────────────────────────────────── */
-.halo-columns { padding: var(--pad-y) 0; }
+.halo-columns { padding: 20px 0 var(--pad-y); }
 .halo-columns__grid {
   display: grid;
   gap: 2rem;
@@ -436,7 +436,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── 05 · Stat Grid ───────────────────────────────────────────── */
 /* White cards floating on the section background — per design spec */
-.halo-stats { padding: var(--pad-y) 0; }
+.halo-stats { padding: 20px 0 var(--pad-y); }
 .halo-stats__grid {
   display: grid;
   gap: 1rem;
@@ -476,7 +476,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-stat-note { font-size: 0.8125rem; color: var(--contrast-2); margin-top: 0.25rem; }
 
 /* ── 06 · Story Rows ──────────────────────────────────────────── */
-.halo-story-rows { padding: var(--pad-y) 0; }
+.halo-story-rows { padding: 20px 0 var(--pad-y); }
 .halo-story-rows__header { margin-bottom: 4rem; }
 .halo-story-row {
   display: grid;
@@ -519,7 +519,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-story-row__image img { width:100%; height:100%; min-height:360px; object-fit:cover; display:block; }
 
 /* ── 07 · Pull Quote ──────────────────────────────────────────── */
-.halo-pull-quote { padding: var(--pad-y) 0; }
+.halo-pull-quote { padding: 20px 0 var(--pad-y); }
 .halo-pull-quote .halo-inner { display: flex; flex-direction: column; max-width: 860px; }
 .halo-pull-quote__rule {
   width: 32px;
@@ -544,7 +544,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-tone-dark .halo-pull-quote__attribution { color: rgba(255,255,255,0.6); }
 
 /* ── 08 · Spec Table ──────────────────────────────────────────── */
-.halo-spec-table { padding: var(--pad-y) 0; }
+.halo-spec-table { padding: 20px 0 var(--pad-y); }
 .halo-spec-table__intro { margin-bottom: 3rem; }
 .halo-spec-table__grid {
   display: grid;
@@ -575,7 +575,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-spec-row:nth-child(even):not(.halo-spec-row--header) > div { background: var(--base-2); }
 
 /* ── 09 · Accordion ───────────────────────────────────────────── */
-.halo-accordion { padding: var(--pad-y) 0; }
+.halo-accordion { padding: 20px 0 var(--pad-y); }
 .halo-accordion__intro { margin-bottom: 3rem; }
 .halo-accordion__item {
   border-top: 1px solid var(--contrast-3);
@@ -610,7 +610,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── 10 · Timeline ────────────────────────────────────────────── */
-.halo-timeline { padding: var(--pad-y) 0; }
+.halo-timeline { padding: 20px 0 var(--pad-y); }
 .halo-timeline__intro { margin-bottom: 3.5rem; }
 .halo-timeline__steps {
   display: grid;
@@ -661,7 +661,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-logo-strip__logo img:hover { opacity: 1; filter: none; }
 
 /* ── 12 · Big Headline ────────────────────────────────────────── */
-.halo-big-headline { padding: var(--pad-y) 0; }
+.halo-big-headline { padding: 20px 0 var(--pad-y); }
 .halo-big-headline__eyebrow { margin-bottom: 2.5rem; }
 .halo-big-headline__items { border-top: 1px solid var(--contrast-3); }
 .halo-big-headline__item {
@@ -698,7 +698,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-big-headline__item:hover .halo-big-headline__arrow { opacity: 1; }
 
 /* ── 13 · Certifications ──────────────────────────────────────── */
-.halo-certs { padding: var(--pad-y) 0; }
+.halo-certs { padding: 20px 0 var(--pad-y); }
 .halo-certs__intro { margin-bottom: 3rem; }
 .halo-certs__grid { display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: flex-start; }
 .halo-cert-item { max-width: 180px; }
@@ -709,7 +709,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-certs__notes p { font-size: 0.8125rem; color: var(--contrast-2); margin: 0 0 0.4rem; }
 
 /* ── 14 · Case Study Grid ─────────────────────────────────────── */
-.halo-cs-grid { padding: var(--pad-y) 0; }
+.halo-cs-grid { padding: 20px 0 var(--pad-y); }
 .halo-cs-grid__filters { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
 
 /* Filter pills — white with lightgrey border → black when active. Never orange. */
@@ -752,7 +752,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-cs-card__stat-label { font-size: 0.8125rem; color: var(--contrast-2); line-height: 1.3; }
 
 /* ── 15 · News Archive ────────────────────────────────────────── */
-.halo-news-archive { padding: var(--pad-y) 0; }
+.halo-news-archive { padding: 20px 0 var(--pad-y); }
 .halo-news-archive__filters { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .halo-news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
 
@@ -786,12 +786,12 @@ h1, h2, h3, h4, h5, h6 {
 .halo-news-card__arrow { font-size: 0.875rem; color: var(--accent); }
 
 /* ── 16 · Related Case Studies ────────────────────────────────── */
-.halo-related { padding: var(--pad-y) 0; }
+.halo-related { padding: 20px 0 var(--pad-y); }
 .halo-related__intro { margin-bottom: 2.5rem; }
 .halo-related__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
 
 /* ── 17 · Article Body ────────────────────────────────────────── */
-.halo-article-body { padding: var(--pad-y) 0; }
+.halo-article-body { padding: 20px 0 var(--pad-y); }
 .halo-article-body__inner { max-width: 680px; }
 .halo-article-body__content { font-size: 1.125rem; font-weight: 400; line-height: 1.7; }
 .halo-article-body__content h2 { font-size: 1.875rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1.15; margin: 2.5rem 0 1rem; }
@@ -814,7 +814,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── 18 · Enquiry Form ────────────────────────────────────────── */
 /* GP owns all form visual styling (colours, borders, focus, button).
    This block is layout only. */
-.halo-enquiry-form { padding: var(--pad-y) 0; }
+.halo-enquiry-form { padding: 20px 0 var(--pad-y); }
 .halo-enquiry-form__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
 .halo-enquiry-form__intro h2 {
   font-size: clamp(1.5rem, 2.5vw, 2.5rem);
@@ -869,7 +869,7 @@ h1, h2, h3, h4, h5, h6 {
 .wpcf7-mail-sent-ng    { background: #fdecea; border: 1px solid #ef9a9a; }
 
 /* ── 19 · Location ────────────────────────────────────────────── */
-.halo-location { padding: var(--pad-y) 0; }
+.halo-location { padding: 20px 0 var(--pad-y); }
 .halo-location__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .halo-location__details { display: flex; flex-direction: column; gap: 1.5rem; }
 .halo-location__item { display: flex; flex-direction: column; gap: 0.2rem; }
@@ -888,7 +888,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-location__map iframe { width:100%; height:100%; border:none; }
 
 /* ── 20 · ROI Calculator placeholder ─────────────────────────── */
-.halo-roi { padding: var(--pad-y) 0; background: var(--base-2); text-align: center; }
+.halo-roi { padding: 20px 0 var(--pad-y); background: var(--base-2); text-align: center; }
 .halo-roi__label { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--contrast-2); margin-bottom: 1.5rem; }
 .halo-roi__title { font-size: clamp(1.75rem, 3vw, 2.75rem); font-weight: 500; letter-spacing: -0.018em; margin-bottom: 1rem; }
 .halo-roi__sub   { color: var(--contrast-2); font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; max-width: 52ch; margin-inline: auto; }
@@ -908,7 +908,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-team-card__bio  { font-size: 0.875rem; line-height: 1.55; margin: 0; max-width: 34ch; }
 
 /* ── 21 · Card Picker ─────────────────────────────────────────── */
-.halo-card-picker { padding: var(--pad-y) 0; }
+.halo-card-picker { padding: 20px 0 var(--pad-y); }
 .halo-card-picker__intro { margin-bottom: 3rem; }
 .halo-card-picker__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
 
