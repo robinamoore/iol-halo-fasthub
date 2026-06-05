@@ -343,10 +343,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Support bar — tone class drives background; defaults to off-white via halo-tone-* */
 .halo-hero-fb__bar {
-  border-top: 1px solid var(--contrast-3);
-}
-.halo-hero-fb__bar.halo-tone-dark {
-  border-top-color: rgba(255,255,255,0.12);
+  /* no full-width border — divider lives on the content-width inner */
 }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-sub   { color: rgba(255,255,255,0.78); }
 .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-stat  { border-left-color: rgba(255,255,255,0.18); }
@@ -360,7 +357,9 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   padding-top: 2.5rem;
   padding-bottom: 3rem;
+  border-top: 1px dotted var(--contrast-3);
 }
+.halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-inner { border-top-color: rgba(255,255,255,0.18); }
 /* Split/compact hero bar — no sub-copy column, equal 3-col grid */
 .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-inner {
   grid-template-columns: repeat(3, 1fr);
