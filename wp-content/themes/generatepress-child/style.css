@@ -586,13 +586,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-pull-quote { padding: 20px 0 var(--pad-y); }
 .halo-pull-quote .halo-inner { display: flex; flex-direction: column; max-width: 860px; }
 .halo-pull-quote .halo-eyebrow { margin-bottom: 1.5rem; }
-.halo-pull-quote__rule {
-  width: 48px;
-  height: 1px;
-  background: var(--accent);
-  margin-bottom: 2rem;
-  flex-shrink: 0;
-}
 .halo-pull-quote__text {
   font-size: clamp(1.75rem, 3vw, 2.625rem);
   font-weight: 500;
@@ -600,8 +593,8 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   margin: 0 0 1.5rem;
 }
-.halo-pull-quote__text::before { content: '\201C'; }
-.halo-pull-quote__text::after  { content: '\201D'; }
+.halo-pull-quote__text::before { content: '\201C'; font-size: 1.5em; line-height: 0; vertical-align: -0.35em; color: var(--contrast-3); margin-right: 0.08em; }
+.halo-pull-quote__text::after  { content: '\201D'; font-size: 1.5em; line-height: 0; vertical-align: -0.35em; color: var(--contrast-3); margin-left: 0.08em; }
 .halo-pull-quote__attribution {
   font-size: 0.875rem;
   letter-spacing: 0.02em;

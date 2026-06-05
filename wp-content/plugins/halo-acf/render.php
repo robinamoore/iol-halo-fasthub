@@ -310,7 +310,6 @@ function halo_s_pull_quote( array $r ): void {
     <section class="halo-pull-quote halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-            <div class="halo-pull-quote__rule" aria-hidden="true"></div>
             <p class="halo-pull-quote__text"><?php echo halo_t( $r['quote'] ?? '' ); ?></p>
             <?php if ( ! empty( $r['attribution'] ) ) : ?>
                 <p class="halo-pull-quote__attribution"><?php echo halo_t( $r['attribution'] ); ?></p>
