@@ -598,6 +598,7 @@ function halo_seed_layout_test( int $id ): void {
 
         /* 07 */ [
             'acf_fc_layout' => 'pull_quote',
+            'eyebrow'       => 'Case study',
             'quote'         => '07 · Pull Quote — FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy.',
             'attribution'   => 'Keith Dickinson · Director of Resources · Merseyside Police',
             'tone'          => 'dark',

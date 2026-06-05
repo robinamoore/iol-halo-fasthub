@@ -225,6 +225,7 @@ function halo_register_field_group(): void {
                         'label'      => '07 · Pull Quote',
                         'sub_fields' => [
                             [ 'key'=>'field_halo_pq_tone',        'name'=>'tone',        'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
+                            [ 'key'=>'field_halo_pq_eyebrow',     'name'=>'eyebrow',     'label'=>'Eyebrow (optional)', 'type'=>'text' ],
                             [ 'key'=>'field_halo_pq_quote',       'name'=>'quote',       'label'=>'Quote text', 'type'=>'textarea', 'required'=>1, 'rows'=>3, 'instructions'=>'Do not include quotation marks — they are added automatically.' ],
                             [ 'key'=>'field_halo_pq_attribution', 'name'=>'attribution', 'label'=>'Attribution', 'type'=>'text', 'placeholder'=>'Jane Smith, Fleet Manager, Acme Corp' ],
                         ],

@@ -585,20 +585,23 @@ h1, h2, h3, h4, h5, h6 {
 /* ── 07 · Pull Quote ──────────────────────────────────────────── */
 .halo-pull-quote { padding: 20px 0 var(--pad-y); }
 .halo-pull-quote .halo-inner { display: flex; flex-direction: column; max-width: 860px; }
+.halo-pull-quote .halo-eyebrow { margin-bottom: 1.5rem; }
 .halo-pull-quote__rule {
-  width: 32px;
+  width: 48px;
   height: 1px;
   background: var(--accent);
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
   flex-shrink: 0;
 }
 .halo-pull-quote__text {
-  font-size: clamp(1.5rem, 3vw, 2.125rem);
+  font-size: clamp(1.75rem, 3vw, 2.625rem);
   font-weight: 500;
-  letter-spacing: -0.012em;
-  line-height: 1.3;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
   margin: 0 0 1.5rem;
 }
+.halo-pull-quote__text::before { content: '\201C'; }
+.halo-pull-quote__text::after  { content: '\201D'; }
 .halo-pull-quote__attribution {
   font-size: 0.875rem;
   letter-spacing: 0.02em;
