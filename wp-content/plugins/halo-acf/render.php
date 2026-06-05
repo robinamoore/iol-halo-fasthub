@@ -211,6 +211,7 @@ function halo_s_section_intro( array $r ): void {
 
 function halo_s_columns( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $cols  = (int) ( $r['cols'] ?? 3 );
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
@@ -220,7 +221,7 @@ function halo_s_columns( array $r ): void {
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div style="margin-bottom:2.5rem">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-columns__heading halo-columns__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <div class="halo-columns__grid" data-cols="<?php echo esc_attr( $cols ); ?>">
@@ -243,6 +244,7 @@ function halo_s_columns( array $r ): void {
 
 function halo_s_stats( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'warm' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $stats = $r['stats'] ?? [];
     if ( ! $stats ) return;
     $count = count( $stats );
@@ -252,7 +254,7 @@ function halo_s_stats( array $r ): void {
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div style="margin-bottom:2rem;text-align:center">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-stats__heading halo-stats__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <div class="halo-stats__grid" data-count="<?php echo esc_attr( $count ); ?>">
@@ -273,6 +275,7 @@ function halo_s_stats( array $r ): void {
 
 function halo_s_story_rows( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'light' );
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $rows = $r['rows'] ?? [];
     if ( ! $rows ) return;
     ?>
@@ -281,7 +284,7 @@ function halo_s_story_rows( array $r ): void {
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-story-rows__header">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-story-rows__heading halo-story-rows__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <?php foreach ( $rows as $row ) : ?>
@@ -320,6 +323,7 @@ function halo_s_pull_quote( array $r ): void {
 
 function halo_s_spec_table( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
 
     $default_rows = [
         [ 'AC Power Output',         '7.4kW / 22kW',              'Per charge point' ],
@@ -349,7 +353,7 @@ function halo_s_spec_table( array $r ): void {
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-spec-table__intro">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.5rem,2.5vw,2.25rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-spec__heading halo-spec__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <div class="halo-spec-table__grid">
@@ -373,6 +377,7 @@ function halo_s_spec_table( array $r ): void {
 
 function halo_s_accordion( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     ?>
@@ -381,7 +386,7 @@ function halo_s_accordion( array $r ): void {
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-accordion__intro">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.5rem,2.5vw,2.25rem);margin-bottom:1.5rem"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 class="halo-accordion__heading halo-accordion__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <?php foreach ( $items as $i => $item ) : ?>
@@ -399,6 +404,7 @@ function halo_s_accordion( array $r ): void {
 
 function halo_s_timeline( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $steps = $r['steps'] ?? [];
     if ( ! $steps ) return;
     ?>
@@ -406,7 +412,7 @@ function halo_s_timeline( array $r ): void {
         <div class="halo-inner">
             <div class="halo-timeline__intro">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                <h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ?? '' ); ?></h2>
+                <h2 class="halo-timeline__heading halo-timeline__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ?? '' ); ?></h2>
             </div>
             <div class="halo-timeline__steps" style="--step-count:<?php echo count( $steps ); ?>">
                 <?php foreach ( $steps as $step ) : ?>
@@ -512,6 +518,7 @@ function halo_s_certifications( array $r ): void {
 
 function halo_s_cs_grid( array $r ): void {
     $tone         = halo_tone_class( $r['tone'] ?? 'light' );
+    $size         = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $show_filters = ! empty( $r['show_filters'] );
     $limit        = (int) ( $r['limit'] ?? 6 );
 
@@ -521,9 +528,9 @@ function halo_s_cs_grid( array $r ): void {
     <section class="halo-cs-grid halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
-                <div style="margin-bottom:2rem">
+                <div class="halo-cs-grid__intro">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-cs-grid__heading halo-cs-grid__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <?php if ( $sectors && ! is_wp_error( $sectors ) ) : ?>
@@ -621,6 +628,7 @@ function halo_s_news_archive( array $r ): void {
 /* ── 16 · Related Case Studies ───────────────────────────────── */
 
 function halo_s_related( array $r ): void {
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $items = $r['items'] ?? [];
     if ( ! $items ) {
         $q     = new WP_Query( [ 'post_type'=>'iol_case_study', 'posts_per_page'=>3, 'post_status'=>'publish' ] );
@@ -633,7 +641,7 @@ function halo_s_related( array $r ): void {
         <div class="halo-inner">
             <div class="halo-related__intro">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-related__heading halo-related__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
             </div>
             <div class="halo-related__grid">
                 <?php foreach ( $items as $item ) :
@@ -675,12 +683,13 @@ function halo_s_article_body( array $r ): void {
 
 function halo_s_enquiry_form( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     ?>
     <section class="halo-enquiry-form halo-section <?php echo esc_attr( $tone ); ?>" id="enquiry <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-enquiry-form__inner">
                 <div class="halo-enquiry-form__intro">
-                    <h2><?php echo halo_t( $r['heading'] ?? 'Tell us about your site.' ); ?></h2>
+                    <h2 class="halo-ef__heading halo-ef__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ?? 'Tell us about your site.' ); ?></h2>
                     <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-enquiry-form__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
                 </div>
                 <div class="halo-enquiry-form__cf7">
@@ -768,6 +777,7 @@ function halo_s_roi( array $r ): void {
 
 function halo_s_card_picker( array $r ): void {
     $tone   = halo_tone_class( $r['tone'] ?? 'offwhite' );
+    $size   = in_array( $r['heading_size'] ?? '', ['large','medium','small'], true ) ? $r['heading_size'] : 'medium';
     $source = $r['source'] ?? 'team';
 
     $items = match( $source ) {
@@ -783,7 +793,7 @@ function halo_s_card_picker( array $r ): void {
             <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
                 <div class="halo-card-picker__intro">
                     <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 style="font-size:clamp(1.75rem,3vw,2.5rem)"><?php echo halo_t( $r['heading'] ); ?></h2><?php endif; ?>
+                    <?php if ( ( $r['heading'] ?? '' ) !== '' ) : ?><h2 class="halo-cp__heading halo-cp__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
                 </div>
             <?php endif; ?>
             <div class="halo-card-picker__grid">

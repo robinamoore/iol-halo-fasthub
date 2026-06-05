@@ -455,6 +455,11 @@ h1, h2, h3, h4, h5, h6 {
 .halo-tone-dark .halo-section-intro__sub { color: rgba(255,255,255,0.7); }
 .halo-section-intro:not(.halo-section-intro--left) .halo-section-intro__sub { margin-inline: auto; }
 
+/* ── Shared heading size classes (all blocks) ─────────────────── */
+[class$="__heading--large"]  { font-size: clamp(3rem, 8vw, 7rem);          font-weight: 500; letter-spacing: -0.026em; line-height: 1.02; margin: 0 0 1.25rem; max-width: 16ch; }
+[class$="__heading--medium"] { font-size: clamp(2.5rem, 5.5vw, 5.5rem);   font-weight: 500; letter-spacing: -0.022em; line-height: 1.04; margin: 0 0 1.25rem; max-width: 18ch; }
+[class$="__heading--small"]  { font-size: clamp(2.25rem, 3.75vw, 3.75rem); font-weight: 500; letter-spacing: -0.018em; line-height: 1.06; margin: 0 0 1.25rem; max-width: 24ch; }
+
 /* ── 04 · Column Layout ───────────────────────────────────────── */
 .halo-columns { padding: 20px 0 var(--pad-y); }
 .halo-columns__grid {
@@ -865,9 +870,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-enquiry-form { padding: 20px 0 var(--pad-y); }
 .halo-enquiry-form__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
 .halo-enquiry-form__intro h2 {
-  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-  font-weight: 500;
-  letter-spacing: -0.018em;
   margin-bottom: 1rem;
 }
 .halo-enquiry-form__sub { font-size: 1rem; line-height: 1.6; color: var(--contrast-2); }
