@@ -547,7 +547,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-tone-dark .halo-story-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
 .halo-story-row:nth-child(even) .halo-story-row__image { order: -1; }
-.halo-story-row__content { padding: 0.25rem 1.5rem; }
+/* outer padding only — flips with the image order */
+.halo-story-row__content { padding: 0 1.5rem 0 0; }
+.halo-story-row:nth-child(even) .halo-story-row__content { padding: 0 0 0 1.5rem; }
 /* Step number — displayed large like "01", "02" */
 .halo-story-row__step {
   font-size: clamp(2.5rem, 4vw, 3.25rem);
@@ -559,9 +561,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-tone-dark .halo-story-row__step { color: var(--base-3); }
 .halo-story-row__title {
-  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.75rem, 2.5vw, 2.125rem);
   font-weight: 500;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.018em;
   margin: 0 0 1rem;
 }
 .halo-tone-dark .halo-story-row__title { color: var(--base-3); }
@@ -573,11 +575,11 @@ h1, h2, h3, h4, h5, h6 {
 .halo-tone-dark .halo-story-row__body { color: rgba(255,255,255,0.65); }
 .halo-story-row__image {
   background: var(--warm);
-  min-height: 320px;
+  height: 360px;
   overflow: hidden;
 }
 .halo-tone-dark .halo-story-row__image { background: rgba(255,255,255,0.06); }
-.halo-story-row__image img { width:100%; height:100%; min-height:320px; object-fit:cover; display:block; }
+.halo-story-row__image img { width:100%; height:100%; object-fit:cover; display:block; }
 
 /* ── 07 · Pull Quote ──────────────────────────────────────────── */
 .halo-pull-quote { padding: 20px 0 var(--pad-y); }
@@ -1236,6 +1238,8 @@ h1, h2, h3, h4, h5, h6 {
   .halo-hero__image              { display: none; }
   .halo-story-row                { grid-template-columns: 1fr; gap: 2rem; }
   .halo-story-row:nth-child(even) .halo-story-row__image { order: 0; }
+  .halo-story-row__content,
+  .halo-story-row:nth-child(even) .halo-story-row__content { padding: 0 0.75rem; }
   .halo-columns__grid            { grid-template-columns: 1fr !important; }
   .halo-stats__grid              { grid-template-columns: repeat(2,1fr) !important; }
   .halo-cs-grid__grid,
