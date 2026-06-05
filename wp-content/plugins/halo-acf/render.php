@@ -585,6 +585,7 @@ function halo_s_cs_grid( array $r ): void {
 
 function halo_s_news_archive( array $r ): void {
     $tone         = halo_tone_class( $r['tone'] ?? 'light' );
+    $size         = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $show_filters = ! empty( $r['show_filters'] );
     $limit        = (int) ( $r['limit'] ?? 9 );
 
@@ -593,6 +594,12 @@ function halo_s_news_archive( array $r ): void {
     ?>
     <section class="halo-news-archive halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
+            <?php if ( ! empty( $r['eyebrow'] ) || ! empty( $r['heading'] ) ) : ?>
+                <div class="halo-news-archive__header">
+                    <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
+                    <?php if ( ! empty( $r['heading'] ) ) : ?><h2 class="halo-news-archive__heading halo-news-archive__heading--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['heading'] ); ?></h2><?php endif; ?>
+                </div>
+            <?php endif; ?>
             <?php if ( $cats && ! is_wp_error( $cats ) ) : ?>
                 <div class="halo-news-archive__filters">
                     <button class="halo-filter-pill active" data-term="">All</button>

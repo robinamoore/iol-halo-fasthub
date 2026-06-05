@@ -405,9 +405,12 @@ function halo_register_field_group(): void {
                         'name'       => 'news_archive',
                         'label'      => '15 · News Archive',
                         'sub_fields' => [
-                            [ 'key'=>'field_halo_na_tone',         'name'=>'tone',         'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
+                            [ 'key'=>'field_halo_na_tone',         'name'=>'tone',         'label'=>'Background',          'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
+                            [ 'key'=>'field_halo_na_eyebrow',      'name'=>'eyebrow',      'label'=>'Eyebrow (optional)',   'type'=>'text' ],
+                            [ 'key'=>'field_halo_na_heading',      'name'=>'heading',      'label'=>'Heading (optional)',   'type'=>'text' ],
+                            [ 'key'=>'field_halo_na_heading_size', 'name'=>'heading_size', 'label'=>'Heading size',         'type'=>'select', 'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'small' ],
                             [ 'key'=>'field_halo_na_show_filters', 'name'=>'show_filters', 'label'=>'Show category filter pills', 'type'=>'true_false', 'ui'=>1, 'default_value'=>1 ],
-                            [ 'key'=>'field_halo_na_limit',        'name'=>'limit',        'label'=>'Posts to show', 'type'=>'number', 'default_value'=>9, 'min'=>3, 'max'=>24 ],
+                            [ 'key'=>'field_halo_na_limit',        'name'=>'limit',        'label'=>'Posts to show',        'type'=>'number', 'default_value'=>9, 'min'=>3, 'max'=>24 ],
                         ],
                     ],
 

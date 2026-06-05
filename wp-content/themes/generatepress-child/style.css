@@ -821,6 +821,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── 15 · News Archive ────────────────────────────────────────── */
 .halo-news-archive { padding: 20px 0 var(--pad-y); }
+.halo-news-archive__header { margin-bottom: 2.5rem; }
 .halo-news-archive__filters { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .halo-news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
 
