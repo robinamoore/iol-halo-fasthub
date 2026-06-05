@@ -98,9 +98,12 @@
 /* Adjacent sections: no external gap, 20px internal breathing room */
 .halo-section + .halo-section { padding-top: 20px; }
 
-/* Hero stat bar is not .halo-section — same 20px breathing room */
+/* Fullbleed hero elements aren't .halo-section — zero GP's margin on them too */
+.halo-hero-fb,
+.halo-hero-fb__bar { margin: 0; }
+
+/* Hero stat bar into next section — same 20px breathing room */
 .halo-hero-fb__bar + .halo-section { padding-top: 20px; }
-.halo-hero-fb__bar { margin-bottom: 0; }
 .halo-inner   {
   max-width: var(--container);
   margin: 0 auto;
