@@ -98,6 +98,11 @@
 /* Adjacent sections: no external gap, 20px internal breathing room */
 .halo-section + .halo-section { padding-top: 20px; }
 
+/* Hero sections always get full pad-y top — overrides adjacent-sibling 20px */
+.halo-hero.halo-section,
+.halo-section + .halo-hero.halo-section,
+.halo-hero-fb__bar + .halo-hero.halo-section { padding-top: var(--pad-y); }
+
 /* Fullbleed hero elements aren't .halo-section — zero GP's margin on them too */
 .halo-hero-fb,
 .halo-hero-fb__bar { margin: 0; }
@@ -178,7 +183,7 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero {
   background: var(--contrast);
   color: var(--base-3);
-  padding: 20px 0 var(--pad-y);
+  padding: var(--pad-y) 0;
   position: relative;
   overflow: hidden;
 }
