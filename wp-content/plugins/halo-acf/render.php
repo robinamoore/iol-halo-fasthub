@@ -69,7 +69,20 @@ function halo_render_sections( int $post_id ): void {
 /* ── 01 · Page Hero ──────────────────────────────────────────── */
 
 function halo_s_hero( array $r ): void {
-    $compact = ! empty( $r['compact'] );
+    // Resolve style — new 'style' field takes precedence, legacy 'compact' as fallback
+    $style = $r['style'] ?? ( ! empty( $r['compact'] ) ? 'compact' : 'split' );
+
+    if ( $style === 'fullbleed' ) {
+        halo_s_hero_fullbleed( $r );
+    } elseif ( $style === 'compact' ) {
+        halo_s_hero_split( $r, true );
+    } else {
+        halo_s_hero_split( $r, false );
+    }
+}
+
+/* Split hero — headline left, optional image panel right */
+function halo_s_hero_split( array $r, bool $compact ): void {
     ?>
     <section class="halo-hero halo-section<?php echo $compact ? ' halo-hero--compact' : ''; ?>">
         <div class="halo-inner halo-hero__inner">
@@ -83,12 +96,10 @@ function halo_s_hero( array $r ): void {
                 </div>
                 <?php
                 $s1v = $r['stat1_value'] ?? ''; $s2v = $r['stat2_value'] ?? ''; $s3v = $r['stat3_value'] ?? '';
-                if ( $s1v || $s2v || $s3v ) :
-                ?>
+                if ( $s1v || $s2v || $s3v ) : ?>
                 <div class="halo-hero__stats">
                     <?php foreach ( [ ['stat1_value','stat1_label'], ['stat2_value','stat2_label'], ['stat3_value','stat3_label'] ] as [$vk,$lk] ) :
-                        if ( empty( $r[$vk] ) ) continue;
-                    ?>
+                        if ( empty( $r[$vk] ) ) continue; ?>
                         <div class="halo-hero__stat">
                             <span class="halo-hero__stat-value"><?php echo halo_t( $r[$vk] ); ?></span>
                             <span class="halo-hero__stat-label"><?php echo halo_t( $r[$lk] ?? '' ); ?></span>
@@ -100,6 +111,52 @@ function halo_s_hero( array $r ): void {
             <?php if ( ! $compact ) : echo halo_img( $r['image'] ?? [], 'halo-hero__image', false ); endif; ?>
         </div>
     </section>
+    <?php
+}
+
+/* Full-bleed hero — photo background + gradient + headline at bottom + support bar */
+function halo_s_hero_fullbleed( array $r ): void {
+    $img  = $r['image'] ?? [];
+    $img_url = is_array( $img ) ? ( $img['url'] ?? '' ) : '';
+    $s1v  = $r['stat1_value'] ?? ''; $s1l = $r['stat1_label'] ?? '';
+    $s2v  = $r['stat2_value'] ?? ''; $s2l = $r['stat2_label'] ?? '';
+    $s3v  = $r['stat3_value'] ?? ''; $s3l = $r['stat3_label'] ?? '';
+    $has_bar = $s1v || $s2v || $s3v || ! empty( $r['sub'] );
+    ?>
+    <section class="halo-hero-fb">
+        <?php if ( $img_url ) : ?>
+        <div class="halo-hero-fb__bg" style="background-image:url('<?php echo esc_url( $img_url ); ?>')"></div>
+        <?php endif; ?>
+        <div class="halo-hero-fb__overlay"></div>
+
+        <div class="halo-hero-fb__content">
+            <div class="halo-inner">
+                <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
+                <h1 class="halo-hero-fb__title"><?php echo halo_t( $r['title'] ?? '' ); ?></h1>
+                <div class="halo-hero-fb__ctas">
+                    <?php echo halo_btn( $r['cta1_label'] ?? '', $r['cta1_url'] ?? '', 'primary' ); ?>
+                    <?php echo halo_btn( $r['cta2_label'] ?? '', $r['cta2_url'] ?? '', 'outline' ); ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <?php if ( $has_bar ) : ?>
+    <div class="halo-hero-fb__bar">
+        <div class="halo-inner halo-hero-fb__bar-inner">
+            <?php if ( ! empty( $r['sub'] ) ) : ?>
+            <div class="halo-hero-fb__bar-sub"><?php echo halo_t( $r['sub'] ); ?></div>
+            <?php endif; ?>
+            <?php foreach ( [ [$s1v,$s1l], [$s2v,$s2l], [$s3v,$s3l] ] as [$v,$l] ) :
+                if ( ! $v ) continue; ?>
+            <div class="halo-hero-fb__bar-stat">
+                <span class="halo-hero-fb__bar-label"><?php echo halo_t( $l ); ?></span>
+                <span class="halo-hero-fb__bar-value"><?php echo halo_t( $v ); ?></span>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
     <?php
 }
 
