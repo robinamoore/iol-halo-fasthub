@@ -256,7 +256,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .halo-hero-fb__bg {
   position: absolute;
@@ -264,22 +264,22 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
   background-position: center;
 }
-/* Gradient: heavier at top and bottom for legibility */
+/* Gradient: heavy at top for text legibility, fades to clear in middle */
 .halo-hero-fb__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.35) 45%,
-    rgba(0,0,0,0.78) 100%
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.45) 40%,
+    rgba(0,0,0,0.18) 100%
   );
   pointer-events: none;
 }
 .halo-hero-fb__content {
   position: relative;
   z-index: 2;
-  padding-bottom: 132px;
+  padding-top: 64px;
 }
 .halo-hero-fb__content .halo-eyebrow { color: rgba(255,255,255,0.65); }
 .halo-hero-fb__title {
