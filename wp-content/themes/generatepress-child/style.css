@@ -191,8 +191,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── 01 · Page Hero ───────────────────────────────────────────── */
 .halo-hero {
-  background: var(--contrast);
-  color: var(--base-3);
   padding: var(--pad-y) 0;
   position: relative;
   overflow: hidden;

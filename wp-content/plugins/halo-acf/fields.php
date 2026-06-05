@@ -60,6 +60,8 @@ function halo_register_field_group(): void {
                         'name'       => 'page_hero',
                         'label'      => '01 · Page Hero',
                         'sub_fields' => [
+                            [ 'key'=>'field_halo_hero_tone', 'name'=>'tone', 'label'=>'Background colour', 'type'=>'select',
+                              'choices'=>$tone_choices, 'default_value'=>'dark' ],
                             [
                                 'key'           => 'field_halo_hero_style',
                                 'name'          => 'style',

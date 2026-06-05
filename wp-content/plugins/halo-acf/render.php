@@ -91,8 +91,9 @@ function halo_s_hero( array $r ): void {
 
 /* Split hero — headline left, optional image panel right */
 function halo_s_hero_split( array $r, bool $compact ): void {
+    $tone = halo_tone_class( $r['tone'] ?? 'dark' );
     ?>
-    <section class="halo-hero halo-section<?php echo $compact ? ' halo-hero--compact' : ''; ?> <?php echo halo_pad_classes( $r ); ?>">
+    <section class="halo-hero halo-section <?php echo esc_attr( $tone ); ?><?php echo $compact ? ' halo-hero--compact' : ''; ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner halo-hero__inner">
             <div class="halo-hero__content">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
