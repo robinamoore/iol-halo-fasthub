@@ -364,14 +364,6 @@ h1, h2, h3, h4, h5, h6 {
 .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-inner {
   grid-template-columns: repeat(3, 1fr);
 }
-.halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat {
-  border-left: 1px solid var(--contrast-3);
-  padding-left: 2rem;
-}
-.halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat:first-child {
-  border-left: none;
-  padding-left: 0;
-}
 .halo-hero-fb__bar-sub {
   font-size: 1.125rem;
   line-height: 1.45;
@@ -410,15 +402,9 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .halo-hero-fb { height: 560px; }
   .halo-hero-fb__content { padding-bottom: 4rem; }
-  .halo-hero-fb__bar-inner,
-  .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-inner {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
+  .halo-hero-fb__bar-inner { grid-template-columns: 1fr; gap: 0; }
   .halo-hero-fb__bar-sub { margin-bottom: 1.5rem; }
-  .halo-hero-fb__bar-stat,
-  .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--contrast-3); padding-top: 1.25rem; padding-bottom: 1.25rem; }
-  .halo-hero-fb__bar--stats-only .halo-hero-fb__bar-stat:first-child { border-top: none; padding-top: 0.75rem; }
+  .halo-hero-fb__bar-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--contrast-3); padding-top: 1.25rem; padding-bottom: 1.25rem; }
   .halo-hero-fb__bar.halo-tone-dark .halo-hero-fb__bar-stat { border-top-color: rgba(255,255,255,0.12); }
 }
 
