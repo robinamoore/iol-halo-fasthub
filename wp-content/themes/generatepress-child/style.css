@@ -482,6 +482,10 @@ h1, h2, h3, h4, h5, h6 {
 .halo-columns__grid[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
 .halo-columns__grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
 .halo-columns__grid[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
+.halo-col-item {
+  display: flex;
+  flex-direction: column;
+}
 .halo-col-item__image img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:4px; margin-bottom:1.25rem; }
 .halo-col-item__title {
   font-size: 1.25rem;
@@ -496,7 +500,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .halo-tone-dark .halo-col-item__title { color: var(--base-3); }
 .halo-tone-dark .halo-col-item__body  { color: rgba(255,255,255,0.7); }
-.halo-col-item .halo-btn { margin-top: 1.25rem; }
+/* Push button to bottom so all buttons align across columns */
+.halo-col-item .halo-btn { margin-top: auto; padding-top: 1.25rem; align-self: flex-start; }
 
 /* ── 05 · Stat Grid ───────────────────────────────────────────── */
 /* White cards floating on the section background — per design spec */
