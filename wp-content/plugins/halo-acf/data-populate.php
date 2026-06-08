@@ -272,7 +272,10 @@ function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
 
 /* ── TECHNICAL DEEP DIVE ─────────────────────────────────────────── */
 
-function halo_seed_technical( int $id ): void {
+function halo_seed_technical( int $id, int $spec_table_id = 0 ): void {
+    if ( ! $spec_table_id ) {
+        $spec_table_id = (int) ( get_posts( [ 'post_type' => 'halo_spec_table', 'posts_per_page' => 1, 'fields' => 'ids' ] )[0] ?? 0 );
+    }
     if ( get_field( 'page_sections', $id ) ) return;
     update_field( 'page_sections', [
         [

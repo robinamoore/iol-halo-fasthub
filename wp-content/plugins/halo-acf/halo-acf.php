@@ -142,6 +142,32 @@ add_action( 'admin_init', function () {
         wp_die( '<style>body{font-family:sans-serif;padding:2rem}</style><h2>✓ CPTs seeded.</h2><p>Case studies, news articles and team members created (existing entries skipped).</p>' );
     }
 
+    /* Force-reseed everything — clears all page_sections first, then reseeds.
+     * Use this to apply data-populate.php changes to content that already exists. */
+    if ( isset( $_GET['halo_force_reseed'] ) ) {
+        require_once HALO_ACF_DIR . 'data-populate.php';
+
+        /* Clear page_sections on every page */
+        $pages = get_posts( [ 'post_type' => 'page', 'posts_per_page' => -1, 'fields' => 'ids' ] );
+        foreach ( $pages as $pid ) delete_field( 'page_sections', $pid );
+
+        /* Clear page_sections on every CPT post */
+        foreach ( [ 'iol_case_study', 'iol_news' ] as $type ) {
+            $posts = get_posts( [ 'post_type' => $type, 'posts_per_page' => -1, 'fields' => 'ids', 'post_status' => 'any' ] );
+            foreach ( $posts as $pid ) delete_field( 'page_sections', $pid );
+        }
+
+        halo_populate_all();
+
+        wp_die( '
+            <style>body{font-family:sans-serif;padding:3rem;background:#f0ebe3}</style>
+            <h2 style="color:#1a1a1a">✓ Force-reseed complete.</h2>
+            <p>All page_sections cleared and reseeded from scratch.</p>
+            <p><a href="' . esc_url( home_url( '/layout-test/' ) ) . '" style="color:#f7a803">View layout test →</a> &nbsp;
+               <a href="' . esc_url( home_url() ) . '">View home page →</a></p>
+        ' );
+    }
+
     /* Full site seeder */
     if ( isset( $_GET['halo_populate'] ) ) {
         require_once HALO_ACF_DIR . 'data-populate.php';
