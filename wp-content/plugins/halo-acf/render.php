@@ -126,7 +126,7 @@ function halo_s_hero_bar( array $r, string $tone, bool $include_sub = false ): v
 }
 
 function halo_s_hero_split( array $r, bool $compact ): void {
-    $tone = halo_tone_class( $r['tone'] ?? 'dark' );
+    $tone = halo_tone_class( $r['tone'] ?? 'light' );
     ?>
     <section class="halo-hero halo-section <?php echo esc_attr( $tone ); ?><?php echo $compact ? ' halo-hero--compact' : ''; ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner halo-hero__inner">
@@ -177,8 +177,8 @@ function halo_s_hero_fullbleed( array $r ): void {
 /* ── 02 · CTA Band ───────────────────────────────────────────── */
 
 function halo_s_cta_band( array $r ): void {
-    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'large';
-    $tone = halo_tone_class( $r['tone'] ?? 'dark' );
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
+    $tone = halo_tone_class( $r['tone'] ?? 'light' );
     ?>
     <section class="halo-cta-band halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
@@ -215,7 +215,7 @@ function halo_s_section_intro( array $r ): void {
 
 function halo_s_columns( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
-    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     $cols  = count( $items );
@@ -248,7 +248,7 @@ function halo_s_columns( array $r ): void {
 
 function halo_s_stats( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'warm' );
-    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $stats = $r['stats'] ?? [];
     if ( ! $stats ) return;
     $count = count( $stats );
@@ -281,7 +281,7 @@ function halo_s_stats( array $r ): void {
 
 function halo_s_story_rows( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'light' );
-    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $rows = $r['rows'] ?? [];
     if ( ! $rows ) return;
     ?>
@@ -331,7 +331,7 @@ function halo_s_pull_quote( array $r ): void {
 
 function halo_s_spec_table( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
-    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
 
     $table_id = ! empty( $r['table_post'] ) ? (int) $r['table_post'] : 0;
     if ( ! $table_id ) return;
@@ -368,7 +368,7 @@ function halo_s_spec_table( array $r ): void {
 
 function halo_s_accordion( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
-    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $items = $r['items'] ?? [];
     if ( ! $items ) return;
     ?>
@@ -395,7 +395,7 @@ function halo_s_accordion( array $r ): void {
 
 function halo_s_timeline( array $r ): void {
     $tone  = halo_tone_class( $r['tone'] ?? 'light' );
-    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $steps = $r['steps'] ?? [];
     if ( ! $steps ) return;
     ?>
@@ -531,7 +531,7 @@ function halo_s_certifications( array $r ): void {
 
 function halo_s_cs_grid( array $r ): void {
     $tone         = halo_tone_class( $r['tone'] ?? 'light' );
-    $size         = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size         = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $show_filters = ! empty( $r['show_filters'] );
     $limit        = (int) ( $r['limit'] ?? 6 );
 
@@ -648,7 +648,7 @@ function halo_s_news_archive( array $r ): void {
 /* ── 16 · Related Case Studies ───────────────────────────────── */
 
 function halo_s_related( array $r ): void {
-    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $items = $r['items'] ?? [];
     if ( ! $items ) {
         $q     = new WP_Query( [ 'post_type'=>'iol_case_study', 'posts_per_page'=>3, 'post_status'=>'publish' ] );
@@ -703,7 +703,7 @@ function halo_s_article_body( array $r ): void {
 
 function halo_s_enquiry_form( array $r ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'offwhite' );
-    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     ?>
     <section class="halo-enquiry-form halo-section <?php echo esc_attr( $tone ); ?>" id="enquiry <?php echo halo_pad_classes( $r ); ?>">
         <div class="halo-inner">
@@ -797,7 +797,7 @@ function halo_s_roi( array $r ): void {
 
 function halo_s_card_picker( array $r ): void {
     $tone   = halo_tone_class( $r['tone'] ?? 'offwhite' );
-    $size   = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'medium';
+    $size   = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $source = $r['source'] ?? 'team';
 
     $items = match( $source ) {

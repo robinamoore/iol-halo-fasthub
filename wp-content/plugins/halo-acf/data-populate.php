@@ -91,7 +91,7 @@ function halo_seed_home( int $id ): void {
             'stat2_label'   => 'on site',
             'stat3_value'   => 'No',
             'stat3_label'   => 'grid upgrade required',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'logo_strip',
@@ -134,7 +134,7 @@ function halo_seed_home( int $id ): void {
             'btn1_url'      => '/contact',
             'btn2_label'    => 'Explore the product',
             'btn2_url'      => '/product',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
     ], $id );
 }
@@ -189,7 +189,7 @@ function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
             'stat2_label'   => 'on site',
             'stat3_value'   => '65%',
             'stat3_label'   => 'solar + battery share',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'spec_table',
@@ -255,7 +255,7 @@ function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
             'acf_fc_layout' => 'pull_quote',
             'quote'         => 'FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy.',
             'attribution'   => 'Keith Dickinson · Director of Resources · Merseyside Police',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'cta_band',
@@ -265,7 +265,7 @@ function halo_seed_product( int $id, int $spec_table_id = 0 ): void {
             'btn1_url'      => '/contact',
             'btn2_label'    => 'Technical deep dive',
             'btn2_url'      => '/technical-deep-dive',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
     ], $id );
 }
@@ -283,7 +283,7 @@ function halo_seed_technical( int $id ): void {
             'cta1_label'    => 'Make an enquiry',
             'cta1_url'      => '/contact',
             'compact'       => 1,
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'spec_table',
@@ -365,7 +365,7 @@ function halo_seed_technical( int $id ): void {
             'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
             'btn1_label'    => 'Make an enquiry',
             'btn1_url'      => '/contact',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
     ], $id );
 }
@@ -383,7 +383,7 @@ function halo_seed_case_studies( int $id ): void {
             'cta1_label'    => 'Make an enquiry',
             'cta1_url'      => '/contact',
             'compact'       => 1,
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'case_study_grid',
@@ -399,7 +399,7 @@ function halo_seed_case_studies( int $id ): void {
             'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
             'btn1_label'    => 'Make an enquiry',
             'btn1_url'      => '/contact',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
     ], $id );
 }
@@ -415,7 +415,7 @@ function halo_seed_about( int $id ): void {
             'title'         => 'The people closing the charging gap.',
             'sub'           => 'A B Corp-certified team of energy engineers, fleet specialists and sustainability scientists.',
             'compact'       => 1,
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'section_intro',
@@ -483,7 +483,7 @@ function halo_seed_about( int $id ): void {
             'acf_fc_layout' => 'pull_quote',
             'quote'         => 'FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy.',
             'attribution'   => 'Keith Dickinson · Director of Resources · Merseyside Police',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'cta_band',
@@ -491,7 +491,7 @@ function halo_seed_about( int $id ): void {
             'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
             'btn1_label'    => 'Make an enquiry',
             'btn1_url'      => '/contact',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
     ], $id );
 }
@@ -507,7 +507,7 @@ function halo_seed_news( int $id ): void {
             'title'         => 'Thinking on fleet electrification.',
             'sub'           => 'Whitepapers, technical articles, press coverage and recorded sessions — written for the people who ask the hard questions.',
             'compact'       => 1,
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'news_archive',
@@ -521,7 +521,7 @@ function halo_seed_news( int $id ): void {
             'sub'           => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
             'btn1_label'    => 'Make an enquiry',
             'btn1_url'      => '/contact',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
     ], $id );
 }
@@ -537,7 +537,7 @@ function halo_seed_contact( int $id ): void {
             'title'         => 'Start a conversation.',
             'sub'           => 'Tell us about your site, or reach us directly — we reply within seven working days.',
             'compact'       => 1,
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
         [
             'acf_fc_layout' => 'enquiry_form',
@@ -576,7 +576,7 @@ function halo_seed_layout_test( int $id, int $spec_table_id = 0 ): void {
             'stat2_label'   => 'on site',
             'stat3_value'   => 'No',
             'stat3_label'   => 'grid upgrade required',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
 
         /* 02 */ [
@@ -587,7 +587,7 @@ function halo_seed_layout_test( int $id, int $spec_table_id = 0 ): void {
             'btn1_url'      => '#',
             'btn2_label'    => 'Explore the product',
             'btn2_url'      => '#',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
 
         /* 03 */ [
@@ -641,7 +641,7 @@ function halo_seed_layout_test( int $id, int $spec_table_id = 0 ): void {
             'eyebrow'       => 'Case study',
             'quote'         => '07 · Pull Quote — FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy.',
             'attribution'   => 'Keith Dickinson · Director of Resources · Merseyside Police',
-            'tone'          => 'dark',
+            'tone'          => 'light',
         ],
 
         /* 08 */ [
