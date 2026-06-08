@@ -9,3 +9,7 @@ wp-content/cache/
 wp-content/upgrade/
 wp-content/backups/
 wp-content/uploads-webpc/
+
+# DB sync secrets and local backups — never commit these
+bin/.halo-secret
+bin/db-backups/
