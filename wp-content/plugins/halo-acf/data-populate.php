@@ -774,58 +774,106 @@ function halo_seed_layout_test( int $id, int $spec_table_id = 0 ): void {
 function halo_seed_demo_case_studies(): void {
     $cases = [
         [
-            'title'   => 'Merseyside Police — Fleet depot charging',
-            'slug'    => 'merseyside-police',
-            'sector'  => 'Fleet',
-            'summary' => 'Twelve 24/7 charge points for marked and unmarked vehicles across two depots. Installed in a single operational day with zero service disruption.',
-            'stat1v'  => '6 hrs', 'stat1l' => 'crane lift to first charge',
-            'stat2v'  => '12',    'stat2l' => 'vehicles charging simultaneously',
-            'stat3v'  => '0',     'stat3l' => 'grid upgrade required',
+            'title'    => 'Merseyside Police — Fleet depot charging',
+            'slug'     => 'merseyside-police',
+            'sector'   => 'Fleet',
+            'summary'  => 'Twelve 24/7 charge points for marked and unmarked vehicles across two depots. Installed in a single operational day with zero service disruption.',
+            'card_sum' => 'Twelve charge points. One day on site. No grid upgrade. How HALO FastHub solved Merseyside Police\'s fleet electrification problem.',
+            'stat1v'   => '6 hrs',  'stat1l' => 'crane lift to first charge',
+            'stat2v'   => '12',     'stat2l' => 'vehicles charging simultaneously',
+            'stat3v'   => '0',      'stat3l' => 'grid upgrade required',
+            'quote'    => 'FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy. The installation team were on site for one day and the hub has been running flawlessly ever since.',
+            'author'   => 'Keith Dickinson · Director of Resources · Merseyside Police',
+            'rows'     => [
+                [ 'step'=>'Challenge', 'title'=>'A growing EV fleet and no grid headroom.', 'body'=>'Merseyside Police operates a mixed fleet of marked and unmarked vehicles on a 24/7 rotation. The depot\'s existing supply had no headroom for a standard charge point installation — a DNO application would have taken twelve to eighteen months and cost a capital sum the force could not commit to.' ],
+                [ 'step'=>'Solution',  'title'=>'HALO FastHub installed behind the existing meter.', 'body'=>'A single hub was specified: 19.32 kWp solar canopy, integrated battery storage and twelve Type 2 AC charge points. It connects behind the existing distribution board — no DNO notification, no grid reinforcement. Crane lift, electrical tie-in and commissioning completed in a single operational day with the depot fully running throughout.' ],
+                [ 'step'=>'Outcome',   'title'=>'Live charging in six hours, no disruption.', 'body'=>'First charge began six hours after the crane arrived. HALO OS was configured to prioritise morning departure windows with overnight battery fill. Solar and battery now cover the majority of daily charging demand, with off-peak mains handling the remainder.' ],
+            ],
         ],
         [
-            'title'   => 'Segen Academy — Staff & visitor workplace',
-            'slug'    => 'segen-academy',
-            'sector'  => 'Workplace',
-            'summary' => 'Solar-topped staff car park with twelve charge points. Revenue from non-staff sessions offsets the lease cost within month one.',
-            'stat1v'  => '100%', 'stat1l' => 'visitor demand met from solar',
-            'stat2v'  => '£0',   'stat2l' => 'net lease cost after charge revenue',
-            'stat3v'  => '19.32 kWp', 'stat3l' => 'solar generation capacity',
+            'title'    => 'Segen Academy — Staff & visitor workplace',
+            'slug'     => 'segen-academy',
+            'sector'   => 'Workplace',
+            'summary'  => 'Solar-topped staff car park with twelve charge points. Revenue from visitor sessions offset the lease cost before the end of month one.',
+            'card_sum' => 'A workplace hub that pays for itself from visitor charge revenue — and became the flagship of the academy\'s sustainability report.',
+            'stat1v'   => '100%',      'stat1l' => 'visitor demand met from solar',
+            'stat2v'   => '£0',        'stat2l' => 'net lease cost after charge revenue',
+            'stat3v'   => '19.32 kWp', 'stat3l' => 'solar generation capacity',
+            'quote'    => 'The hub paid for itself before month two was out. Every visitor session is income and every staff session is a benefit we used to struggle to quantify on a benefits statement.',
+            'author'   => 'Operations Director · Segen Academy',
+            'rows'     => [
+                [ 'step'=>'Challenge', 'title'=>'Staff demand for EV charging, no budget for capital infrastructure.', 'body'=>'Segen Academy had a growing number of staff arriving by EV and nowhere to charge. Procurement had approved a project, but capital expenditure approval was held pending a revised estates strategy. The project needed to proceed without capex.' ],
+                [ 'step'=>'Solution',  'title'=>'Zero capex lease with visitor revenue from day one.', 'body'=>'HALO FastHub was leased on 3ti\'s fully managed model — zero capital cost. The hub was configured with priority charging for staff RFID cards during core hours, and open-access contactless payment for visitor sessions outside those windows. Visitor revenue was modelled to offset the monthly lease cost.' ],
+                [ 'step'=>'Outcome',   'title'=>'Net zero lease cost and a new sustainability credential.', 'body'=>'Visitor charge revenue covered the monthly lease in the first full month of operation. Staff satisfaction scores for facilities improved measurably. The solar canopy was featured in the academy\'s annual sustainability report as a flagship initiative.' ],
+            ],
         ],
         [
-            'title'   => 'Harbourside Retail — Destination forecourt',
-            'slug'    => 'harbourside-retail',
-            'sector'  => 'Destination',
-            'summary' => 'Forty-minute dwell-time charging at a regional retail park. Average 6.8 kWh dispensed per visit — measurably extending time on site.',
-            'stat1v'  => '+18%', 'stat1l' => 'dwell time at the centre',
-            'stat2v'  => '6.8 kWh', 'stat2l' => 'dispensed per visit on average',
-            'stat3v'  => '40 min', 'stat3l' => 'average charge session',
+            'title'    => 'Harbourside Retail — Destination forecourt',
+            'slug'     => 'harbourside-retail',
+            'sector'   => 'Destination',
+            'summary'  => 'Forty-minute dwell-time charging at a regional retail park. Average 6.8 kWh dispensed per visit — measurably extending time on site.',
+            'card_sum' => 'EV charging as a destination differentiator: more dwell time, more spend, and a measurable rise in repeat visits.',
+            'stat1v'   => '+18%',   'stat1l' => 'dwell time for charging visitors',
+            'stat2v'   => '6.8 kWh','stat2l' => 'dispensed per visit on average',
+            'stat3v'   => '40 min', 'stat3l' => 'average charge session',
+            'quote'    => 'Customers who charge stay longer, spend more and come back more often. HALO FastHub is the most measurable marketing spend we\'ve made in five years.',
+            'author'   => 'Centre Manager · Harbourside Retail Park',
+            'rows'     => [
+                [ 'step'=>'Challenge', 'title'=>'Competitors were installing charge points. Dwell time was drifting.', 'body'=>'Harbourside Retail had seen footfall from EV owners declining as nearby destinations installed charge points. The centre needed a solution that was differentiated — not just functional, but a reason to choose Harbourside.' ],
+                [ 'step'=>'Solution',  'title'=>'A HALO FastHub as a visible feature at the main entrance.', 'body'=>'The solar canopy was positioned at the main entrance approach, visible from the access road. Twelve bays were priced to deliver forty minutes of partial charge — enough to top up during a typical retail visit. The canopy became a visual statement of the centre\'s sustainability positioning.' ],
+                [ 'step'=>'Outcome',   'title'=>'Eighteen percent more dwell time from charging visitors.', 'body'=>'Post-installation analysis showed charging visitors spending an average of 40 minutes on site versus 34 minutes for non-charging visitors. Average transaction values were higher across all retail categories. Return visit frequency for registered users increased by 22% in the first quarter.' ],
+            ],
         ],
         [
-            'title'   => 'Avalon Logistics — Overnight fleet charging',
-            'slug'    => 'avalon-logistics',
-            'sector'  => 'Fleet',
-            'summary' => 'High-utilisation overnight charging for a 38-strong LCV fleet. Battery storage shifts off-peak generation to peak morning departure windows.',
-            'stat1v'  => '2.4 yr', 'stat1l' => 'payback on charging revenue',
-            'stat2v'  => '38',     'stat2l' => 'vehicles charged every night',
-            'stat3v'  => '64k',    'stat3l' => 'EV miles per year from solar',
+            'title'    => 'Avalon Logistics — Overnight fleet charging',
+            'slug'     => 'avalon-logistics',
+            'sector'   => 'Fleet',
+            'summary'  => 'High-utilisation overnight charging for a 38-strong LCV fleet. Battery storage shifts daytime solar generation into the overnight departure window.',
+            'card_sum' => 'A 38-vehicle LCV fleet fully charged every night from solar, battery and off-peak grid — at a cost well below equivalent diesel.',
+            'stat1v'   => '2.4 yr', 'stat1l' => 'payback period on charging revenue',
+            'stat2v'   => '38',     'stat2l' => 'vehicles charged every night',
+            'stat3v'   => '64k',    'stat3l' => 'EV miles per year from solar',
+            'quote'    => 'We\'ve gone from filling up at the forecourt every morning to plugging in every night. The energy cost is lower, the range anxiety is gone, and HALO OS handles everything automatically.',
+            'author'   => 'Fleet Manager · Avalon Logistics',
+            'rows'     => [
+                [ 'step'=>'Challenge', 'title'=>'A 38-vehicle LCV fleet transitioning to electric with one overnight charge window.', 'body'=>'With 38 vehicles needing a full overnight charge before a 6am departure, the load profile was demanding — all demand concentrated in an 8-hour window, before solar generation could contribute meaningfully.' ],
+                [ 'step'=>'Solution',  'title'=>'Battery storage shifts solar into the overnight window.', 'body'=>'HALO OS was configured to capture all solar generation during daylight hours into the battery, holding it for the overnight charging window. Off-peak mains provided the remaining top-up. The result: a blended charging cost per kWh significantly below Avalon\'s previous forecourt fuel cost per equivalent mile.' ],
+                [ 'step'=>'Outcome',   'title'=>'64,000 EV miles annually from solar generation alone.', 'body'=>'In the first full year, the hub generated 64,000 EV miles\' worth of solar energy — eliminating fuel costs for roughly a third of the fleet\'s annual mileage. HALO OS exports a monthly fleet charging report directly into Avalon\'s fleet management system.' ],
+            ],
         ],
         [
-            'title'   => 'Northgate Business Park — Tenant amenity',
-            'slug'    => 'northgate-business-park',
-            'sector'  => 'Workplace',
-            'summary' => 'Multi-tenant business park installs HALO FastHub as a billable amenity, generating new income while attracting EV-driving tenants.',
-            'stat1v'  => '38',   'stat1l' => 'tenant vehicles charged daily',
-            'stat2v'  => '£28k', 'stat2l' => 'annual charge revenue',
-            'stat3v'  => '1 day', 'stat3l' => 'installation time on site',
+            'title'    => 'Northgate Business Park — Tenant amenity',
+            'slug'     => 'northgate-business-park',
+            'sector'   => 'Workplace',
+            'summary'  => 'Multi-tenant business park installs HALO FastHub as a billable amenity, generating new income while attracting and retaining EV-driving tenants.',
+            'card_sum' => 'A new amenity that covers its own lease costs and helped retain three tenants — and win two more.',
+            'stat1v'   => '38',    'stat1l' => 'tenant vehicles charged daily',
+            'stat2v'   => '£28k',  'stat2l' => 'annual charge revenue',
+            'stat3v'   => '1 day', 'stat3l' => 'installation time on site',
+            'quote'    => 'The hub went in during a quiet Tuesday. By Wednesday three different tenants had asked about expanding to a second phase.',
+            'author'   => 'Estate Manager · Northgate Business Park',
+            'rows'     => [
+                [ 'step'=>'Challenge', 'title'=>'Tenant retention at risk as EV ownership grows.', 'body'=>'Northgate had lost two tenants in the previous year, both citing EV charging availability as a factor in their relocation decision. The estates team needed a solution that was deployable quickly, generated income, and could be presented as a premium amenity in renewal negotiations.' ],
+                [ 'step'=>'Solution',  'title'=>'HALO FastHub as a revenue-generating estate amenity.', 'body'=>'The hub was positioned in the central car park, accessible to all tenants. 3ti structured a tariff model with discounted tenant-rate cards for regular users and a standard rate for occasional visitors. Revenue was projected to cover the lease cost and generate a surplus within twelve months.' ],
+                [ 'step'=>'Outcome',   'title'=>'£28,000 annual revenue, three tenants renewed.', 'body'=>'Annual charge revenue reached £28,000 in the first full year, above the projected lease cost. Three tenants cited the charging amenity in their renewal negotiations. Two new tenants specifically referenced charging availability in their decision to choose Northgate.' ],
+            ],
         ],
         [
-            'title'   => 'Bevan Group — Retail destination',
-            'slug'    => 'bevan-group',
-            'sector'  => 'Destination',
-            'summary' => 'Garden centre adds EV charging as a visitor incentive. Solar canopy doubles as a feature entrance structure, reinforcing sustainability credentials.',
-            'stat1v'  => '+22%', 'stat1l' => 'repeat visitor rate since install',
-            'stat2v'  => '£0',   'stat2l' => 'capital cost — fully leased',
-            'stat3v'  => '91%',  'stat3l' => 'solar share of charging energy',
+            'title'    => 'Bevan Group — Retail destination',
+            'slug'     => 'bevan-group',
+            'sector'   => 'Destination',
+            'summary'  => 'Garden centre adds EV charging as a visitor incentive. Solar canopy doubles as a feature entrance structure, reinforcing the brand\'s sustainability credentials.',
+            'card_sum' => 'An entrance canopy that generates solar energy, charges EV visitors and tells a sustainability story before customers walk through the door.',
+            'stat1v'   => '+22%', 'stat1l' => 'repeat visitor rate since install',
+            'stat2v'   => '£0',   'stat2l' => 'capital cost — fully leased',
+            'stat3v'   => '91%',  'stat3l' => 'solar share of charging energy',
+            'quote'    => 'Our customers come to us because they care about how things are grown. The solar canopy tells that story before they\'ve even walked through the door.',
+            'author'   => 'Managing Director · Bevan Group Garden Centres',
+            'rows'     => [
+                [ 'step'=>'Challenge', 'title'=>'A sustainability-led brand with no visible sustainability infrastructure.', 'body'=>'Bevan Group had a strong sustainability positioning — organic growing, minimal packaging, a commitment to carbon-neutral operations by 2028. But the car park told a different story. The management team wanted an installation that aligned the car park with the brand.' ],
+                [ 'step'=>'Solution',  'title'=>'A solar canopy at the main entrance — architecture and energy system.', 'body'=>'The HALO FastHub was designed into the entrance approach rather than positioned at the back of the car park. The solar canopy — specified in a natural timber finish — generates 19.32 kWp and shades twelve charge point bays. 3ti worked with the centre\'s architect to integrate it into the site\'s planning application.' ],
+                [ 'step'=>'Outcome',   'title'=>'A 22% increase in repeat visits and a flagship sustainability story.', 'body'=>'Repeat visitor frequency increased 22% in the twelve months following installation. The canopy has been featured in three national gardening publications and cited by Bevan Group\'s sustainability director as the single most impactful initiative in their 2026 report.' ],
+            ],
         ],
     ];
 
@@ -836,24 +884,83 @@ function halo_seed_demo_case_studies(): void {
 
     foreach ( $cases as $c ) {
         $existing = get_page_by_path( $c['slug'], OBJECT, 'iol_case_study' );
-        if ( $existing ) continue;
+        if ( $existing ) {
+            $id = (int) $existing->ID;
+        } else {
+            $id = wp_insert_post( [
+                'post_type'    => 'iol_case_study',
+                'post_status'  => 'publish',
+                'post_title'   => $c['title'],
+                'post_name'    => $c['slug'],
+                'post_excerpt' => $c['summary'],
+            ] );
+            if ( is_wp_error( $id ) ) continue;
+            $term = $term_map[ $c['sector'] ] ?? false;
+            if ( $term && ! is_wp_error( $term ) ) wp_set_object_terms( $id, $term->term_id, 'cs_sector' );
+        }
 
-        $id = wp_insert_post( [
-            'post_type'    => 'iol_case_study',
-            'post_status'  => 'publish',
-            'post_title'   => $c['title'],
-            'post_name'    => $c['slug'],
-            'post_excerpt' => $c['summary'],
-        ] );
-        if ( is_wp_error( $id ) ) continue;
+        update_field( 'cs_client',       explode( ' — ', $c['title'] )[0], $id );
+        update_field( 'cs_summary',      $c['summary'],   $id );
+        update_field( 'cs_card_summary', $c['card_sum'],  $id );
+        if ( ! empty( $c['stat1v'] ) ) { update_field( 'cs_stat1_value', $c['stat1v'], $id ); update_field( 'cs_stat1_label', $c['stat1l'], $id ); }
+        if ( ! empty( $c['stat2v'] ) ) { update_field( 'cs_stat2_value', $c['stat2v'], $id ); update_field( 'cs_stat2_label', $c['stat2l'], $id ); }
+        if ( ! empty( $c['stat3v'] ) ) { update_field( 'cs_stat3_value', $c['stat3v'], $id ); update_field( 'cs_stat3_label', $c['stat3l'], $id ); }
 
-        $term = $term_map[ $c['sector'] ] ?? false;
-        if ( $term && ! is_wp_error( $term ) ) wp_set_object_terms( $id, $term->term_id, 'cs_sector' );
-        update_post_meta( $id, 'cs_card_summary',  $c['summary'] );
-        update_post_meta( $id, 'cs_client',        explode( ' — ', $c['title'] )[0] );
-        if ( ! empty( $c['stat1v'] ) ) { update_post_meta( $id, 'cs_stat1_value', $c['stat1v'] ); update_post_meta( $id, 'cs_stat1_label', $c['stat1l'] ); }
-        if ( ! empty( $c['stat2v'] ) ) { update_post_meta( $id, 'cs_stat2_value', $c['stat2v'] ); update_post_meta( $id, 'cs_stat2_label', $c['stat2l'] ); }
-        if ( ! empty( $c['stat3v'] ) ) { update_post_meta( $id, 'cs_stat3_value', $c['stat3v'] ); update_post_meta( $id, 'cs_stat3_label', $c['stat3l'] ); }
+        if ( ! get_field( 'page_sections', $id ) ) {
+            $rows = array_map( fn( $r ) => [
+                'step'  => $r['step'],
+                'title' => $r['title'],
+                'body'  => $r['body'],
+                'image' => 0,
+            ], $c['rows'] );
+
+            update_field( 'page_sections', [
+                [
+                    'acf_fc_layout' => 'section_intro',
+                    'eyebrow'       => $c['sector'] . ' deployment · ' . explode( ' — ', $c['title'] )[0],
+                    'heading'       => $c['summary'],
+                    'align'         => 'left',
+                    'tone'          => 'light',
+                ],
+                [
+                    'acf_fc_layout' => 'story_rows',
+                    'eyebrow'       => 'The deployment',
+                    'heading'       => 'Challenge. Solution. Outcome.',
+                    'rows'          => $rows,
+                    'tone'          => 'offwhite',
+                ],
+                [
+                    'acf_fc_layout' => 'pull_quote',
+                    'quote'         => $c['quote'],
+                    'attribution'   => $c['author'],
+                    'tone'          => 'offwhite',
+                ],
+                [
+                    'acf_fc_layout' => 'stat_grid',
+                    'eyebrow'       => 'Key results',
+                    'stats'         => [
+                        [ 'value' => $c['stat1v'], 'label' => $c['stat1l'] ],
+                        [ 'value' => $c['stat2v'], 'label' => $c['stat2l'] ],
+                        [ 'value' => $c['stat3v'], 'label' => $c['stat3l'] ],
+                        [ 'value' => '1 day',      'label' => 'on-site installation time' ],
+                    ],
+                    'tone'          => 'warm',
+                ],
+                [
+                    'acf_fc_layout' => 'related_case_studies',
+                    'eyebrow'       => 'More deployments',
+                    'heading'       => 'See HALO FastHub in other settings.',
+                ],
+                [
+                    'acf_fc_layout' => 'cta_band',
+                    'title'         => 'Ready to power your site?',
+                    'sub'           => 'A free site survey is the first step. We size, cost and schedule your hub within seven working days.',
+                    'btn1_label'    => 'Make an enquiry',
+                    'btn1_url'      => '/contact',
+                    'tone'          => 'light',
+                ],
+            ], $id );
+        }
     }
 }
 
@@ -862,60 +969,68 @@ function halo_seed_demo_case_studies(): void {
 function halo_seed_demo_news(): void {
     $articles = [
         [
-            'title'    => 'The 2026 fleet electrification gap — and how to close it',
-            'slug'     => '2026-fleet-electrification-gap',
-            'category' => 'Whitepaper',
-            'read_time'=> 8,
-            'excerpt'  => 'Fleet managers face a window of two to three years before ZEV mandate targets become binding. This paper maps the gap and the infrastructure options available today.',
+            'title'     => 'The 2026 fleet electrification gap — and how to close it',
+            'slug'      => '2026-fleet-electrification-gap',
+            'category'  => 'Whitepaper',
+            'read_time' => 8,
+            'excerpt'   => 'Fleet managers face a window of two to three years before ZEV mandate targets become binding. This paper maps the gap and the infrastructure options available today.',
+            'content'   => '<h2>The scale of the problem</h2><p>Britain\'s commercial fleet sector operates roughly 4.5 million vehicles. The Zero Emission Vehicle mandate requires 80% of new car sales and 70% of new van sales to be electric by 2030. For most fleet operators, that means replacing the majority of their vehicle base within six years — and the charging infrastructure question is the one most organisations are currently unable to answer.</p><p>The charging gap is structural, not technical. The technology to charge a hundred commercial vehicles overnight already exists. The problem is that most fleet depots were designed around the assumption that energy is delivered and stored in fuel. Closing the gap requires a different infrastructure model, not just more charge points.</p><h2>Why the grid won\'t save you</h2><p>The standard response to fleet electrification is to apply for an increased electricity supply, install a bank of charge points and connect them to upgraded mains. This works — eventually. DNO connections for large commercial users typically take eighteen months to three years. For fleet operators under ZEV mandate pressure in 2026, that wait is not an option.</p><h2>The self-generation alternative</h2><p>A solar canopy over an existing car park generates 19 to 22 kWp per unit. Combined with a battery storage system sized to the overnight charging load, a single HALO FastHub can handle the full charging demand for twelve vehicles without drawing from the grid during charging cycles — and it installs behind the existing meter. No DNO notification. No grid reinforcement. One operational day from delivery to live charging.</p><h2>The numbers that matter to procurement</h2><p>The business case rests on five figures every procurement team needs to compare:</p><ul><li><strong>Lease cost per month</strong> — hardware, software, maintenance and monitoring included.</li><li><strong>Revenue per bay per month</strong> — from staff, visitors or public users.</li><li><strong>Building offset per month</strong> — value of solar generation redirected to the building when not charging.</li><li><strong>Grid cost avoidance per month</strong> — saving from not drawing peak-rate grid power during charging windows.</li><li><strong>Carbon credit value</strong> — increasingly relevant as corporate reporting obligations tighten.</li></ul><p>For most fleet sites with more than fifty vehicles, the net monthly cost of a HALO FastHub is below the monthly fuel saving on the first twelve EVs converted.</p><h2>Closing the gap</h2><p>The two-to-three year window before ZEV mandate targets become binding is the lead time required to survey, specify, plan and install the infrastructure needed before the first wave of replacement vehicles arrives. Fleet operators who act in 2026 will have operational hubs by 2027. Those who wait will be competing for installation capacity in a market that cannot absorb the demand. A site survey takes less than a day and carries no obligation.</p>',
         ],
         [
-            'title'    => 'Inside HALO smart-grid balancing',
-            'slug'     => 'inside-halo-smart-grid-balancing',
-            'category' => 'Article',
-            'read_time'=> 5,
-            'excerpt'  => 'How HALO OS arbitrates second-by-second between solar generation, battery state-of-charge and mains draw — and why that arbitration matters to your energy bill.',
+            'title'     => 'Inside HALO smart-grid balancing',
+            'slug'      => 'inside-halo-smart-grid-balancing',
+            'category'  => 'Article',
+            'read_time' => 5,
+            'excerpt'   => 'How HALO OS arbitrates second-by-second between solar generation, battery state-of-charge and mains draw — and why that arbitration matters to your energy bill.',
+            'content'   => '<h2>The energy arbitration problem</h2><p>A HALO FastHub generates power from three sources at once: a 19.32 kWp solar canopy, a battery storage system, and a mains connection. At any given second, each source may be available at a different cost and in a different quantity. The job of HALO OS is to decide, second by second, which source charges which vehicle — and when surplus energy goes to the building instead.</p><p>That decision engine is the commercially important part of the system. A hub that defaults to grid power when solar is available wastes money. A hub that draws from peak-rate mains when battery has capacity is more expensive than it needs to be. Getting the arbitration right is the difference between a hub that pays for itself and one that doesn\'t.</p><h2>The dispatch hierarchy</h2><p>HALO OS operates a four-level dispatch hierarchy:</p><ol><li><strong>Solar-first</strong> — available solar generation is dispatched directly to active charge sessions before any other source.</li><li><strong>Battery second</strong> — if solar output is insufficient, battery state-of-charge is assessed and discharge authorised down to the configured reserve level.</li><li><strong>Mains last</strong> — grid power is drawn only when solar and battery cannot meet demand, and only within the tariff windows set by the operator.</li><li><strong>Building offset</strong> — at any point where charge sessions are inactive or at low demand, surplus solar is redirected to the building load.</li></ol><h2>Tariff-aware dispatch</h2><p>Most commercial operators are on time-of-use tariffs. HALO OS respects client-defined tariff windows when deciding whether to draw from the grid. During peak hours, the system preferentially runs down battery reserve rather than paying peak rates. Overnight, if the battery is not full, it charges from cheap-rate grid power ready for the following day.</p><h2>What this means for your energy bill</h2><p>In a typical HALO FastHub deployment, solar and battery together account for 60–70% of the total energy dispensed to vehicles. The remaining 30–40% is drawn from mains at off-peak rates. HALO OS reports the split monthly, to the kilowatt-hour. Every client knows exactly how much energy came from the roof and how much came from the grid.</p>',
         ],
         [
-            'title'    => 'HALO FastHub deployed at Merseyside Police',
-            'slug'     => 'merseyside-police-deployment',
-            'category' => 'Press',
-            'read_time'=> 2,
-            'excerpt'  => '3ti Energy Hubs has completed installation of a HALO FastHub at Merseyside Police\'s main vehicle depot, providing 24/7 charging for the force\'s electric fleet.',
+            'title'     => 'HALO FastHub deployed at Merseyside Police',
+            'slug'      => 'merseyside-police-deployment',
+            'category'  => 'Press',
+            'read_time' => 2,
+            'excerpt'   => '3ti Energy Hubs has completed installation of a HALO FastHub at Merseyside Police\'s main vehicle depot, providing 24/7 charging for the force\'s growing electric fleet.',
+            'content'   => '<p><strong>Guildford, June 2026</strong> — 3ti Energy Hubs has completed the installation of a HALO FastHub at Merseyside Police\'s primary vehicle maintenance and fleet depot, providing twelve simultaneous charge points for the force\'s electric vehicle fleet.</p><p>The installation — comprising a 19.32 kWp solar canopy, integrated battery storage and twelve Type 2 AC charge points — was delivered and commissioned in a single operational day, with no disruption to the force\'s 24/7 vehicle operations.</p><p>Keith Dickinson, Director of Resources at Merseyside Police, said: "FastHub allows us to provide flexible charging for our diverse fleet, which is integral to our sustainability strategy. The installation team were on site for one day and the hub has been running flawlessly since energisation."</p><p>The HALO FastHub\'s zero-grid-upgrade requirement made it particularly well suited to the depot, where an additional DNO supply application would have introduced significant delay.</p><p>Emma Crawford, Managing Director at 3ti Energy Hubs, said: "Merseyside Police represents exactly the kind of operational profile HALO FastHub was designed for — mixed fleet, 24/7 rotation, and an estate that can\'t absorb months of infrastructure disruption."</p>',
         ],
         [
-            'title'    => 'What does a ZEV mandate actually mean for fleet operators?',
-            'slug'     => 'zev-mandate-fleet-operators',
-            'category' => 'Article',
-            'read_time'=> 6,
-            'excerpt'  => 'The Zero Emission Vehicle mandate requires 80% of new car sales to be electric by 2030. For fleet operators with large depots, the infrastructure question is the one that matters most.',
+            'title'     => 'What does a ZEV mandate actually mean for fleet operators?',
+            'slug'      => 'zev-mandate-fleet-operators',
+            'category'  => 'Article',
+            'read_time' => 6,
+            'excerpt'   => 'The Zero Emission Vehicle mandate requires 80% of new car sales to be electric by 2030. For fleet operators with large depots, the infrastructure question is the one that matters most.',
+            'content'   => '<h2>What the mandate says</h2><p>The UK\'s Zero Emission Vehicle mandate requires vehicle manufacturers to ensure an increasing percentage of their new car and van sales are zero-emission each year. By 2030, 80% of new cars and 70% of new vans sold in the UK must be electric. The mandate falls on manufacturers, not fleet operators. So why does it matter so much to fleets?</p><h2>The supply constraint</h2><p>To meet their targets, manufacturers will increasingly prioritise EV production over ICE. By 2027–2028, the range of affordable ICE vehicles available to fleet buyers will begin to shrink — not because the government has banned them, but because manufacturers are redirecting capacity. Fleets that have not begun their EV transition will find vehicle availability, lead times and residuals moving against them.</p><h2>The duty-of-care implication</h2><p>Fleet operators have a legal duty to provide reasonable infrastructure for employees who drive for work. As EVs become the standard company vehicle, the question of where and how drivers charge — particularly overnight and at the workplace — becomes a duty-of-care question. HMRC guidance on employer-provided charging is already in place; the question of on-site infrastructure is moving up the corporate governance agenda fast.</p><h2>The window of opportunity</h2><p>Fleet operators who install charging infrastructure in 2026 benefit from full capital allowances on infrastructure, OZEV Workplace Charging Scheme grants where applicable, and availability of installers before demand peaks. The time to plan is now.</p><h2>The practical starting point</h2><p>For most fleet operators, the right starting point is a depot audit: how many vehicles, what dwell pattern, what does the existing grid supply support? That audit takes half a day and costs nothing. HALO FastHub\'s one-day install time means even fleets who move late in the window can have infrastructure in place before the crunch.</p>',
         ],
         [
-            'title'    => 'Solar canopy vs roof solar: why the car park wins',
-            'slug'     => 'solar-canopy-vs-roof-solar',
-            'category' => 'Article',
-            'read_time'=> 4,
-            'excerpt'  => 'Roof space is finite, planning-constrained and often already allocated. Car park canopy solar is uncontested ground — and it comes with twelve charge points built in.',
+            'title'     => 'Solar canopy vs roof solar: why the car park wins',
+            'slug'      => 'solar-canopy-vs-roof-solar',
+            'category'  => 'Article',
+            'read_time' => 4,
+            'excerpt'   => 'Roof space is finite, planning-constrained and often already allocated. Car park canopy solar is uncontested ground — and it comes with twelve charge points built in.',
+            'content'   => '<h2>The case for roof solar is well understood</h2><p>Most organisations considering renewable generation start with the roof. It is uncontested space, typically south-facing, and the economics of commercial-scale solar have been attractive for a decade. If your building has a good-sized roof and no planning constraints, roof solar is usually the right first step.</p><p>But many fleet operators have already installed roof solar, or cannot install it — because the roof is north-facing, structurally unsuitable, or already allocated to plant. In these cases, the car park is the obvious next candidate.</p><h2>Why the car park is often better</h2><p>A commercial car park canopy has three advantages roof solar cannot match:</p><ul><li><strong>Uncontested space</strong> — car parks are typically unused airspace. Unlike a roof, there is rarely a competing use.</li><li><strong>Permitted development</strong> — most car park canopy installations sit within permitted development rights, particularly for fleet depots and commercial sites.</li><li><strong>The charge points are already there</strong> — a HALO FastHub is not solar with charge points added. It is a co-designed energy and charging system. The canopy optimises its tilt for both generation and shading, the battery sits in the structural base, and the charge points use the generation directly.</li></ul><h2>The right question</h2><p>The question is not "roof or car park?" — both can be right. The question is: "what does our car park do between 8am and 6pm that is more valuable than generating 19 kWp of clean electricity and charging twelve vehicles?" For most fleet operators and commercial property owners, the answer is nothing.</p>',
         ],
         [
-            'title'    => 'HALO FastHub wins Smart Energy Innovation Award 2026',
-            'slug'     => 'smart-energy-innovation-award-2026',
-            'category' => 'Press',
-            'read_time'=> 2,
-            'excerpt'  => '3ti Energy Hubs has been recognised at the Smart Energy Innovation Awards for its HALO FastHub platform, which combines solar generation, battery storage and EV charging in a single deployed unit.',
+            'title'     => 'HALO FastHub wins Smart Energy Innovation Award 2026',
+            'slug'      => 'smart-energy-innovation-award-2026',
+            'category'  => 'Press',
+            'read_time' => 2,
+            'excerpt'   => '3ti Energy Hubs has been recognised at the Smart Energy Innovation Awards for its HALO FastHub platform, which combines solar generation, battery storage and EV charging in a single deployed unit.',
+            'content'   => '<p><strong>Guildford, April 2026</strong> — 3ti Energy Hubs has been recognised at the annual Smart Energy Innovation Awards, taking the Innovation in Commercial EV Infrastructure category for its HALO FastHub platform.</p><p>The judging panel cited HALO FastHub\'s integration of solar generation, battery storage, and managed EV charging in a single prefabricated unit as a "step change in deployment speed and commercial accessibility".</p><p>Emma Crawford, Managing Director at 3ti Energy Hubs, said: "This recognition reflects the work of the entire team — the engineers who built HALO OS, the installation crews who deliver a working hub in a single day, and the fleet and property clients who trusted us with their first deployment. The award validates the model: zero capital, zero grid upgrade, zero disruption."</p><p>HALO FastHub is currently deployed across fleet depots, corporate workplaces and destination sites throughout the UK. The company expects to reach 100 operational hubs by the end of 2026.</p>',
         ],
         [
-            'title'    => 'Five questions to ask before committing to an EV charging contract',
-            'slug'     => 'five-questions-ev-charging-contract',
-            'category' => 'Whitepaper',
-            'read_time'=> 7,
-            'excerpt'  => 'Not all EV charging contracts are equal. Before you sign, here are the five questions every site owner and fleet manager should be asking their prospective supplier.',
+            'title'     => 'Five questions to ask before committing to an EV charging contract',
+            'slug'      => 'five-questions-ev-charging-contract',
+            'category'  => 'Whitepaper',
+            'read_time' => 7,
+            'excerpt'   => 'Not all EV charging contracts are equal. Before you sign, here are the five questions every site owner and fleet manager should be asking their prospective supplier.',
+            'content'   => '<h2>Introduction</h2><p>The EV charging market has grown fast. Three years ago, there were a handful of credible commercial charging suppliers in the UK. Today there are dozens — and the differences between their offerings are significant, poorly disclosed, and often impossible to spot from a standard tender document. Before you commit to a long-term contract, there are five questions you should ask every supplier.</p><h2>1. Who owns the hardware throughout the contract?</h2><p>There are two models: sold hardware and leased hardware. In a sold model, you buy the charge points and maintain them yourself after the warranty period. In a leased model, the hardware belongs to the supplier throughout the term, and maintenance and replacement are included. Charge points have a meaningful failure rate. If you own them and a unit fails outside warranty, the replacement cost is yours.</p><h2>2. What happens to my data?</h2><p>Every charge session generates data: start time, end time, energy dispensed, vehicle ID, payment transaction and location. Some suppliers treat this data as theirs. Before you sign, confirm that your session data is yours, exportable in a standard format, and accessible even if you choose not to renew.</p><h2>3. What is the grid upgrade liability?</h2><p>Many charge point installations require an increased electricity supply from your DNO. DNO connections take twelve to thirty-six months and cost tens of thousands of pounds. Ask your supplier: does this installation exceed my current supply headroom? If so, who pays the reinforcement charge?</p><h2>4. How is energy management handled?</h2><p>Basic charge points are passive — they draw power whenever a vehicle is plugged in. Smart systems integrate solar generation, battery storage and smart load balancing into a single managed energy flow. Ask your supplier to describe their energy management architecture. If the answer is "we have an app that lets you schedule sessions", that is passive load management — not the same thing.</p><h2>5. What is the exit position?</h2><p>Ask: what happens to the hardware at end of term? What is the break clause, if any? Can the contract be assigned to a new owner if you sell the property? The best contracts include clear end-of-term options, assignability provisions, and a step-in right if the supplier cannot continue. Suppliers who struggle to answer these questions are the ones worth walking away from.</p>',
         ],
         [
-            'title'    => 'Webinar: designing a future-proof fleet depot',
-            'slug'     => 'webinar-future-proof-fleet-depot',
-            'category' => 'Webinar',
-            'read_time'=> 45,
-            'excerpt'  => 'Join our Head of Fleet Solutions for a live walkthrough of how to spec a HALO FastHub installation for a mixed-fleet depot — covering load management, grid capacity and phased rollout planning.',
+            'title'     => 'Webinar: designing a future-proof fleet depot',
+            'slug'      => 'webinar-future-proof-fleet-depot',
+            'category'  => 'Webinar',
+            'read_time' => 45,
+            'excerpt'   => 'Join our Head of Fleet Solutions for a live walkthrough of how to spec a HALO FastHub installation for a mixed-fleet depot — covering load management, grid capacity and phased rollout planning.',
+            'content'   => '<h2>About this session</h2><p>In this session, Priya Nair — Head of Fleet Solutions at 3ti Energy Hubs — walks through the full process of specifying, sizing and phasing a HALO FastHub installation for a mixed-fleet depot. This is a technical walkthrough, not a sales presentation: we cover load profiles, grid capacity, battery sizing, phased rollout planning and the questions every procurement team should be asking.</p><h2>What we cover</h2><ul><li>How to audit your fleet\'s overnight charging load — vehicle count, departure windows, average daily mileage and kWh requirement per vehicle.</li><li>Sizing the hub to your operational profile — solar array, battery storage and charge point count.</li><li>Grid capacity assessment — understanding your existing supply headroom and whether HALO FastHub fits within it.</li><li>Phased rollout planning — starting with one hub and scaling to multiple without stranded infrastructure investment.</li><li>HALO OS configuration — tariff window setting, load balancing parameters and monitoring dashboard walkthrough.</li><li>Live Q&amp;A with the fleet solutions team.</li></ul><h2>Who should watch</h2><p>This session is designed for fleet managers responsible for depot electrification planning, facilities and estates managers at organisations with fleet depots, procurement leads evaluating EV charging infrastructure, and finance directors assessing the lease vs capex decision.</p><h2>Register your place</h2><p>The next session runs on the third Thursday of each month. Use the enquiry form below — indicate "webinar" in the message field and we will send you a calendar invitation and joining link.</p>',
         ],
     ];
 
@@ -927,21 +1042,32 @@ function halo_seed_demo_news(): void {
 
     foreach ( $articles as $a ) {
         $existing = get_page_by_path( $a['slug'], OBJECT, 'iol_news' );
-        if ( $existing ) continue;
+        if ( $existing ) {
+            $id = (int) $existing->ID;
+        } else {
+            $id = wp_insert_post( [
+                'post_type'    => 'iol_news',
+                'post_status'  => 'publish',
+                'post_title'   => $a['title'],
+                'post_name'    => $a['slug'],
+                'post_excerpt' => $a['excerpt'],
+            ] );
+            if ( is_wp_error( $id ) ) continue;
+            $term = $cat_map[ $a['category'] ] ?? false;
+            if ( $term ) wp_set_object_terms( $id, $term->term_id, 'news_category' );
+        }
 
-        $id = wp_insert_post( [
-            'post_type'    => 'iol_news',
-            'post_status'  => 'publish',
-            'post_title'   => $a['title'],
-            'post_name'    => $a['slug'],
-            'post_excerpt' => $a['excerpt'],
-        ] );
-        if ( is_wp_error( $id ) ) continue;
+        update_field( 'news_excerpt',   $a['excerpt'],              $id );
+        update_field( 'news_read_time', $a['read_time'] ?? 4,       $id );
 
-        $term = $cat_map[ $a['category'] ] ?? false;
-        if ( $term ) wp_set_object_terms( $id, $term->term_id, 'news_category' );
-        update_post_meta( $id, 'news_excerpt',    $a['excerpt'] );
-        update_post_meta( $id, 'news_read_time',  $a['read_time'] ?? 4 );
+        if ( ! get_field( 'page_sections', $id ) ) {
+            update_field( 'page_sections', [
+                [
+                    'acf_fc_layout' => 'article_body',
+                    'content'       => $a['content'],
+                ],
+            ], $id );
+        }
     }
 }
 
