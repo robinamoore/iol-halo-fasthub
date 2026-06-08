@@ -181,6 +181,19 @@ add_action( 'admin_init', function () {
         ' );
     }
 
+    /* Fix tones: SQL UPDATE dark→light and XL heading→small across all postmeta */
+    if ( isset( $_GET['halo_fix_tones'] ) ) {
+        global $wpdb;
+        $dark = $wpdb->query( "UPDATE {$wpdb->postmeta} SET meta_value='light' WHERE meta_key LIKE '%tone%' AND meta_value='dark'" );
+        $xl   = $wpdb->query( "UPDATE {$wpdb->postmeta} SET meta_value='small' WHERE meta_key LIKE '%heading_size%' AND meta_value='large'" );
+        wp_die(
+            '<style>body{font-family:sans-serif;padding:2rem}</style>' .
+            '<h2>✓ Tones fixed.</h2>' .
+            "<p>dark → light rows: <strong>{$dark}</strong><br>" .
+            "XL → small rows: <strong>{$xl}</strong></p>"
+        );
+    }
+
     /* Upload theme assets (logo + favicon) to media library only */
     if ( isset( $_GET['halo_upload_media'] ) ) {
         require_once HALO_ACF_DIR . 'data-populate.php';
