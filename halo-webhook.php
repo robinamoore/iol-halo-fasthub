@@ -74,6 +74,8 @@ $files = [
     // DB sync endpoints — deployed alongside the webhook
     'halo-db-export.php',
     'halo-db-import.php',
+    // One-shot fixers — delete from server after use
+    'halo-fix-tones.php',
 ];
 
 // ── Deploy ────────────────────────────────────────────────────────────
