@@ -181,6 +181,13 @@ add_action( 'admin_init', function () {
         ' );
     }
 
+    /* Store GitHub token for private-repo webhook deploys */
+    if ( isset( $_GET['halo_set_github_token'] ) ) {
+        $tok = sanitize_text_field( wp_unslash( $_GET['halo_set_github_token'] ) );
+        update_option( 'halo_github_token', $tok );
+        wp_die( '<style>body{font-family:sans-serif;padding:2rem}</style><p>✓ GitHub token saved. Future webhook deploys will use it.</p>' );
+    }
+
     /* Fix tones: SQL UPDATE dark→light and XL heading→small across all postmeta */
     if ( isset( $_GET['halo_fix_tones'] ) ) {
         global $wpdb;

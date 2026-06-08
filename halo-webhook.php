@@ -51,7 +51,9 @@ if ( ( $payload['ref'] ?? '' ) !== 'refs/heads/main' ) {
 $sha     = $payload['after'] ?? 'main';
 $pusher  = $payload['pusher']['name'] ?? 'unknown';
 $message = $payload['head_commit']['message'] ?? '';
-$base    = "https://raw.githubusercontent.com/robinamoore/iol-halo-fasthub/{$sha}/";
+// GitHub token for private repo access — stored in WP options as halo_github_token
+$gh_token = get_option( 'halo_github_token', '' );
+$base     = "https://raw.githubusercontent.com/robinamoore/iol-halo-fasthub/{$sha}/";
 $root    = __DIR__;
 
 // ── Files to deploy ───────────────────────────────────────────────────
@@ -90,9 +92,22 @@ $log[] = '';
 
 $ok = 0; $fail = 0;
 
+// Build stream context with GitHub auth if token is set
+$gh_context = null;
+if ( $gh_token ) {
+    $gh_context = stream_context_create( [
+        'http' => [
+            'header'        => "Authorization: token {$gh_token}\r\nUser-Agent: halo-webhook/1.0\r\n",
+            'ignore_errors' => true,
+        ],
+    ] );
+}
+
 foreach ( $files as $rel ) {
-    $data = @file_get_contents( $base . $rel );
-    if ( $data === false ) {
+    $data = $gh_context
+        ? @file_get_contents( $base . $rel, false, $gh_context )
+        : @file_get_contents( $base . $rel );
+    if ( $data === false || ( $gh_token && str_starts_with( trim( $data ), '404' ) ) ) {
         $log[]  = "SKIP  {$rel}";
         $fail++;
     } else {
