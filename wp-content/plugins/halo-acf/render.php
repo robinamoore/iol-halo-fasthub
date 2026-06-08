@@ -691,7 +691,7 @@ function halo_s_article_body( array $r ): void {
         <div class="halo-inner">
             <div class="halo-article-body__inner">
                 <div class="halo-article-body__content">
-                    <?php echo wp_kses_post( apply_filters( 'the_content', $content ) ); ?>
+                    <?php echo wp_kses_post( wpautop( $content ) ); ?>
                 </div>
             </div>
         </div>

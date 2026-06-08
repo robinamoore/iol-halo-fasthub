@@ -28,10 +28,10 @@ function halo_register_field_group(): void {
     $pf = function( string $pfx ) use ( $pad_choices ): array {
         return [
             [ 'key' => "field_halo_{$pfx}_pad_top",    'name' => 'padding_top',    'label' => 'Top padding',
-              'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'small',
+              'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'medium',
               'instructions' => 'Space above the first content element.' ],
             [ 'key' => "field_halo_{$pfx}_pad_bottom", 'name' => 'padding_bottom', 'label' => 'Bottom padding',
-              'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'large',
+              'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'medium',
               'instructions' => 'Space below the last content element.' ],
         ];
     };
