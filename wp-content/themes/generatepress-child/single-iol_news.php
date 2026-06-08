@@ -41,23 +41,8 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </section>
 
-    <?php
-    $sections = get_field( 'news_sections', $id );
-    if ( $sections ) :
-        foreach ( $sections as $row ) :
-            switch ( $row['acf_fc_layout'] ) {
-                case 'article_body':  if ( function_exists( 'halo_s_article_body' ) )   halo_s_article_body( $row );   break;
-                case 'pull_quote':    if ( function_exists( 'halo_s_pull_quote' ) )     halo_s_pull_quote( $row );     break;
-                case 'cta_band':      if ( function_exists( 'halo_s_cta_band' ) )       halo_s_cta_band( $row );       break;
-                case 'section_intro': if ( function_exists( 'halo_s_section_intro' ) )  halo_s_section_intro( $row );  break;
-            }
-        endforeach;
-    else :
-    ?>
-    <section class="halo-section halo-tone-light halo-article-body">
-        <div class="halo-inner halo-article-body__inner"><?php the_content(); ?></div>
-    </section>
-    <?php endif; ?>
+    <!-- Content sections (all 21 blocks) -->
+    <?php if ( function_exists( 'halo_render_sections' ) ) halo_render_sections( $id ); ?>
 
 </main>
 <?php endwhile; ?>

@@ -38,8 +38,12 @@ function halo_register_field_group(): void {
 
     acf_add_local_field_group( [
         'key'      => 'group_halo_page_sections',
-        'title'    => 'Page Sections',
-        'location' => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'page' ] ] ],
+        'title'    => 'Sections',
+        'location' => [
+            [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'page' ] ],
+            [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'iol_case_study' ] ],
+            [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'iol_news' ] ],
+        ],
         'fields'   => [
 
             [
@@ -534,155 +538,15 @@ function halo_register_options_pages(): void {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Case Study sections — editable flexible content in WP admin
+   Case Study / News sections — now handled by group_halo_page_sections
+   (location extended to cover iol_case_study and iol_news above)
 ═══════════════════════════════════════════════════════════════════ */
 
-add_action( 'acf/init', 'halo_register_cs_sections' );
+// Removed — cs_sections and news_sections replaced by page_sections on CPTs.
+// add_action( 'acf/init', 'halo_register_cs_sections' );
 
-function halo_register_cs_sections(): void {
-    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+function halo_register_cs_sections(): void {} // removed — use page_sections on CPTs
 
-    $tone_choices = [
-        'light'    => 'Light (white)',
-        'offwhite' => 'Off-white',
-        'warm'     => 'Warm (sand)',
-        'dark'     => 'Dark (black)',
-    ];
-    $pad_choices = [
-        'none'   => 'None (0)',
-        'small'  => 'Small (20px)',
-        'medium' => 'Medium (48px)',
-        'large'  => 'Large (96px)',
-    ];
-    $pf = fn( string $pfx ) => [
-        [ 'key' => "field_cs_{$pfx}_pt", 'name' => 'padding_top',    'label' => 'Top padding',    'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'medium' ],
-        [ 'key' => "field_cs_{$pfx}_pb", 'name' => 'padding_bottom', 'label' => 'Bottom padding', 'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'medium' ],
-    ];
-
-    acf_add_local_field_group( [
-        'key'      => 'group_halo_cs_sections',
-        'title'    => 'Case Study Sections',
-        'location' => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'iol_case_study' ] ] ],
-        'fields'   => [
-            [
-                'key'          => 'field_cs_sections',
-                'label'        => 'Sections',
-                'name'         => 'cs_sections',
-                'type'         => 'flexible_content',
-                'button_label' => 'Add section',
-                'layouts'      => [
-
-                    /* Story Rows */
-                    [
-                        'key'        => 'layout_cs_story_rows',
-                        'name'       => 'story_rows',
-                        'label'      => 'Story Rows',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_cs_sr_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
-                            [ 'key'=>'field_cs_sr_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_cs_sr_heading', 'name'=>'heading', 'label'=>'Heading (optional)', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_cs_sr_hsize',   'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'medium' ],
-                            [
-                                'key'          => 'field_cs_sr_rows',
-                                'name'         => 'rows',
-                                'label'        => 'Rows',
-                                'type'         => 'repeater',
-                                'button_label' => 'Add row',
-                                'min'          => 1,
-                                'sub_fields'   => [
-                                    [ 'key'=>'field_cs_sr_row_step',  'name'=>'step',  'label'=>'Step / eyebrow', 'type'=>'text', 'placeholder'=>'01' ],
-                                    [ 'key'=>'field_cs_sr_row_title', 'name'=>'title', 'label'=>'Title', 'type'=>'text', 'required'=>1 ],
-                                    [ 'key'=>'field_cs_sr_row_body',  'name'=>'body',  'label'=>'Body text', 'type'=>'textarea', 'rows'=>3 ],
-                                    [ 'key'=>'field_cs_sr_row_img',   'name'=>'image', 'label'=>'Image (optional)', 'type'=>'image', 'return_format'=>'array', 'preview_size'=>'thumbnail' ],
-                                ],
-                            ],
-                        ], $pf('sr') ),
-                    ],
-
-                    /* Pull Quote */
-                    [
-                        'key'        => 'layout_cs_pull_quote',
-                        'name'       => 'pull_quote',
-                        'label'      => 'Pull Quote',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_cs_pq_tone',   'name'=>'tone',        'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
-                            [ 'key'=>'field_cs_pq_eb',     'name'=>'eyebrow',     'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_cs_pq_quote',  'name'=>'quote',       'label'=>'Quote text', 'type'=>'textarea', 'rows'=>3, 'required'=>1 ],
-                            [ 'key'=>'field_cs_pq_attr',   'name'=>'attribution', 'label'=>'Attribution (optional)', 'type'=>'text' ],
-                        ], $pf('pq') ),
-                    ],
-
-                    /* CTA Band */
-                    [
-                        'key'        => 'layout_cs_cta_band',
-                        'name'       => 'cta_band',
-                        'label'      => 'CTA Band',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_cs_cta_tone',  'name'=>'tone',         'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'dark' ],
-                            [ 'key'=>'field_cs_cta_eb',    'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_cs_cta_title', 'name'=>'title',        'label'=>'Heading', 'type'=>'textarea', 'rows'=>2, 'required'=>1, 'placeholder'=>'Ready to deploy at your site?' ],
-                            [ 'key'=>'field_cs_cta_hsize', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'medium' ],
-                            [ 'key'=>'field_cs_cta_sub',   'name'=>'sub',          'label'=>'Subline', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_cs_cta_b1l',   'name'=>'btn1_label',   'label'=>'Button 1 label', 'type'=>'text', 'placeholder'=>'Make an enquiry' ],
-                            [ 'key'=>'field_cs_cta_b1u',   'name'=>'btn1_url',     'label'=>'Button 1 URL',   'type'=>'text' ],
-                            [ 'key'=>'field_cs_cta_b2l',   'name'=>'btn2_label',   'label'=>'Button 2 label (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_cs_cta_b2u',   'name'=>'btn2_url',     'label'=>'Button 2 URL (optional)',   'type'=>'text' ],
-                        ], $pf('ctab') ),
-                    ],
-
-                    /* Stat Grid */
-                    [
-                        'key'        => 'layout_cs_stat_grid',
-                        'name'       => 'stat_grid',
-                        'label'      => 'Stat Grid',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_cs_sg_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'warm' ],
-                            [ 'key'=>'field_cs_sg_eyebrow', 'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_cs_sg_heading', 'name'=>'heading', 'label'=>'Heading (optional)', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_cs_sg_hsize',   'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'medium' ],
-                            [
-                                'key'          => 'field_cs_sg_stats',
-                                'name'         => 'stats',
-                                'label'        => 'Statistics',
-                                'type'         => 'repeater',
-                                'button_label' => 'Add stat',
-                                'min'          => 2,
-                                'max'          => 5,
-                                'sub_fields'   => [
-                                    [ 'key'=>'field_cs_sg_val',  'name'=>'value', 'label'=>'Value', 'type'=>'text', 'required'=>1 ],
-                                    [ 'key'=>'field_cs_sg_lbl',  'name'=>'label', 'label'=>'Label', 'type'=>'text', 'required'=>1 ],
-                                    [ 'key'=>'field_cs_sg_note', 'name'=>'note',  'label'=>'Note (optional)', 'type'=>'text' ],
-                                ],
-                            ],
-                        ], $pf('sg') ),
-                    ],
-
-                    /* Section Intro */
-                    [
-                        'key'        => 'layout_cs_section_intro',
-                        'name'       => 'section_intro',
-                        'label'      => 'Section Intro',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_cs_si_tone',   'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
-                            [ 'key'=>'field_cs_si_align',  'name'=>'align',   'label'=>'Alignment',  'type'=>'select', 'choices'=>['center'=>'Centre','left'=>'Left'], 'default_value'=>'center' ],
-                            [ 'key'=>'field_cs_si_eb',     'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_cs_si_heading','name'=>'heading', 'label'=>'Heading', 'type'=>'textarea', 'rows'=>3, 'required'=>1 ],
-                            [ 'key'=>'field_cs_si_hsize',  'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'medium' ],
-                            [ 'key'=>'field_cs_si_sub',    'name'=>'sub',     'label'=>'Sub text', 'type'=>'textarea', 'rows'=>3 ],
-                        ], $pf('si') ),
-                    ],
-
-                ],
-            ],
-        ],
-        'menu_order' => 10,
-        'position'   => 'normal',
-    ] );
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    News / Article sections — editable flexible content in WP admin
@@ -690,104 +554,8 @@ function halo_register_cs_sections(): void {
 
 add_action( 'acf/init', 'halo_register_news_sections' );
 
-function halo_register_news_sections(): void {
-    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+function halo_register_news_sections(): void {} // removed — use page_sections on CPTs
 
-    $tone_choices = [
-        'light'    => 'Light (white)',
-        'offwhite' => 'Off-white',
-        'warm'     => 'Warm (sand)',
-        'dark'     => 'Dark (black)',
-    ];
-    $pad_choices = [
-        'none'   => 'None (0)',
-        'small'  => 'Small (20px)',
-        'medium' => 'Medium (48px)',
-        'large'  => 'Large (96px)',
-    ];
-    $pf = fn( string $pfx ) => [
-        [ 'key' => "field_nw_{$pfx}_pt", 'name' => 'padding_top',    'label' => 'Top padding',    'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'medium' ],
-        [ 'key' => "field_nw_{$pfx}_pb", 'name' => 'padding_bottom', 'label' => 'Bottom padding', 'type' => 'select', 'choices' => $pad_choices, 'default_value' => 'medium' ],
-    ];
-
-    acf_add_local_field_group( [
-        'key'      => 'group_halo_news_sections',
-        'title'    => 'Article Sections',
-        'location' => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'iol_news' ] ] ],
-        'fields'   => [
-            [
-                'key'          => 'field_nw_sections',
-                'label'        => 'Sections',
-                'name'         => 'news_sections',
-                'type'         => 'flexible_content',
-                'button_label' => 'Add section',
-                'layouts'      => [
-
-                    /* Article Body */
-                    [
-                        'key'        => 'layout_nw_article_body',
-                        'name'       => 'article_body',
-                        'label'      => 'Article Body',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_nw_ab_content', 'name'=>'content', 'label'=>'Content', 'type'=>'wysiwyg', 'required'=>1, 'toolbar'=>'basic', 'media_upload'=>0 ],
-                        ], $pf('ab') ),
-                    ],
-
-                    /* Pull Quote */
-                    [
-                        'key'        => 'layout_nw_pull_quote',
-                        'name'       => 'pull_quote',
-                        'label'      => 'Pull Quote',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_nw_pq_tone',  'name'=>'tone',        'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'offwhite' ],
-                            [ 'key'=>'field_nw_pq_eb',    'name'=>'eyebrow',     'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_nw_pq_quote', 'name'=>'quote',       'label'=>'Quote text', 'type'=>'textarea', 'rows'=>3, 'required'=>1 ],
-                            [ 'key'=>'field_nw_pq_attr',  'name'=>'attribution', 'label'=>'Attribution (optional)', 'type'=>'text' ],
-                        ], $pf('pq') ),
-                    ],
-
-                    /* CTA Band */
-                    [
-                        'key'        => 'layout_nw_cta_band',
-                        'name'       => 'cta_band',
-                        'label'      => 'CTA Band',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_nw_cta_tone',  'name'=>'tone',         'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'dark' ],
-                            [ 'key'=>'field_nw_cta_eb',    'name'=>'eyebrow',      'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_nw_cta_title', 'name'=>'title',        'label'=>'Heading', 'type'=>'textarea', 'rows'=>2, 'required'=>1, 'placeholder'=>'Ready to power your fleet?' ],
-                            [ 'key'=>'field_nw_cta_hsize', 'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'medium' ],
-                            [ 'key'=>'field_nw_cta_sub',   'name'=>'sub',          'label'=>'Subline', 'type'=>'textarea', 'rows'=>2 ],
-                            [ 'key'=>'field_nw_cta_b1l',   'name'=>'btn1_label',   'label'=>'Button 1 label', 'type'=>'text', 'placeholder'=>'Make an enquiry' ],
-                            [ 'key'=>'field_nw_cta_b1u',   'name'=>'btn1_url',     'label'=>'Button 1 URL',   'type'=>'text' ],
-                            [ 'key'=>'field_nw_cta_b2l',   'name'=>'btn2_label',   'label'=>'Button 2 label (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_nw_cta_b2u',   'name'=>'btn2_url',     'label'=>'Button 2 URL (optional)',   'type'=>'text' ],
-                        ], $pf('ctab') ),
-                    ],
-
-                    /* Section Intro */
-                    [
-                        'key'        => 'layout_nw_section_intro',
-                        'name'       => 'section_intro',
-                        'label'      => 'Section Intro',
-                        'sub_fields' => array_merge( [
-                            [ 'key'=>'field_nw_si_tone',    'name'=>'tone',    'label'=>'Background', 'type'=>'select', 'choices'=>$tone_choices, 'default_value'=>'light' ],
-                            [ 'key'=>'field_nw_si_align',   'name'=>'align',   'label'=>'Alignment',  'type'=>'select', 'choices'=>['center'=>'Centre','left'=>'Left'], 'default_value'=>'center' ],
-                            [ 'key'=>'field_nw_si_eb',      'name'=>'eyebrow', 'label'=>'Eyebrow (optional)', 'type'=>'text' ],
-                            [ 'key'=>'field_nw_si_heading', 'name'=>'heading', 'label'=>'Heading', 'type'=>'textarea', 'rows'=>3, 'required'=>1 ],
-                            [ 'key'=>'field_nw_si_hsize',   'name'=>'heading_size', 'label'=>'Heading size', 'type'=>'select',
-                              'choices'=>['large'=>'XL','medium'=>'Large','small'=>'Medium','xsmall'=>'Small'], 'default_value'=>'medium' ],
-                            [ 'key'=>'field_nw_si_sub',     'name'=>'sub',     'label'=>'Sub text', 'type'=>'textarea', 'rows'=>3 ],
-                        ], $pf('si') ),
-                    ],
-
-                ],
-            ],
-        ],
-        'menu_order' => 10,
-        'position'   => 'normal',
-    ] );
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    Footer options — HALO Settings → Footer
