@@ -85,30 +85,20 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </section>
 
-    <!-- Flexible content sections (story rows + pull quote) -->
+    <!-- Flexible content sections -->
     <?php
     $sections = get_field( 'cs_sections', $id );
     if ( $sections ) :
         foreach ( $sections as $row ) :
-            $layout = $row['acf_fc_layout'];
-            if ( $layout === 'story_rows' && function_exists( 'halo_s_story_rows' ) )
-                halo_s_story_rows( $row );
-            elseif ( $layout === 'pull_quote' && function_exists( 'halo_s_pull_quote' ) )
-                halo_s_pull_quote( $row );
+            switch ( $row['acf_fc_layout'] ) {
+                case 'story_rows':  if ( function_exists( 'halo_s_story_rows' ) )  halo_s_story_rows( $row );  break;
+                case 'pull_quote':  if ( function_exists( 'halo_s_pull_quote' ) )  halo_s_pull_quote( $row );  break;
+                case 'cta_band':    if ( function_exists( 'halo_s_cta_band' ) )    halo_s_cta_band( $row );    break;
+                case 'stat_grid':   if ( function_exists( 'halo_s_stats' ) )       halo_s_stats( $row );       break;
+                case 'section_intro': if ( function_exists( 'halo_s_section_intro' ) ) halo_s_section_intro( $row ); break;
+            }
         endforeach;
     endif;
-    ?>
-
-    <!-- CTA band -->
-    <?php
-    halo_s_cta_band( [
-        'title'      => 'Ready to deploy at your site?',
-        'sub'        => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-        'btn1_label' => 'Make an enquiry',
-        'btn1_url'   => '/contact/',
-        'btn2_label' => 'All case studies',
-        'btn2_url'   => '/case-studies/',
-    ] );
     ?>
 
 </main>

@@ -41,33 +41,23 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </section>
 
-    <section class="halo-section halo-tone-light halo-article-body">
-        <div class="halo-inner halo-article-body__inner">
-            <?php
-            $sections = get_field( 'news_sections', $id );
-            if ( $sections ) :
-                foreach ( $sections as $row ) :
-                    if ( $row['acf_fc_layout'] === 'article_body' && function_exists( 'halo_s_article_body' ) )
-                        halo_s_article_body( $row );
-                endforeach;
-            else :
-                the_content();
-            endif;
-            ?>
-        </div>
-    </section>
-
-    <!-- CTA band -->
     <?php
-    halo_s_cta_band( [
-        'title'      => 'Ready to power your fleet?',
-        'sub'        => 'A free, obligation-free site assessment is the only thing standing between you and a working hub.',
-        'btn1_label' => 'Make an enquiry',
-        'btn1_url'   => '/contact/',
-        'btn2_label' => 'All articles',
-        'btn2_url'   => '/news/',
-    ] );
+    $sections = get_field( 'news_sections', $id );
+    if ( $sections ) :
+        foreach ( $sections as $row ) :
+            switch ( $row['acf_fc_layout'] ) {
+                case 'article_body':  if ( function_exists( 'halo_s_article_body' ) )   halo_s_article_body( $row );   break;
+                case 'pull_quote':    if ( function_exists( 'halo_s_pull_quote' ) )     halo_s_pull_quote( $row );     break;
+                case 'cta_band':      if ( function_exists( 'halo_s_cta_band' ) )       halo_s_cta_band( $row );       break;
+                case 'section_intro': if ( function_exists( 'halo_s_section_intro' ) )  halo_s_section_intro( $row );  break;
+            }
+        endforeach;
+    else :
     ?>
+    <section class="halo-section halo-tone-light halo-article-body">
+        <div class="halo-inner halo-article-body__inner"><?php the_content(); ?></div>
+    </section>
+    <?php endif; ?>
 
 </main>
 <?php endwhile; ?>

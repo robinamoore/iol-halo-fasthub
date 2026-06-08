@@ -42,11 +42,11 @@ function halo_pad_classes( array $r ): string {
 
 /* ── Main dispatcher ─────────────────────────────────────────── */
 
-function halo_render_sections( int $post_id ): void {
-    if ( ! function_exists( 'get_field' ) ) return;
-    $rows = get_field( 'page_sections', $post_id );
-    if ( ! $rows ) return;
-
+/**
+ * Dispatch an already-fetched array of flexible content rows.
+ * Used by page, case study, and news templates.
+ */
+function halo_dispatch_sections( array $rows ): void {
     foreach ( $rows as $row ) {
         switch ( $row['acf_fc_layout'] ) {
             case 'page_hero':            halo_s_hero( $row );            break;
@@ -72,6 +72,14 @@ function halo_render_sections( int $post_id ): void {
             case 'card_picker':          halo_s_card_picker( $row );     break;
         }
     }
+}
+
+/** Render all page_sections for a given post ID. */
+function halo_render_sections( int $post_id ): void {
+    if ( ! function_exists( 'get_field' ) ) return;
+    $rows = get_field( 'page_sections', $post_id );
+    if ( ! $rows ) return;
+    halo_dispatch_sections( $rows );
 }
 
 /* ── 01 · Page Hero ──────────────────────────────────────────── */
