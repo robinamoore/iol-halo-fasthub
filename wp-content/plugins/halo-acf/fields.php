@@ -513,6 +513,75 @@ function halo_register_field_group(): void {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   News article editorial fields (no flexible content — sections via
+   page_sections below)
+═══════════════════════════════════════════════════════════════════ */
+
+add_action( 'acf/init', 'halo_register_news_details' );
+
+function halo_register_news_details(): void {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+    acf_add_local_field_group( [
+        'key'        => 'group_halo_news_details',
+        'title'      => 'Article Details',
+        'location'   => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'iol_news' ] ] ],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'fields'     => [
+            [ 'key' => 'field_halo_nd_excerpt',    'name' => 'news_excerpt',    'label' => 'Excerpt',
+              'type' => 'textarea', 'rows' => 3,
+              'instructions' => 'Shown on listing cards and as the article sub-heading.' ],
+            [ 'key' => 'field_halo_nd_read_time',  'name' => 'news_read_time',  'label' => 'Read time (mins)',
+              'type' => 'number', 'min' => 1, 'step' => 1 ],
+            [ 'key' => 'field_halo_nd_hero_image', 'name' => 'news_hero_image', 'label' => 'Hero image',
+              'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',
+              'instructions' => 'Wide banner image shown beneath the article header. 1440 × 600 px recommended.' ],
+        ],
+    ] );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Case study editorial fields (no flexible content — sections via
+   page_sections below)
+═══════════════════════════════════════════════════════════════════ */
+
+add_action( 'acf/init', 'halo_register_cs_details' );
+
+function halo_register_cs_details(): void {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+    acf_add_local_field_group( [
+        'key'        => 'group_halo_cs_details',
+        'title'      => 'Case Study Details',
+        'location'   => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'iol_case_study' ] ] ],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'fields'     => [
+            [ 'key' => 'field_halo_csd_client',      'name' => 'cs_client',      'label' => 'Client name',
+              'type' => 'text', 'instructions' => 'Shown in the hero eyebrow and on listing cards.' ],
+            [ 'key' => 'field_halo_csd_summary',     'name' => 'cs_summary',     'label' => 'Summary',
+              'type' => 'textarea', 'rows' => 2, 'instructions' => 'Short sub-copy shown beneath the hero headline.' ],
+            [ 'key' => 'field_halo_csd_card_summary','name' => 'cs_card_summary','label' => 'Card summary (optional)',
+              'type' => 'text', 'instructions' => 'Shorter one-line summary for listing cards. Leave blank to use excerpt.' ],
+            [ 'key' => 'field_halo_csd_hero_image',  'name' => 'cs_hero_image',  'label' => 'Hero background image',
+              'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',
+              'instructions' => '1440 × 720 px. Dark overlay applied automatically.' ],
+            [ 'key' => 'field_halo_csd_client_logo', 'name' => 'cs_client_logo', 'label' => 'Client logo',
+              'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail',
+              'instructions' => 'White / light version. Shown in the hero panel. PNG with transparency.' ],
+            [ 'key' => 'field_halo_csd_s1v', 'name' => 'cs_stat1_value', 'label' => 'Stat 1 — value',
+              'type' => 'text', 'placeholder' => '78%', 'instructions' => 'Headline result shown large in the hero panel.' ],
+            [ 'key' => 'field_halo_csd_s1l', 'name' => 'cs_stat1_label', 'label' => 'Stat 1 — label',
+              'type' => 'text', 'placeholder' => 'carbon reduction' ],
+            [ 'key' => 'field_halo_csd_s2v', 'name' => 'cs_stat2_value', 'label' => 'Stat 2 — value',
+              'type' => 'text', 'instructions' => 'Shown in the stat bar below the hero.' ],
+            [ 'key' => 'field_halo_csd_s2l', 'name' => 'cs_stat2_label', 'label' => 'Stat 2 — label', 'type' => 'text' ],
+            [ 'key' => 'field_halo_csd_s3v', 'name' => 'cs_stat3_value', 'label' => 'Stat 3 — value', 'type' => 'text' ],
+            [ 'key' => 'field_halo_csd_s3l', 'name' => 'cs_stat3_label', 'label' => 'Stat 3 — label', 'type' => 'text' ],
+        ],
+    ] );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    Options page registration (priority 5 — before field groups)
 ═══════════════════════════════════════════════════════════════════ */
 

@@ -40,3 +40,13 @@ add_filter( 'generate_logo_output', function ( $html ) {
 add_filter( 'generate_mobile_menu_media_query', function () {
     return '(max-width: 1100px)';
 } );
+
+/**
+ * Remove the native WordPress Excerpt metabox from CPTs that use
+ * ACF editorial fields instead (news_excerpt, cs_summary etc.).
+ * Without this, the WP excerpt box duplicates the ACF excerpt field.
+ */
+add_action( 'add_meta_boxes', function () {
+    remove_meta_box( 'postexcerpt', 'iol_news',       'normal' );
+    remove_meta_box( 'postexcerpt', 'iol_case_study', 'normal' );
+} );
