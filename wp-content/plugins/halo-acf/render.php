@@ -150,7 +150,7 @@ function halo_s_hero_split( array $r, bool $compact ): void {
 function halo_s_hero_fullbleed( array $r ): void {
     $img     = $r['image'] ?? [];
     $img_url = is_array( $img ) ? ( $img['url'] ?? '' ) : '';
-    $tone    = halo_tone_class( $r['tone'] ?? 'dark' );
+    $tone    = halo_tone_class( $r['tone'] ?? 'light' );
     ?>
     <section class="halo-hero-fb <?php echo esc_attr( $tone ); ?>">
         <?php if ( $img_url ) : ?>
