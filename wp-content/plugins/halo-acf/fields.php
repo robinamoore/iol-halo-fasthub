@@ -36,6 +36,15 @@ function halo_register_field_group(): void {
         ];
     };
 
+    /* Returns border_top toggle with layout-unique key */
+    $bf = function( string $pfx ): array {
+        return [
+            [ 'key' => "field_halo_{$pfx}_border_top", 'name' => 'border_top', 'label' => 'Dotted border — top',
+              'type' => 'true_false', 'default_value' => 0, 'ui' => 1,
+              'instructions' => 'Adds a thin dotted line across the top of this section.' ],
+        ];
+    };
+
     acf_add_local_field_group( [
         'key'      => 'group_halo_page_sections',
         'title'    => 'Sections',
@@ -52,9 +61,9 @@ function halo_register_field_group(): void {
                 'name'         => 'page_sections',
                 'type'         => 'flexible_content',
                 'button_label' => 'Add section',
-                'layouts'      => array_map( function( array $layout ) use ( $pf ): array {
+                'layouts'      => array_map( function( array $layout ) use ( $pf, $bf ): array {
                     $pfx = str_replace( 'layout_halo_', '', $layout['key'] );
-                    $layout['sub_fields'] = array_merge( $layout['sub_fields'], $pf( $pfx ) );
+                    $layout['sub_fields'] = array_merge( $layout['sub_fields'], $pf( $pfx ), $bf( $pfx ) );
                     return $layout;
                 }, [
 

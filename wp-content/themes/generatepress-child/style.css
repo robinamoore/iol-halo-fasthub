@@ -105,6 +105,10 @@
 .halo-pad-b-medium { padding-bottom: 48px !important; }
 .halo-pad-b-large  { padding-bottom: var(--pad-y) !important; }
 
+/* ── Section border — top ─────────────────────────────────────── */
+.halo-border-top { border-top: 1px dotted var(--contrast-3) !important; }
+.halo-tone-dark.halo-border-top { border-top-color: rgba(255,255,255,0.18) !important; }
+
 /* Adjacent sections: no external gap, 20px internal breathing room */
 .halo-section + .halo-section { padding-top: 20px; }
 
