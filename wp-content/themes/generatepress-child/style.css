@@ -715,8 +715,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── 11 · Logo Strip ──────────────────────────────────────────── */
 .halo-logo-strip { padding: 20px 0 var(--pad-y); }
-.halo-logo-strip__header { text-align: center; margin-bottom: 2.5rem; }
-.halo-logo-strip__header--left { text-align: left; }
+.halo-logo-strip__header { text-align: left; margin-bottom: 2.5rem; }
 .halo-logo-strip__heading { font-weight: 500; margin: 0.5rem 0 0; }
 .halo-logo-strip__logos {
   display: flex;
