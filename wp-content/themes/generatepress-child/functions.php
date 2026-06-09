@@ -49,6 +49,37 @@ add_filter( 'generate_mobile_menu_media_query', function () {
 } );
 
 /**
+ * -------------------------------------------------------------------------
+ * Front-end fingerprint removal
+ * Strips the signals that reveal WordPress / GeneratePress to scanners
+ * (Wappalyzer, BuiltWith, view-source inspection).
+ * -------------------------------------------------------------------------
+ */
+
+// 1. Remove WP + GP generator <meta> tags
+remove_action( 'wp_head', 'wp_generator' );
+add_filter( 'generate_add_generator', '__return_false' );
+
+// 2. Remove WP REST API & oEmbed discovery links from <head>
+remove_action( 'wp_head', 'rest_output_link_wp_head',        10 );
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links',   10 );
+remove_action( 'wp_head', 'wp_shortlink_wp_head',            10 );
+
+// 3. Remove X-Pingback header and <link rel="pingback"> from <head>
+remove_action( 'wp_head', 'pingback_link_rel' );
+add_filter( 'wp_headers', function( $headers ) {
+    unset( $headers['X-Pingback'] );
+    return $headers;
+} );
+
+// 4. Strip generate-* body classes (GP structural classnames visible in source)
+add_filter( 'body_class', function( $classes ) {
+    return array_values( array_filter( $classes, function( $class ) {
+        return strpos( $class, 'generate' ) === false;
+    } ) );
+} );
+
+/**
  * Remove the native WordPress Excerpt metabox from CPTs that use
  * ACF editorial fields instead (news_excerpt, cs_summary etc.).
  * Without this, the WP excerpt box duplicates the ACF excerpt field.

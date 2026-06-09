@@ -218,6 +218,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   max-width: 16ch;
 }
+/* Hero heading size modifiers — split + compact */
+.halo-hero__title--large  { font-size: clamp(3rem, 8vw, 7rem);            letter-spacing: -0.026em; max-width: 16ch; }
+.halo-hero__title--medium { font-size: clamp(2.5rem, 5.5vw, 5.5rem);     letter-spacing: -0.022em; max-width: 18ch; }
+.halo-hero__title--small  { font-size: clamp(2.25rem, 3.75vw, 3.75rem);  letter-spacing: -0.018em; max-width: 24ch; }
+.halo-hero__title--xsmall { font-size: clamp(1.75rem, 3vw, 2.5rem);      letter-spacing: -0.014em; max-width: 32ch; }
+
 .halo-hero__sub {
   font-size: 1.25rem;
   line-height: 1.4;
@@ -336,6 +342,12 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 64px;
 }
 .halo-hero-fb__content .halo-eyebrow { color: rgba(255,255,255,0.65); }
+/* Hero heading size modifiers — fullbleed */
+.halo-hero-fb__title--large  { font-size: clamp(3rem, 8vw, 7rem);            letter-spacing: -0.026em; max-width: 16ch; }
+.halo-hero-fb__title--medium { font-size: clamp(2.5rem, 5.5vw, 5.5rem);     letter-spacing: -0.022em; max-width: 18ch; }
+.halo-hero-fb__title--small  { font-size: clamp(2.25rem, 3.75vw, 3.75rem);  letter-spacing: -0.018em; max-width: 24ch; }
+.halo-hero-fb__title--xsmall { font-size: clamp(1.75rem, 3vw, 2.5rem);      letter-spacing: -0.014em; max-width: 32ch; }
+
 .halo-hero-fb__title {
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 500;

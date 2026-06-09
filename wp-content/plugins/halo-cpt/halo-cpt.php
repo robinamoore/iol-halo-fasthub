@@ -111,6 +111,9 @@ function halo_register_cpt_fields(): void {
         'location' => [ [ [ 'param'=>'post_type', 'operator'=>'==', 'value'=>'iol_case_study' ] ] ],
         'fields'   => [
             [ 'key'=>'field_cs_client',       'name'=>'cs_client',       'label'=>'Client name',        'type'=>'text' ],
+            [ 'key'=>'field_cs_hero_tone',    'name'=>'cs_hero_tone',    'label'=>'Hero background',     'type'=>'select',
+              'choices'=>['dark'=>'Dark (black)','light'=>'Light (white)','offwhite'=>'Off-white','warm'=>'Warm (sand)'],
+              'default_value'=>'dark', 'instructions'=>'Background colour of the case study hero section.' ],
             [ 'key'=>'field_cs_summary',      'name'=>'cs_summary',      'label'=>'Summary (hero sub)',  'type'=>'textarea', 'rows'=>2, 'instructions'=>'One or two sentences — appears below the title on the case study page.' ],
             [ 'key'=>'field_cs_card_summary', 'name'=>'cs_card_summary', 'label'=>'Card summary',        'type'=>'text', 'instructions'=>'Short excerpt for case study cards on archive and related sections.' ],
             [ 'key'=>'field_cs_hero_image',   'name'=>'cs_hero_image',   'label'=>'Hero image',          'type'=>'image', 'return_format'=>'array', 'preview_size'=>'medium' ],

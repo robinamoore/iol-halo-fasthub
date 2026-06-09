@@ -131,12 +131,13 @@ function halo_s_hero_bar( array $r, string $tone, bool $include_sub = false ): v
 
 function halo_s_hero_split( array $r, bool $compact ): void {
     $tone = halo_tone_class( $r['tone'] ?? 'light' );
+    $size = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'large';
     ?>
     <section class="halo-hero halo-section <?php echo esc_attr( $tone ); ?><?php echo $compact ? ' halo-hero--compact' : ''; ?> <?php echo halo_pad_classes( $r ) . halo_border_class( $r ); ?>">
         <div class="halo-inner halo-hero__inner">
             <div class="halo-hero__content">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                <h1 class="halo-hero__title"><?php echo halo_title( $r['title'] ?? '' ); ?></h1>
+                <h1 class="halo-hero__title halo-hero__title--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['title'] ?? '' ); ?></h1>
                 <?php if ( ! empty( $r['sub'] ) ) : ?><p class="halo-hero__sub"><?php echo halo_t( $r['sub'] ); ?></p><?php endif; ?>
                 <div class="halo-hero__ctas">
                     <?php echo halo_btn( $r['cta1_label'] ?? '', $r['cta1_url'] ?? '', 'primary' ); ?>
@@ -155,6 +156,7 @@ function halo_s_hero_fullbleed( array $r ): void {
     $img     = $r['image'] ?? [];
     $img_url = is_array( $img ) ? ( $img['url'] ?? '' ) : '';
     $tone    = halo_tone_class( $r['tone'] ?? 'light' );
+    $size    = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'large';
     ?>
     <section class="halo-hero-fb <?php echo esc_attr( $tone ) . halo_border_class( $r ); ?>">
         <?php if ( $img_url ) : ?>
@@ -165,7 +167,7 @@ function halo_s_hero_fullbleed( array $r ): void {
         <div class="halo-hero-fb__content">
             <div class="halo-inner">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
-                <h1 class="halo-hero-fb__title"><?php echo halo_title( $r['title'] ?? '' ); ?></h1>
+                <h1 class="halo-hero-fb__title halo-hero-fb__title--<?php echo esc_attr( $size ); ?>"><?php echo halo_title( $r['title'] ?? '' ); ?></h1>
                 <div class="halo-hero-fb__ctas">
                     <?php echo halo_btn( $r['cta1_label'] ?? '', $r['cta1_url'] ?? '', 'primary' ); ?>
                     <?php echo halo_btn( $r['cta2_label'] ?? '', $r['cta2_url'] ?? '', 'outline' ); ?>
@@ -652,6 +654,7 @@ function halo_s_news_archive( array $r ): void {
 /* ── 16 · Related Case Studies ───────────────────────────────── */
 
 function halo_s_related( array $r ): void {
+    $tone  = halo_tone_class( $r['tone'] ?? 'offwhite' );
     $size  = in_array( $r['heading_size'] ?? '', ['large','medium','small','xsmall'], true ) ? $r['heading_size'] : 'small';
     $items = $r['items'] ?? [];
     if ( ! $items ) {
@@ -661,7 +664,7 @@ function halo_s_related( array $r ): void {
     }
     if ( ! $items ) return;
     ?>
-    <section class="halo-related halo-section halo-tone-offwhite <?php echo halo_pad_classes( $r ) . halo_border_class( $r ); ?>">
+    <section class="halo-related halo-section <?php echo esc_attr( $tone ); ?> <?php echo halo_pad_classes( $r ) . halo_border_class( $r ); ?>">
         <div class="halo-inner">
             <div class="halo-related__intro">
                 <?php echo halo_eyebrow( $r['eyebrow'] ?? '' ); ?>
@@ -675,8 +678,10 @@ function halo_s_related( array $r ): void {
                 ?>
                     <a href="<?php echo halo_u( get_permalink( $pid ) ); ?>" class="halo-cs-card">
                         <?php if ( has_post_thumbnail( $pid ) ) : echo '<div class="halo-cs-card__image">' . get_the_post_thumbnail( $pid, 'medium_large', ['loading'=>'lazy'] ) . '</div>'; endif; ?>
-                        <?php if ( $sname ) : ?><p class="halo-cs-card__sector"><?php echo halo_t( $sname ); ?></p><?php endif; ?>
-                        <h3 class="halo-cs-card__title"><?php echo halo_t( get_the_title( $pid ) ); ?></h3>
+                        <div class="halo-cs-card__body">
+                            <?php if ( $sname ) : ?><p class="halo-cs-card__sector"><?php echo halo_t( $sname ); ?></p><?php endif; ?>
+                            <h3 class="halo-cs-card__title"><?php echo halo_t( get_the_title( $pid ) ); ?></h3>
+                        </div>
                     </a>
                 <?php endforeach; ?>
             </div>
@@ -824,12 +829,13 @@ function halo_s_card_picker( array $r ): void {
                 <?php foreach ( $items as $item ) :
                     $pid = is_object( $item ) ? $item->ID : $item;
                     if ( $source === 'team' ) :
-                        $role  = get_post_meta( $pid, 'team_role', true );
-                        $bio   = get_post_meta( $pid, 'team_bio', true );
+                        $role     = get_post_meta( $pid, 'team_role',  true );
+                        $bio      = get_post_meta( $pid, 'team_bio',   true );
+                        $photo_id = (int) get_post_meta( $pid, 'team_photo', true );
                 ?>
                         <div class="halo-team-card">
                             <div class="halo-team-card__photo">
-                                <?php if ( has_post_thumbnail( $pid ) ) echo get_the_post_thumbnail( $pid, 'medium', ['loading'=>'lazy'] ); ?>
+                                <?php if ( $photo_id ) echo wp_get_attachment_image( $photo_id, 'medium', false, ['loading' => 'lazy', 'class' => 'halo-team-card__img'] ); ?>
                             </div>
                             <div class="halo-team-card__info">
                                 <h3 class="halo-team-card__name"><?php echo halo_t( get_the_title( $pid ) ); ?></h3>

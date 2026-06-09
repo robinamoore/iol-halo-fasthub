@@ -18,13 +18,14 @@ while ( have_posts() ) : the_post();
     $s2l     = get_field( 'cs_stat2_label', $id );
     $s3v     = get_field( 'cs_stat3_value', $id );
     $s3l     = get_field( 'cs_stat3_label', $id );
-    $sectors = get_the_terms( $id, 'cs_sector' );
-    $sector  = ( $sectors && ! is_wp_error( $sectors ) ) ? $sectors[0]->name : '';
+    $sectors    = get_the_terms( $id, 'cs_sector' );
+    $sector     = ( $sectors && ! is_wp_error( $sectors ) ) ? $sectors[0]->name : '';
+    $hero_tone  = function_exists( 'halo_tone_class' ) ? halo_tone_class( get_field( 'cs_hero_tone', $id ) ?: 'dark' ) : 'halo-tone-dark';
 ?>
 <main id="main" class="site-main">
 
-    <!-- Dark hero — two column: content left, headline stat + logo right -->
-    <section class="halo-cs-hero halo-section halo-tone-dark">
+    <!-- Hero — two column: content left, headline stat + logo right -->
+    <section class="halo-cs-hero halo-section <?php echo esc_attr( $hero_tone ); ?>">
         <?php if ( $hero ) : ?>
         <div class="halo-cs-hero__bg" style="background-image:url('<?php echo esc_url( $hero['url'] ); ?>')"></div>
         <?php endif; ?>
