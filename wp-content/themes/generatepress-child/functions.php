@@ -14,21 +14,28 @@ add_action( 'wp_head', function () {
 }, 1 );
 
 /**
- * Logo output — single combined lockup (HALO and FastHub are one unit per brand guidelines).
- * Replace logo-placeholder.png with the final brand asset when supplied.
- * Spec: 300 × 100 px PNG, black version, transparent background.
+ * Logo output — renders whatever is uploaded via Customizer → Site Identity → Logo.
+ * Falls back to logo-placeholder.png if nothing has been uploaded yet.
  * Uses GP's official filter so the site-logo wrapper and home link come from GP.
  */
 add_filter( 'generate_logo_output', function ( $html ) {
-    $logo = get_stylesheet_directory_uri() . '/images/logo-placeholder.png';
+    $logo_id = get_theme_mod( 'custom_logo' );
+    if ( $logo_id ) {
+        $logo_src = wp_get_attachment_image_url( $logo_id, 'full' );
+        $logo_alt = get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) ?: 'HALO FastHub';
+    } else {
+        $logo_src = get_stylesheet_directory_uri() . '/images/logo-placeholder.png';
+        $logo_alt = 'HALO FastHub';
+    }
     return sprintf(
         '<div class="site-logo">
             <a href="%s" rel="home" aria-label="HALO FastHub — home">
-                <img src="%s" alt="HALO FastHub" class="halo-logo" width="800" height="200">
+                <img src="%s" alt="%s" class="halo-logo">
             </a>
         </div>',
         esc_url( home_url( '/' ) ),
-        esc_url( $logo )
+        esc_url( $logo_src ),
+        esc_attr( $logo_alt )
     );
 }, 10, 1 );
 
