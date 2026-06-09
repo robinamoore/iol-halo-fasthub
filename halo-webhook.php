@@ -78,6 +78,7 @@ $files = [
     'halo-db-import.php',
     // One-shot fixers — delete from server after use
     'halo-fix-tones.php',
+    'halo-import-media-live.php',
 ];
 
 // ── Deploy ────────────────────────────────────────────────────────────
