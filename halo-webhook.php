@@ -1,32 +1,26 @@
 <?php
 /**
- * HALO FastHub — GitHub push webhook receiver.
+ * HALO FastHub -- GitHub push webhook receiver.
  *
  * Triggered automatically by GitHub when main is pushed.
  * Validates the HMAC-SHA256 signature, then pulls every tracked
- * theme/plugin file directly from the specific commit SHA so there
- * are no CDN-caching surprises.
+ * theme/plugin file directly from the specific commit SHA.
  *
- * Secret is stored in the WP options table (halo_deploy_secret).
- * Run halo-webhook-setup.php once to generate it, then add to GitHub.
- *
+ * Secret stored in .halo-deploy-secret (one line, not web-accessible).
  * Log: appended to halo-deploy.log in public_html root.
  */
 
-// Read raw body before WP can consume it
+// Read raw body before anything else touches it
 $raw = file_get_contents( 'php://input' );
 
-// Minimal WP bootstrap — just enough for get_option() and DB
-define( 'SHORTINIT', true );
-require_once __DIR__ . '/wp-load.php';
+// -- Auth -----------------------------------------------------------------
 
-// ── Auth ─────────────────────────────────────────────────────────────
-
-$secret = get_option( 'halo_deploy_secret', '' );
+$secret_file = __DIR__ . '/.halo-deploy-secret';
+$secret      = is_file( $secret_file ) ? trim( file_get_contents( $secret_file ) ) : '';
 
 if ( ! $secret ) {
     http_response_code( 500 );
-    file_put_contents( __DIR__ . '/halo-deploy.log', date( 'c' ) . " ERROR: halo_deploy_secret not set\n", FILE_APPEND );
+    file_put_contents( __DIR__ . '/halo-deploy.log', date( 'c' ) . " ERROR: secret file missing\n", FILE_APPEND );
     die( 'Not configured.' );
 }
 
@@ -39,26 +33,22 @@ if ( ! hash_equals( $expected, $received ) ) {
     die( 'Forbidden.' );
 }
 
-// ── Payload ───────────────────────────────────────────────────────────
+// -- Payload --------------------------------------------------------------
 
 $payload = json_decode( $raw, true );
 
 if ( ( $payload['ref'] ?? '' ) !== 'refs/heads/main' ) {
     http_response_code( 200 );
-    die( 'Not main — skipped.' );
+    die( 'Not main -- skipped.' );
 }
 
 $sha     = $payload['after'] ?? 'main';
 $pusher  = $payload['pusher']['name'] ?? 'unknown';
 $message = $payload['head_commit']['message'] ?? '';
-// GitHub token for private repo access — stored in WP options as halo_github_token
-$gh_token = get_option( 'halo_github_token', '' );
-$base     = "https://raw.githubusercontent.com/robinamoore/iol-halo-fasthub/{$sha}/";
+$base    = "https://raw.githubusercontent.com/robinamoore/iol-halo-fasthub/{$sha}/";
 $root    = __DIR__;
 
-// ── Files to deploy ───────────────────────────────────────────────────
-// All PHP/JS/CSS files tracked in the repo under theme + plugins.
-// Images excluded (binary, change rarely, use Media Library instead).
+// -- Files to deploy ------------------------------------------------------
 
 $files = [
     'wp-content/plugins/halo-acf/css-editor.php',
@@ -75,43 +65,31 @@ $files = [
     'wp-content/themes/generatepress-child/single-iol_case_study.php',
     'wp-content/themes/generatepress-child/single-iol_news.php',
     'wp-content/themes/generatepress-child/style.css',
-    // DB sync endpoints — deployed alongside the webhook
     'halo-db-export.php',
     'halo-db-import.php',
-    // One-shot fixers — delete from server after use
-    'halo-fix-tones.php',
-    'halo-import-media-live.php',
-    // Self-update: webhook deploys itself so fixes propagate
     'halo-webhook.php',
 ];
 
-// ── Fetch helper (cURL with file_get_contents fallback) ───────────────
+// -- Fetch helper (cURL with file_get_contents fallback) ------------------
 
-function halo_fetch_url( string $url, string $token = '' ): string|false {
+function halo_fetch( string $url ): string|false {
     if ( function_exists( 'curl_init' ) ) {
         $ch = curl_init( $url );
-        $headers = [ 'User-Agent: halo-webhook/1.0' ];
-        if ( $token ) $headers[] = "Authorization: token {$token}";
         curl_setopt_array( $ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_TIMEOUT        => 15,
-            CURLOPT_HTTPHEADER     => $headers,
+            CURLOPT_USERAGENT      => 'halo-webhook/2.0',
         ] );
         $body = curl_exec( $ch );
         $code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
         curl_close( $ch );
         return ( $body !== false && $code === 200 ) ? $body : false;
     }
-    // Fallback: file_get_contents (requires allow_url_fopen)
-    $ctx = stream_context_create( [ 'http' => [
-        'header'        => "User-Agent: halo-webhook/1.0\r\n" . ( $token ? "Authorization: token {$token}\r\n" : '' ),
-        'ignore_errors' => true,
-    ] ] );
-    return @file_get_contents( $url, false, $ctx );
+    return @file_get_contents( $url );
 }
 
-// ── Deploy ────────────────────────────────────────────────────────────
+// -- Deploy ---------------------------------------------------------------
 
 $log   = [];
 $log[] = str_repeat( '-', 60 );
@@ -124,39 +102,38 @@ $log[] = '';
 $ok = 0; $fail = 0;
 
 foreach ( $files as $rel ) {
-    $data    = halo_fetch_url( $base . $rel, $gh_token );
+    $data    = halo_fetch( $base . $rel );
     $trimmed = trim( (string) $data );
 
-    // Reject: fetch failed, or response looks like a GitHub error page
-    $looks_like_error = $data === false
+    $bad = $data === false
         || preg_match( '/^(404|401|403|Not Found|Bad credentials)/i', $trimmed )
         || ( str_ends_with( $rel, '.php' ) && ! str_contains( $trimmed, '<?php' ) && strlen( $trimmed ) < 500 );
 
-    if ( $looks_like_error ) {
-        $log[]  = "SKIP  {$rel} (fetch failed or bad response)";
+    if ( $bad ) {
+        $log[]  = "SKIP  {$rel}";
         $fail++;
         continue;
     }
 
-    $dest   = $root . '/' . $rel;
-    $dir    = dirname( $dest );
+    $dest    = $root . '/' . $rel;
+    $dir     = dirname( $dest );
     if ( ! is_dir( $dir ) ) mkdir( $dir, 0755, true );
 
     $written = file_put_contents( $dest, $data );
     if ( $written === false ) {
-        $log[]  = "FAIL  {$rel} (could not write — check permissions)";
+        $log[]  = "FAIL  {$rel} (write error)";
         $fail++;
     } else {
-        $log[]  = "OK    {$rel} ({$written} bytes)";
+        $log[]  = "OK    {$rel} ({$written}b)";
         $ok++;
     }
 }
 
 $log[] = '';
-$log[] = "Result: {$ok} OK, {$fail} skipped";
+$log[] = "Result: {$ok} OK, {$fail} failed";
 $log[] = '';
 
 file_put_contents( __DIR__ . '/halo-deploy.log', implode( "\n", $log ) . "\n", FILE_APPEND );
 
 http_response_code( 200 );
-echo "OK {$ok}/" . count( $files ) . " files deployed from {$sha}";
+echo "OK {$ok}/" . count( $files ) . " deployed from {$sha}";
