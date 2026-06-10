@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HALO ACF
  * Description: ACF field groups and section rendering for HALO FastHub.
- * Version:     1.0.0
+ * Version:     1.0.1
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
