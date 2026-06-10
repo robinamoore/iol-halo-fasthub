@@ -35,6 +35,7 @@ LOCAL_URL="http://halo.local"
 WP_PATH="/Users/robinmoore/Local Sites/halo/app/public"
 PHP_BIN="/Users/robinmoore/Library/Application Support/Local/lightning-services/php-8.2.30+1/bin/darwin/bin/php"
 WP_CLI="/Users/robinmoore/.cache/wp-cli/wp-cli.phar"
+MYSQL_BIN_DIR="/Users/robinmoore/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin/bin"
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Load secret (auto-seeded from .halo-deploy-secret on live server) ────────
@@ -71,6 +72,7 @@ EXPORT_SQL="$BACKUP_DIR/local-export-${TIMESTAMP}.sql"
 EXPORT_GZ="$BACKUP_DIR/local-export-${TIMESTAMP}.sql.gz"
 
 echo "→ Exporting local DB..."
+export PATH="$MYSQL_BIN_DIR:$PATH"
 "$PHP_BIN" "$WP_CLI" --path="$WP_PATH" db export "$EXPORT_SQL" --quiet
 echo "  ✓ Exported: $EXPORT_SQL"
 
@@ -106,7 +108,7 @@ RESPONSE=$(curl -s -w "\n%{http_code}" \
     "${LIVE_URL}/halo-db-import.php")
 
 HTTP_STATUS=$(printf '%s' "$RESPONSE" | tail -n1)
-BODY=$(       printf '%s' "$RESPONSE" | head -n -1)
+BODY=$(       printf '%s' "$RESPONSE" | sed '$d')
 
 if [ "$HTTP_STATUS" != "200" ]; then
     echo ""
