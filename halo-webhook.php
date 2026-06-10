@@ -68,7 +68,9 @@ $files = [
     'wp-content/plugins/halo-acf/halo-acf.php',
     'wp-content/plugins/halo-acf/render.php',
     'wp-content/plugins/halo-cpt/halo-cpt.php',
+    'wp-content/themes/generatepress-child/404.php',
     'wp-content/themes/generatepress-child/functions.php',
+    'wp-content/themes/generatepress-child/iol-404.php',
     'wp-content/themes/generatepress-child/page.php',
     'wp-content/themes/generatepress-child/single-iol_case_study.php',
     'wp-content/themes/generatepress-child/single-iol_news.php',
@@ -79,6 +81,8 @@ $files = [
     // One-shot fixers — delete from server after use
     'halo-fix-tones.php',
     'halo-import-media-live.php',
+    // Self-update: webhook deploys itself so fixes propagate
+    'halo-webhook.php',
 ];
 
 // ── Deploy ────────────────────────────────────────────────────────────
@@ -108,13 +112,30 @@ foreach ( $files as $rel ) {
     $data = $gh_context
         ? @file_get_contents( $base . $rel, false, $gh_context )
         : @file_get_contents( $base . $rel );
-    if ( $data === false || ( $gh_token && str_starts_with( trim( $data ), '404' ) ) ) {
-        $log[]  = "SKIP  {$rel}";
+
+    // Reject: fetch failed, or response looks like a GitHub error page
+    // (covers both "404: Not Found" and "401: Unauthorized" etc.)
+    $trimmed = trim( (string) $data );
+    $looks_like_error = $data === false
+        || preg_match( '/^(404|401|403|Not Found|Bad credentials)/i', $trimmed )
+        || ( str_ends_with( $rel, '.php' ) && ! str_contains( $trimmed, '<?php' ) && strlen( $trimmed ) < 500 );
+
+    if ( $looks_like_error ) {
+        $log[]  = "SKIP  {$rel} (fetch failed or bad response)";
+        $fail++;
+        continue;
+    }
+
+    $dest   = $root . '/' . $rel;
+    $dir    = dirname( $dest );
+    if ( ! is_dir( $dir ) ) mkdir( $dir, 0755, true );
+
+    $written = file_put_contents( $dest, $data );
+    if ( $written === false ) {
+        $log[]  = "FAIL  {$rel} (could not write — check permissions)";
         $fail++;
     } else {
-        $dest = $root . '/' . $rel;
-        file_put_contents( $dest, $data );
-        $log[]  = "OK    {$rel} (" . strlen( $data ) . " bytes)";
+        $log[]  = "OK    {$rel} ({$written} bytes)";
         $ok++;
     }
 }
