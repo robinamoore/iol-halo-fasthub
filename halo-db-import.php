@@ -18,7 +18,8 @@ require_once __DIR__ . '/wp-load.php';
 
 /* ── Auth ──────────────────────────────────────────────────────── */
 
-$secret = get_option( 'halo_deploy_secret', '' );
+$secret = trim( (string) @file_get_contents( __DIR__ . '/.halo-deploy-secret' ) )
+    ?: get_option( 'halo_deploy_secret', '' );
 if ( ! $secret ) {
     http_response_code( 500 );
     die( 'halo_deploy_secret not configured.' );
