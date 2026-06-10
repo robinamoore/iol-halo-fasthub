@@ -85,6 +85,32 @@ $files = [
     'halo-webhook.php',
 ];
 
+// ── Fetch helper (cURL with file_get_contents fallback) ───────────────
+
+function halo_fetch_url( string $url, string $token = '' ): string|false {
+    if ( function_exists( 'curl_init' ) ) {
+        $ch = curl_init( $url );
+        $headers = [ 'User-Agent: halo-webhook/1.0' ];
+        if ( $token ) $headers[] = "Authorization: token {$token}";
+        curl_setopt_array( $ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_HTTPHEADER     => $headers,
+        ] );
+        $body = curl_exec( $ch );
+        $code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+        curl_close( $ch );
+        return ( $body !== false && $code === 200 ) ? $body : false;
+    }
+    // Fallback: file_get_contents (requires allow_url_fopen)
+    $ctx = stream_context_create( [ 'http' => [
+        'header'        => "User-Agent: halo-webhook/1.0\r\n" . ( $token ? "Authorization: token {$token}\r\n" : '' ),
+        'ignore_errors' => true,
+    ] ] );
+    return @file_get_contents( $url, false, $ctx );
+}
+
 // ── Deploy ────────────────────────────────────────────────────────────
 
 $log   = [];
@@ -97,25 +123,11 @@ $log[] = '';
 
 $ok = 0; $fail = 0;
 
-// Build stream context with GitHub auth if token is set
-$gh_context = null;
-if ( $gh_token ) {
-    $gh_context = stream_context_create( [
-        'http' => [
-            'header'        => "Authorization: token {$gh_token}\r\nUser-Agent: halo-webhook/1.0\r\n",
-            'ignore_errors' => true,
-        ],
-    ] );
-}
-
 foreach ( $files as $rel ) {
-    $data = $gh_context
-        ? @file_get_contents( $base . $rel, false, $gh_context )
-        : @file_get_contents( $base . $rel );
+    $data    = halo_fetch_url( $base . $rel, $gh_token );
+    $trimmed = trim( (string) $data );
 
     // Reject: fetch failed, or response looks like a GitHub error page
-    // (covers both "404: Not Found" and "401: Unauthorized" etc.)
-    $trimmed = trim( (string) $data );
     $looks_like_error = $data === false
         || preg_match( '/^(404|401|403|Not Found|Bad credentials)/i', $trimmed )
         || ( str_ends_with( $rel, '.php' ) && ! str_contains( $trimmed, '<?php' ) && strlen( $trimmed ) < 500 );
