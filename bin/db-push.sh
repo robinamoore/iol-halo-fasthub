@@ -29,9 +29,12 @@ SITE_DIR="$(  dirname "$SCRIPT_DIR" )"
 SECRET_FILE="$SCRIPT_DIR/.halo-secret"
 BACKUP_DIR="$SCRIPT_DIR/db-backups"
 
-# ── Config — edit these if your URLs change ──────────────────────────────────
+# ── Config ───────────────────────────────────────────────────────────────────
 LIVE_URL="https://thatsbetter.co.uk"
-LOCAL_URL="https://halo.local"
+LOCAL_URL="http://halo.local"
+WP_PATH="/Users/robinmoore/Local Sites/halo/app/public"
+PHP_BIN="/Users/robinmoore/Library/Application Support/Local/lightning-services/php-8.2.30+1/bin/darwin/bin/php"
+WP_CLI="/Users/robinmoore/.cache/wp-cli/wp-cli.phar"
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Load secret (auto-seeded from .halo-deploy-secret on live server) ────────
@@ -68,7 +71,7 @@ EXPORT_SQL="$BACKUP_DIR/local-export-${TIMESTAMP}.sql"
 EXPORT_GZ="$BACKUP_DIR/local-export-${TIMESTAMP}.sql.gz"
 
 echo "→ Exporting local DB..."
-wp --path="$SITE_DIR" db export "$EXPORT_SQL" --quiet
+"$PHP_BIN" "$WP_CLI" --path="$WP_PATH" db export "$EXPORT_SQL" --quiet
 echo "  ✓ Exported: $EXPORT_SQL"
 
 # ── Search-replace local → live in the dump ──────────────────────────────────
