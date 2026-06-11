@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_action( 'wp_enqueue_scripts', function () {
-    wp_enqueue_style( 'halo-style', get_stylesheet_uri(), [ 'generate-style' ], (string) filemtime( get_stylesheet_directory() . '/style.css' ) );
+    wp_enqueue_style( 'halo-style', get_stylesheet_uri(), [ 'generate-style' ], wp_get_theme()->get( 'Version' ) );
     // Montserrat is loaded by GP's font_manager (generate_settings) — no enqueue needed here.
 } );
 
