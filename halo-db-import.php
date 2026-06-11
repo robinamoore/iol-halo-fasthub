@@ -99,13 +99,26 @@ file_put_contents( $backup_file, gzencode( $backup, 6 ) );
 
 /* ── Import ─────────────────────────────────────────────────────── */
 
+/*
+ * Drop all existing tables first so CREATE TABLE succeeds cleanly.
+ * mysqldump conditionals (/*!40014 FOREIGN_KEY_CHECKS=0 */) get filtered
+ * by the statement loop, so we handle DROP/FK ourselves up front.
+ */
+$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 0' );
+foreach ( $wpdb->get_col( 'SHOW TABLES' ) as $t ) {
+    $wpdb->query( "DROP TABLE IF EXISTS `{$t}`" );
+}
+
 /* Split on semicolons, execute statement by statement */
 $statements = preg_split( '/;\s*\n/', $sql );
 $ok = 0; $fail = 0; $errors = [];
 
 foreach ( $statements as $stmt ) {
     $stmt = trim( $stmt );
-    if ( ! $stmt || strpos( $stmt, '--' ) === 0 || strpos( $stmt, '/*' ) === 0 ) continue;
+    // Skip blank lines and pure SQL comments (-- ...).
+    // Keep /*!...*/ MySQL conditional comments — mysqldump uses these for
+    // ENGINE/charset settings and they must be executed, not skipped.
+    if ( ! $stmt || strpos( $stmt, '--' ) === 0 ) continue;
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery
     $result = $wpdb->query( $stmt );
     if ( $result === false ) {
@@ -115,6 +128,7 @@ foreach ( $statements as $stmt ) {
         $ok++;
     }
 }
+$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 1' );
 
 /* ── Response ───────────────────────────────────────────────────── */
 
