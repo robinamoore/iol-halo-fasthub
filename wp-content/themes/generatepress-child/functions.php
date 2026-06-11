@@ -100,3 +100,14 @@ add_action( 'add_meta_boxes', function () {
     remove_meta_box( 'postexcerpt', 'iol_news',       'normal' );
     remove_meta_box( 'postexcerpt', 'iol_case_study', 'normal' );
 } );
+
+/**
+ * Remove GP's Drawer menu locations — we use the standard horizontal nav only.
+ * Without this, WP shows an "No menus assigned yet" admin notice for the
+ * empty drawer locations.
+ */
+add_filter( 'generate_nav_location_args', function ( $locations ) {
+    unset( $locations['drawer'] );
+    unset( $locations['mobile-drawer'] );
+    return $locations;
+} );
