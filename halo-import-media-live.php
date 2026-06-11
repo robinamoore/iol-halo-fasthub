@@ -4,8 +4,19 @@
  * Live/Clook version — fetches directly from 3ti.co.uk.
  * DELETE after use.
  */
+// Token auth — same deploy secret as the webhook, no browser login needed.
+$secret_file = __DIR__ . '/.halo-deploy-secret';
+$secret      = is_file( $secret_file ) ? trim( file_get_contents( $secret_file ) ) : '';
+$minute      = (int) ( time() / 60 );
+$valid        = false;
+foreach ( [ $minute, $minute - 1, $minute + 1 ] as $m ) {
+    if ( hash_equals( hash_hmac( 'sha256', (string) $m, $secret ), (string) ( $_GET['token'] ?? '' ) ) ) {
+        $valid = true; break;
+    }
+}
+if ( ! $valid ) { http_response_code( 403 ); die( 'Forbidden.' ); }
+
 require_once __DIR__ . '/wp-load.php';
-if ( ! current_user_can( 'manage_options' ) ) wp_die( 'Not allowed.' );
 
 require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
