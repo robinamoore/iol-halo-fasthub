@@ -108,11 +108,11 @@ $statements = preg_split( '/;\s*\n/', $sql );
 $ok = 0; $fail = 0; $errors = [];
 
 foreach ( $statements as $stmt ) {
+    // Strip leading -- comment lines (mysqldump bundles them with the next statement).
+    // Keep /*!...*/ conditional comments — MySQL engine directives, must be executed.
+    $stmt = preg_replace( '/^--[^\n]*\n?/m', '', $stmt );
     $stmt = trim( $stmt );
-    // Skip blank lines and pure SQL comments (-- ...).
-    // Keep /*!...*/ MySQL conditional comments — mysqldump uses these for
-    // ENGINE/charset settings and they must be executed, not skipped.
-    if ( ! $stmt || strpos( $stmt, '--' ) === 0 ) continue;
+    if ( ! $stmt ) continue;
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery
     $result = $wpdb->query( $stmt );
     if ( $result === false ) {
