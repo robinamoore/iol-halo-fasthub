@@ -2,9 +2,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_action( 'wp_enqueue_scripts', function () {
-    // halo-styles.css holds all the real CSS. style.css is the WP-required theme
-    // header only. Separate file = separate Cloudflare cache key, so deploys bust
-    // the cache immediately without needing a manual Cloudflare purge.
+    // GP auto-enqueues style.css as 'generate-child'. Dequeue it — we use
+    // halo-styles.css instead so Cloudflare's cache of style.css can't interfere.
+    wp_dequeue_style( 'generate-child' );
+    wp_deregister_style( 'generate-child' );
+
+    // halo-styles.css holds all the real CSS. style.css is theme header only.
+    // New URL = Cloudflare has no stale cached copy of it.
     wp_enqueue_style(
         'halo-style',
         get_stylesheet_directory_uri() . '/halo-styles.css',
@@ -12,7 +16,7 @@ add_action( 'wp_enqueue_scripts', function () {
         wp_get_theme()->get( 'Version' )
     );
     // Montserrat is loaded by GP's font_manager (generate_settings) — no enqueue needed here.
-} );
+}, 20 ); // priority 20 — runs after GP's own wp_enqueue_scripts (priority 10)
 
 /* Output favicon from media library (set via site_icon option by seeder) */
 add_action( 'wp_head', function () {
