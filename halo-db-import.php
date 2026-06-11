@@ -100,14 +100,11 @@ file_put_contents( $backup_file, gzencode( $backup, 6 ) );
 /* ── Import ─────────────────────────────────────────────────────── */
 
 /*
- * Drop all existing tables first so CREATE TABLE succeeds cleanly.
- * mysqldump conditionals (/*!40014 FOREIGN_KEY_CHECKS=0 */) get filtered
- * by the statement loop, so we handle DROP/FK ourselves up front.
+ * mysqldump wraps FOREIGN_KEY_CHECKS=0 in /*!40014...*/ conditional comments.
+ * Set it explicitly here so DROP TABLE IF EXISTS succeeds on tables that are
+ * referenced by foreign keys. Restored after the loop.
  */
 $wpdb->query( 'SET FOREIGN_KEY_CHECKS = 0' );
-foreach ( $wpdb->get_col( 'SHOW TABLES' ) as $t ) {
-    $wpdb->query( "DROP TABLE IF EXISTS `{$t}`" );
-}
 
 /* Split on semicolons, execute statement by statement */
 $statements = preg_split( '/;\s*\n/', $sql );
