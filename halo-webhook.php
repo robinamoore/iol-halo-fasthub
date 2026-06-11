@@ -64,6 +64,7 @@ $files = [
     'wp-content/themes/generatepress-child/page.php',
     'wp-content/themes/generatepress-child/single-iol_case_study.php',
     'wp-content/themes/generatepress-child/single-iol_news.php',
+    'wp-content/themes/generatepress-child/halo-styles.css',
     'wp-content/themes/generatepress-child/style.css',
     'halo-db-export.php',
     'halo-db-import.php',

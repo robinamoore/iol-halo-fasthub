@@ -2,7 +2,15 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_action( 'wp_enqueue_scripts', function () {
-    wp_enqueue_style( 'halo-style', get_stylesheet_uri(), [ 'generate-style' ], wp_get_theme()->get( 'Version' ) );
+    // halo-styles.css holds all the real CSS. style.css is the WP-required theme
+    // header only. Separate file = separate Cloudflare cache key, so deploys bust
+    // the cache immediately without needing a manual Cloudflare purge.
+    wp_enqueue_style(
+        'halo-style',
+        get_stylesheet_directory_uri() . '/halo-styles.css',
+        [ 'generate-style' ],
+        wp_get_theme()->get( 'Version' )
+    );
     // Montserrat is loaded by GP's font_manager (generate_settings) — no enqueue needed here.
 } );
 
