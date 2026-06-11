@@ -99,11 +99,8 @@ file_put_contents( $backup_file, gzencode( $backup, 6 ) );
 
 /* ── Import ─────────────────────────────────────────────────────── */
 
-/*
- * mysqldump wraps FOREIGN_KEY_CHECKS=0 in /*!40014...*/ conditional comments.
- * Set it explicitly here so DROP TABLE IF EXISTS succeeds on tables that are
- * referenced by foreign keys. Restored after the loop.
- */
+// mysqldump wraps FOREIGN_KEY_CHECKS=0 in conditional comments (/*!40014...* /).
+// Set it explicitly so DROP TABLE IF EXISTS succeeds on FK-referenced tables.
 $wpdb->query( 'SET FOREIGN_KEY_CHECKS = 0' );
 
 /* Split on semicolons, execute statement by statement */
