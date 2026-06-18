@@ -68,6 +68,7 @@ $files = [
     'wp-content/themes/generatepress-child/style.css',
     'halo-db-export.php',
     'halo-db-import.php',
+    'halo-db-restore.php',
     'halo-import-media-live.php',
     'halo-webhook.php',
 ];
