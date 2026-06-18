@@ -18,6 +18,28 @@ add_action( 'wp_enqueue_scripts', function () {
     // Montserrat is loaded by GP's font_manager (generate_settings) — no enqueue needed here.
 }, 20 ); // priority 20 — runs after GP's own wp_enqueue_scripts (priority 10)
 
+/* Logo width — output inline CSS from GP Customizer setting + live preview binding */
+add_action( 'wp_head', function () {
+    $settings = get_theme_mod( 'generate_settings', [] );
+    $width    = absint( $settings['logo_width'] ?? 0 );
+    if ( $width ) {
+        echo '<style>.halo-logo{width:' . $width . 'px;height:auto}</style>' . "\n";
+    }
+}, 99 );
+
+add_action( 'customize_preview_init', function () {
+    wp_add_inline_script( 'customize-preview', "
+        wp.customize( 'generate_settings[logo_width]', function( value ) {
+            value.bind( function( to ) {
+                document.querySelectorAll( '.halo-logo' ).forEach( function( el ) {
+                    el.style.width  = to ? to + 'px' : '';
+                    el.style.height = 'auto';
+                } );
+            } );
+        } );
+    " );
+} );
+
 /* Output favicon from media library (set via site_icon option by seeder) */
 add_action( 'wp_head', function () {
     $favicon = get_stylesheet_directory_uri() . '/images/favicon.png';
