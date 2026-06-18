@@ -39,15 +39,19 @@ add_filter( 'generate_logo_output', function ( $html ) {
         $logo_src = get_stylesheet_directory_uri() . '/images/logo-placeholder.png';
         $logo_alt = 'HALO FastHub';
     }
+    $settings  = wp_parse_args( get_theme_mod( 'generate_settings' ), generate_get_defaults() );
+    $logo_width = absint( $settings['logo_width'] ?? 0 );
+    $size_style = $logo_width ? sprintf( 'width:%dpx;height:auto;', $logo_width ) : '';
     return sprintf(
         '<div class="site-logo">
             <a href="%s" rel="home" aria-label="HALO FastHub — home">
-                <img src="%s" alt="%s" class="halo-logo">
+                <img src="%s" alt="%s" class="halo-logo"%s>
             </a>
         </div>',
         esc_url( home_url( '/' ) ),
         esc_url( $logo_src ),
-        esc_attr( $logo_alt )
+        esc_attr( $logo_alt ),
+        $size_style ? ' style="' . esc_attr( $size_style ) . '"' : ''
     );
 }, 10, 1 );
 

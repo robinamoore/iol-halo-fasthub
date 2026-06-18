@@ -52,11 +52,10 @@
 }
 .site-header .site-description { display: none; }
 
-/* Logo -- single combined lockup. 800x200px source displayed at 36px tall. */
+/* Logo -- size controlled by GP Customizer > Header > Logo width. */
 .halo-logo {
-  height: 36px;
-  width: auto;
   display: block;
+  height: auto;
 }
 
 /* Enquiry CTA in nav -- orange pill */
