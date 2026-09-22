@@ -140,6 +140,7 @@ add_action( 'after_setup_theme', function () {
         'footer-product' => __( 'Footer — Product', 'halo' ),
         'footer-sectors' => __( 'Footer — Sectors', 'halo' ),
         'footer-company' => __( 'Footer — Company', 'halo' ),
+        'footer-legal'   => __( 'Footer — Legal bar', 'halo' ),
     ] );
 } );
 

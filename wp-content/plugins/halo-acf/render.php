@@ -954,10 +954,7 @@ function halo_render_footer(): void {
                 <span class="halo-footer__bcorp">B Corp Certified</span>
             </div>
             <div class="halo-footer__copy-right">
-                <a href="<?php echo halo_u( home_url('/privacy-policy/') ); ?>">Privacy</a>
-                <a href="#">Cookies</a>
-                <a href="mailto:info@3ti.co.uk">info@3ti.co.uk</a>
-                <a href="https://infinityonline.co.uk" target="_blank" rel="noopener">Site by IOL</a>
+                <?php halo_footer_menu( 'footer-legal' ); ?>
             </div>
         </div>
     </footer>
