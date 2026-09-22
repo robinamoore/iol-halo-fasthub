@@ -886,6 +886,33 @@ function halo_s_card_picker( array $r ): void {
 
 /* ── Footer ──────────────────────────────────────────────────── */
 
+/**
+ * Outputs a footer nav menu location as flat <a> tags (no <ul>/<li>),
+ * client-editable via Appearance → Menus. If nothing's assigned yet,
+ * shows an admin-only prompt so the gap isn't silently invisible.
+ */
+function halo_footer_menu( string $location ): void {
+    $has_menu = (bool) has_nav_menu( $location );
+
+    if ( ! $has_menu ) {
+        if ( current_user_can( 'edit_theme_options' ) ) {
+            printf(
+                '<a href="%s" style="opacity:.6;font-style:italic;">Assign menu in Appearance → Menus</a>',
+                esc_url( admin_url( 'nav-menus.php' ) )
+            );
+        }
+        return;
+    }
+
+    wp_nav_menu( [
+        'theme_location' => $location,
+        'container'      => false,
+        'items_wrap'     => '%3$s',
+        'walker'         => new Halo_Footer_Menu_Walker(),
+        'fallback_cb'    => false,
+    ] );
+}
+
 function halo_render_footer(): void {
     ?>
     <footer class="halo-footer">
@@ -904,27 +931,19 @@ function halo_render_footer(): void {
             <!-- Product column -->
             <div class="halo-footer__col">
                 <div class="halo-footer__col-title">Product</div>
-                <a href="<?php echo halo_u( home_url('/product/') ); ?>">Overview</a>
-                <a href="<?php echo halo_u( home_url('/technical-deep-dive/') ); ?>">Technical deep dive</a>
-                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Case studies</a>
-                <a href="<?php echo halo_u( home_url('/contact/') ); ?>">Get a quote</a>
+                <?php halo_footer_menu( 'footer-product' ); ?>
             </div>
 
             <!-- Sectors column -->
             <div class="halo-footer__col">
                 <div class="halo-footer__col-title">Sectors</div>
-                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Fleets</a>
-                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Workplaces</a>
-                <a href="<?php echo halo_u( home_url('/case-studies/') ); ?>">Destinations</a>
+                <?php halo_footer_menu( 'footer-sectors' ); ?>
             </div>
 
             <!-- Company column -->
             <div class="halo-footer__col">
                 <div class="halo-footer__col-title">Company</div>
-                <a href="<?php echo halo_u( home_url('/about/') ); ?>">About 3ti</a>
-                <a href="<?php echo halo_u( home_url('/news/') ); ?>">News &amp; insights</a>
-                <a href="<?php echo halo_u( home_url('/contact/') ); ?>">Contact</a>
-                <a href="<?php echo halo_u( home_url('/privacy-policy/') ); ?>">Privacy policy</a>
+                <?php halo_footer_menu( 'footer-company' ); ?>
             </div>
 
         </div>

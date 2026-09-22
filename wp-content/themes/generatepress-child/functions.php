@@ -129,3 +129,34 @@ add_filter( 'generate_nav_location_args', function ( $locations ) {
     unset( $locations['mobile-drawer'] );
     return $locations;
 } );
+
+/**
+ * Footer nav menu locations — client-editable via Appearance → Menus.
+ * Replaces the previously hardcoded footer link columns in
+ * halo-acf/render.php (halo_render_footer()).
+ */
+add_action( 'after_setup_theme', function () {
+    register_nav_menus( [
+        'footer-product' => __( 'Footer — Product', 'halo' ),
+        'footer-sectors' => __( 'Footer — Sectors', 'halo' ),
+        'footer-company' => __( 'Footer — Company', 'halo' ),
+    ] );
+} );
+
+/**
+ * Minimal walker for the footer columns — outputs flat <a> tags with no
+ * <ul>/<li> wrapper, matching the existing halo-footer__col CSS which
+ * targets direct <a> children.
+ */
+class Halo_Footer_Menu_Walker extends Walker_Nav_Menu {
+    public function start_lvl( &$output, $depth = 0, $args = null ) {}
+    public function end_lvl( &$output, $depth = 0, $args = null ) {}
+
+    public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+        $url = esc_url( $item->url );
+        $label = esc_html( $item->title );
+        $output .= "<a href=\"{$url}\">{$label}</a>\n";
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = null ) {}
+}
